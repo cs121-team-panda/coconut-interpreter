@@ -1,3 +1,4 @@
+import os
 import subprocess
 import uuid
 from flask import Flask, redirect, request, render_template, url_for, session
@@ -40,4 +41,5 @@ def submit():
 
 if __name__ == '__main__':
     app.secret_key = 'secret'
-    app.run(debug = True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
