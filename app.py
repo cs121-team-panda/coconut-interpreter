@@ -1,9 +1,20 @@
 import os
-import subprocess
-import uuid
+import sys
+import contextlib
 from flask import Flask, redirect, request, render_template, url_for, session
+from coconut.convenience import parse
+from io import StringIO
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
+
+@contextlib.contextmanager
+def stdoutIO(stdout=None):
+    old = sys.stdout
+    if stdout is None:
+        stdout = StringIO()
+    sys.stdout = stdout
+    yield stdout
+    sys.stdout = old
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
@@ -17,26 +28,19 @@ def index():
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    code = request.form['code']
+    coconut_code = request.form['code']
+    try:
+        python_code = parse(coconut_code)
+    except:
+        session['output'] = str(sys.exc_info()[1])
+        return redirect(url_for('index'), code=307)
 
-    filename = str(uuid.uuid4())
-    with open(filename, 'w') as output:
-        output.write(code)
-
-    subprocess.run(["coconut", filename], check=True)
-    print("Finish compilation [{:}] to [{:}.py]".format(filename, filename))
-
-    proc = subprocess.run(["python", filename + ".py"], stdout=subprocess.PIPE, check=True)
-    print("Finish running [{:}]".format(filename + ".py"))
-
-    outputText = proc.stdout.decode('utf-8')
-    print("Output is\n{:}".format(outputText))
-
-    subprocess.run(["rm", filename])
-    subprocess.run(["rm", filename + '.py'])
-    print("Delete temp fiels {:} and {:}.py".format(filename, filename))
-
-    session['output'] = outputText
+    with stdoutIO() as s:
+        try:
+            exec(python_code)
+        except Exception as e:
+            print(e)
+    session['output'] = s.getvalue()
 
     return redirect(url_for('index'), code=307)
 
