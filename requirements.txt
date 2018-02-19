@@ -9,6 +9,6 @@ prompt-toolkit==1.0.15
 Pygments==2.2.0
 pyparsing==2.2.0
 six==1.11.0
-vispy==0.5.0.dev0
+vispy==0.5.2
 wcwidth==0.1.7
 Werkzeug==0.14.1
