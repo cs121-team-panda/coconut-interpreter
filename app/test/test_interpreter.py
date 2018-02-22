@@ -1,4 +1,8 @@
 import unittest
+import sys
+import os.path
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from app import app
 
 PRINT_CODE = '"hello, world!" |> print'
