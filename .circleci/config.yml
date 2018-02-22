@@ -24,6 +24,9 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt 
+      - run:
+          name: setup Heroku
+          command: bash .circleci/setup-heroku.sh
       - save_cache:
           key: deps-{{ .Branch }}-{{ checksum "requirements.txt" }}
           paths:
@@ -38,9 +41,11 @@ jobs:
           destination: tr1
       - store_test_results:
           path: test-reports/
+      - deploy:
+          name: Deploy Master to Heroku
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              git push heroku master
+              heroku restart
+            fi
 
-deployment:
-  staging:
-    branch: master
-    heroku:
-      appname: coconut-interpreter-flask
