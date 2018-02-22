@@ -35,7 +35,7 @@ jobs:
           command: |
             . vnev/bin/activate
             python app.py
-      - store_artificats:
+      - store_artifacts:
           path: test-reports/
           destination: tr1
       - store_test_results:
