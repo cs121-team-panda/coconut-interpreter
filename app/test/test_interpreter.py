@@ -1,5 +1,5 @@
 import unittest
-import app as interpreter
+from app import app
 
 PRINT_CODE = '"hello, world!" |> print'
 PRINT_OUTPUT = b'hello, world!'
@@ -64,8 +64,8 @@ size(Node(Empty(), Leaf(10))) == 1
 class InterpreterTestCase(unittest.TestCase):
 
     def setUp(self):
-        interpreter.app.testing = True
-        self.app = interpreter.app.test_client()
+        app.testing = True
+        self.app = app.test_client()
 
     def tearDown(self):
         pass
