@@ -31,10 +31,10 @@ jobs:
           key: deps-{{ .Branch }}-{{ checksum "requirements.txt" }}
           paths:
             - "venv"
-              - run:
-               command: |
-              . venv/bin/activate
-                    python app.py test
+      - run:
+          command: |
+            . venv/bin/activate
+            python manage.py test
       - store_artifacts:
           path: test-reports/
           destination: tr1
