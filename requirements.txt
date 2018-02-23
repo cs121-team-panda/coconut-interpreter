@@ -12,7 +12,6 @@ prompt-toolkit==1.0.15
 Pygments==2.2.0
 pyparsing==2.2.0
 six==1.11.0
-flask-script==2.0.6
 xmlrunner==1.7.7
 # Below is only for development
 unittest-xml-reporting==2.1.0
