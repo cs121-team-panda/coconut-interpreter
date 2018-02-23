@@ -1,9 +1,5 @@
 import unittest
-import sys
-import os.path
-
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-from app import app
+from app.app import app
 
 PRINT_CODE = '"hello, world!" |> print'
 PRINT_OUTPUT = b'hello, world!'
@@ -68,7 +64,6 @@ size(Node(Empty(), Leaf(10))) == 1
 class InterpreterTestCase(unittest.TestCase):
 
     def setUp(self):
-        app.testing = True
         self.app = app.test_client()
 
     def tearDown(self):
