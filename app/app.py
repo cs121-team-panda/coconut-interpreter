@@ -1,9 +1,10 @@
 import os
 import subprocess
 import uuid
-from flask import Flask, redirect, request, render_template, url_for, session
-app = Flask(__name__)
-app.secret_key = os.urandom(24)
+from flask import redirect, request, render_template, url_for, session
+from app import create_app
+
+app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
@@ -13,7 +14,6 @@ def index():
     else:
         outputText = session.pop('output', None)
         return render_template('main.html', subprocess_output=outputText)
-
 
 @app.route('/submit', methods=['POST'])
 def submit():
