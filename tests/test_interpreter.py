@@ -1,4 +1,5 @@
 import unittest
+from mock import patch
 from app.app import app
 
 PRINT_CODE = '"hello, world!" |> print'
@@ -61,6 +62,14 @@ def size(Node(l, r)) = size(l) + size(r)
 size(Node(Empty(), Leaf(10))) == 1
 '''
 
+class MockDevice():
+    """
+    A mock device to temporarily suppress output to stdout.
+    """
+
+    def write(self, _):
+        pass
+
 class InterpreterTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -70,7 +79,8 @@ class InterpreterTestCase(unittest.TestCase):
         pass
 
     def get_code_response(self, code):
-        return self.app.post('/submit', data={'code': code}, follow_redirects=True)
+        with patch('sys.stdout', new=MockDevice()) as _:
+            return self.app.post('/submit', data={'code': code}, follow_redirects=True)
 
     def test_page_loads(self):
         response = self.app.get('/')
