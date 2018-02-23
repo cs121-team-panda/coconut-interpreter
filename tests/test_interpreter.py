@@ -23,7 +23,7 @@ def factorial(n):
 FACTORIAL_OUTPUT = b'1\n6'
 
 ERR_CODE = '1+"a"'
-ERR_OUTPUT = b'TypeError: unsupported operand types(s) for +'
+ERR_OUTPUT = b'TypeError: unsupported operand type(s) for +'
 
 QUICKSORT_CODE = '''
 def quick_sort([]) = []
