@@ -1,4 +1,5 @@
 import unittest
+import json
 from mock import patch
 from app.app import app
 
@@ -83,17 +84,26 @@ class InterpreterTestCase(unittest.TestCase):
     def get_code_response(self, code):
         # Use patch function to temporarily mock out sys.stdout for the test
         with patch('sys.stdout', new=MockDevice()) as _:
-            return self.app.post('/submit', data={'code': code}, follow_redirects=True)
+            return self.app.post('/coconut', data=json.dumps({'code': code}),
+                                 content_type='application/json')
 
-    def test_page_loads(self):
-        response = self.app.get('/')
-        self.assertEqual(response.status_code, 200)
+    def get_data(self, response):
+        return json.loads(response.get_data(as_text=True))
+
+    # We no longer server our site on the server
+    # def test_page_loads(self):
+    #     response = self.app.get('/')
+    #     self.assertEqual(response.status_code, 200)
 
     def test_print(self):
-        assert PRINT_OUTPUT in self.get_code_response(PRINT_CODE).data
+        res = self.get_code_response(PRINT_CODE)
+        data = self.get_data(res)
+        assert str(PRINT_OUTPUT, 'utf-8') in data['output']
 
     def test_factorial(self):
-        assert FACTORIAL_OUTPUT in self.get_code_response(FACTORIAL_CODE).data
+        res = self.get_code_response(FACTORIAL_CODE)
+        data = self.get_data(res)
+        assert str(FACTORIAL_OUTPUT, 'utf-8') in data['output']
 
     def test_error(self):
         response = self.get_code_response(ERR_CODE)
@@ -101,7 +111,9 @@ class InterpreterTestCase(unittest.TestCase):
         assert ERR_OUTPUT in response.data
 
     def test_quicksort(self):
-        assert QUICKSORT_OUTPUT in self.get_code_response(QUICKSORT_CODE).data
+        res = self.get_code_response(QUICKSORT_CODE)
+        data = self.get_data(res)
+        assert str(QUICKSORT_OUTPUT, 'utf-8') in data['output']
 
     def test_data_types_compile(self):
         '''DATA_TYPES_CODE does not work with Coconut's parse function.'''
