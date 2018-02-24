@@ -2,9 +2,11 @@ import os
 import subprocess
 import uuid
 from flask import redirect, request, render_template, url_for, session, jsonify
+from flask_cors import CORS, cross_origin
 from app import create_app
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+CORS(app)
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
@@ -16,11 +18,12 @@ def index():
         return render_template('main.html', subprocess_output=outputText)
 
 @app.route('/coconut', methods=['POST'])
-def submit():
+@cross_origin(allow_headers=['Content-Type'])
+def coconut():
     """
     Handles Coconut code submitted by users.
     """
-    code = request.form['code']
+    code = request.get_json()['code']
 
     # Write a code to a file with randomly generated filename.
     filename = str(uuid.uuid4())
