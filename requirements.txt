@@ -7,6 +7,7 @@ gunicorn==19.7.1
 itsdangerous==0.24
 Jinja2==2.10
 MarkupSafe==1.0
+mock==2.0.0
 numpy==1.14.0
 prompt-toolkit==1.0.15
 Pygments==2.2.0
