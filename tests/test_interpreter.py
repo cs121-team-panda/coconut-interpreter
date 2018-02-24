@@ -64,7 +64,9 @@ size(Node(Empty(), Leaf(10))) == 1
 
 class MockDevice():
     """
-    A mock device to temporarily suppress output to stdout.
+    A mock device to temporarily suppress output to stdout, so that
+    traceback on test failure doesn't include print statements within tested
+    functions. Similar to UNIX /dev/null.
     """
 
     def write(self, _):
@@ -79,6 +81,7 @@ class InterpreterTestCase(unittest.TestCase):
         pass
 
     def get_code_response(self, code):
+        # Use patch function to temporarily mock out sys.stdout for the test
         with patch('sys.stdout', new=MockDevice()) as _:
             return self.app.post('/submit', data={'code': code}, follow_redirects=True)
 
