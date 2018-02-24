@@ -1,10 +1,44 @@
+// @flow
+
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Helmet } from 'react-helmet';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { combineReducers } from 'redux-immutable';
+import { fromJS } from 'immutable';
+import { Provider } from 'react-redux';
+import createSagaMiddleware from 'redux-saga';
+import reducers from './store/reducers';
+import sagas from './store/sagas';
 import './index.css';
-import App from './App';
+import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const sagaMiddleware = createSagaMiddleware();
+
+const createApp = store => (
+  <div>
+    <Helmet>
+      <title>Coconut Interpreter</title>
+      <meta name="fragment" content="!" />
+      <meta name="description" content="Online Coconut interpreter." />
+    </Helmet>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </div>
+);
+const initialState = fromJS({});
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(
+  combineReducers({
+    ...reducers,
+  }),
+  initialState,
+  composeEnhancers(applyMiddleware(sagaMiddleware))
+);
+sagaMiddleware.run(sagas);
+ReactDOM.render(createApp(store), document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
