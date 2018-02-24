@@ -8,6 +8,7 @@
     "react-scripts": "2.0.0-next.47d2d941"
   },
   "scripts": {
+    "flow": "flow",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
@@ -29,6 +30,7 @@
   "devDependencies": {
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
+    "flow-bin": "^0.66.0",
     "react-test-renderer": "^16.2.0"
   }
 }
