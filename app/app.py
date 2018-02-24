@@ -1,7 +1,7 @@
 import os
 import subprocess
 import uuid
-from flask import redirect, request, render_template, url_for, session
+from flask import redirect, request, render_template, url_for, session, jsonify
 from app import create_app
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
@@ -12,10 +12,10 @@ def index():
         session.pop('output', None)
         return render_template('main.html')
     else:
-        outputText = session.pop('output', None)
+        outputText = session.get('output')
         return render_template('main.html', subprocess_output=outputText)
 
-@app.route('/submit', methods=['POST'])
+@app.route('/coconut', methods=['POST'])
 def submit():
     """
     Handles Coconut code submitted by users.
@@ -68,8 +68,8 @@ def submit():
     session['output'] = outputText
     print("Output is\n{:}".format(outputText))
 
-    # Redirect to index with POST request (code=307)
-    return redirect(url_for('index'), code=307)
+    # Return JSON output
+    return jsonify({'output': session['output']})
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
