@@ -1,8 +1,10 @@
 {
   "name": "coconut-interpreter-react",
+  "homepage": "https://cs121-team-panda.github.io/coconut-interpreter",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "gh-pages": "^1.1.0",
     "immutable": "^3.8.2",
     "react": "^16.2.0",
     "react-ace": "^5.9.0",
@@ -20,6 +22,8 @@
     "flow": "flow",
     "format": "prettier --write 'src/**/*.{js,css}'",
     "precommit": "lint-staged",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
