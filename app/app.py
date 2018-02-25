@@ -56,18 +56,18 @@ def coconut():
             print("Error in running Coconut's code")
 
         if not running_error:
-            # Store output from the running
+            # Store output from the run
             output_text = proc.stdout.decode('utf-8')
             print("Finish running [{:}]".format(filename + ".py"))
 
-        # Remove temporary file that we have compiled (*.py)
+        # Remove temporary file that we compiled (*.py)
         subprocess.run(["rm", filename + '.py'])
 
-    # Remove temporary file that we stored the code
+    # Remove temporary file that stored the code
     subprocess.run(["rm", filename])
     print("Delete temp files {:} and {:}.py".format(filename, filename))
 
-    # Store output in session for showing in browser
+    # Store output in session to show in browser
     session['output'] = output_text
     print("Output is\n{:}".format(output_text))
 
