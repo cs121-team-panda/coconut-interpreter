@@ -6,4 +6,4 @@ Coconut is a functional programming language that compiles to Python so Coconut 
 Executing the user's code on the backend can pose security threats. For example, the user could use Cross Site Scripting or XSS, which attempts to have applications load a malicious script in the browser. This type of script can try access user's credentials data, get cookie information, modify settings, download bits, etc..
 
 # Developers
-Teerapat Jenrungrot, Jonathan Cruz, Natalie Kadonaga, Brittany Wang.
+Jonathan Cruz, Teerapat Jenrungrot, Natalie Kadonaga, Brittany Wang.
