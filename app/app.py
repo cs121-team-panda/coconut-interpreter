@@ -38,10 +38,10 @@ def coconut():
 
     # Compile the user's code with Coconut compiler
     try:
-        subprocess.run(["coconut", filename], check=True)
+        subprocess.run(["coconut", filename], stderr=subprocess.PIPE, check=True)
     except subprocess.CalledProcessError as error:
         compileError = True
-        outputText = "Compile Error"
+        outputText = str(error.stderr, 'utf-8')
         print("Error in compiling Coconut's code")
 
     if not compileError:
@@ -52,7 +52,7 @@ def coconut():
             proc = subprocess.run(["python", filename + ".py"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
         except subprocess.CalledProcessError as error:
             runningError = True
-            outputText = str(error.stderr)
+            outputText = str(error.stderr, 'utf-8')
             print("Error in running Coconut's code")
 
         if not runningError:

@@ -24,8 +24,11 @@ def factorial(n):
 '''
 FACTORIAL_OUTPUT = b'1\n6'
 
-ERR_CODE = '1+"a"'
-ERR_OUTPUT = b'TypeError: unsupported operand type(s) for +'
+COMPILE_ERR_CODE = '1+'
+COMPILE_ERR_OUTPUT = b'CoconutParseError: parsing failed (line 1)'
+
+RUNNING_ERR_CODE = '1+"a"'
+RUNNING_ERR_OUTPUT = b'TypeError: unsupported operand type(s) for +'
 
 QUICKSORT_CODE = '''
 def quick_sort([]) = []
@@ -105,10 +108,15 @@ class InterpreterTestCase(unittest.TestCase):
         data = self.get_data(res)
         assert str(FACTORIAL_OUTPUT, 'utf-8') in data['output']
 
-    def test_error(self):
-        response = self.get_code_response(ERR_CODE)
+    def test_compile_error(self):
+        response = self.get_code_response(COMPILE_ERR_CODE)
         self.assertEqual(response.status_code, 200)
-        assert ERR_OUTPUT in response.data
+        assert COMPILE_ERR_OUTPUT in response.data
+
+    def test_running_error(self):
+        response = self.get_code_response(RUNNING_ERR_CODE)
+        self.assertEqual(response.status_code, 200)
+        assert RUNNING_ERR_OUTPUT in response.data
 
     def test_quicksort(self):
         res = self.get_code_response(QUICKSORT_CODE)
