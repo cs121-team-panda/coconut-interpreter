@@ -1,7 +1,7 @@
 import os
 import subprocess
 import uuid
-from flask import redirect, request, render_template, url_for, session, jsonify
+from flask import request, render_template, session, jsonify
 from flask_cors import CORS, cross_origin
 from app import create_app
 
@@ -13,9 +13,8 @@ def index():
     if request.method == 'GET':
         session.pop('output', None)
         return render_template('main.html')
-    else:
-        outputText = session.get('output')
-        return render_template('main.html', subprocess_output=outputText)
+    output_text = session.get('output')
+    return render_template('main.html', subprocess_output=output_text)
 
 @app.route('/coconut', methods=['POST'])
 @cross_origin(allow_headers=['Content-Type'])
@@ -31,45 +30,46 @@ def coconut():
         output.write(code)
 
     # Initialize parameters
-    outputText = None
-    compileError = None
-    runningError = None
+    output_text = None
+    compile_error = None
+    running_error = None
     proc = None
 
     # Compile the user's code with Coconut compiler
     try:
         subprocess.run(["coconut", filename], stderr=subprocess.PIPE, check=True)
     except subprocess.CalledProcessError as error:
-        compileError = True
-        outputText = str(error.stderr, 'utf-8')
+        compile_error = True
+        output_text = str(error.stderr, 'utf-8')
         print("Error in compiling Coconut's code")
 
-    if not compileError:
+    if not compile_error:
         print("Finish compilation [{:}] to [{:}.py]".format(filename, filename))
 
         # Run the compiled code.
         try:
-            proc = subprocess.run(["python", filename + ".py"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
+            proc = subprocess.run(["python", filename + ".py"], stdout=subprocess.PIPE,
+                                  stderr=subprocess.PIPE, check=True)
         except subprocess.CalledProcessError as error:
-            runningError = True
-            outputText = str(error.stderr, 'utf-8')
+            running_error = True
+            output_text = str(error.stderr, 'utf-8')
             print("Error in running Coconut's code")
 
-        if not runningError:
-            # Store output from the running 
-            outputText = proc.stdout.decode('utf-8')
+        if not running_error:
+            # Store output from the run
+            output_text = proc.stdout.decode('utf-8')
             print("Finish running [{:}]".format(filename + ".py"))
 
-        # Remove temporary file that we have compiled (*.py)
+        # Remove temporary file that we compiled (*.py)
         subprocess.run(["rm", filename + '.py'])
 
-    # Remove temporary file that we stored the code 
+    # Remove temporary file that stored the code
     subprocess.run(["rm", filename])
     print("Delete temp files {:} and {:}.py".format(filename, filename))
-    
-    # Store output in session for showing in browser
-    session['output'] = outputText
-    print("Output is\n{:}".format(outputText))
+
+    # Store output in session to show in browser
+    session['output'] = output_text
+    print("Output is\n{:}".format(output_text))
 
     # Return JSON output
     return jsonify({'output': session['output']})
