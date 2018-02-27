@@ -93,11 +93,6 @@ class InterpreterTestCase(unittest.TestCase):
     def get_data(self, response):
         return json.loads(response.get_data(as_text=True))
 
-    # We no longer server our site on the server
-    # def test_page_loads(self):
-    #     response = self.app.get('/')
-    #     self.assertEqual(response.status_code, 200)
-
     def test_print(self):
         res = self.get_code_response(PRINT_CODE)
         data = self.get_data(res)
