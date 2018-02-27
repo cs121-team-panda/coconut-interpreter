@@ -1,6 +1,9 @@
 import request from './utils/request';
 
-const baseUrl = 'https://coconut-interpreter-flask.herokuapp.com';
+const baseUrl =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:5000'
+    : 'https://coconut-interpreter-flask.herokuapp.com';
 
 export const run = payload =>
   request(`${baseUrl}/coconut`, {
