@@ -8,8 +8,5 @@ const baseUrl =
 export const run = payload =>
   request(`${baseUrl}/coconut`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload),
+    body: payload.code,
   });
