@@ -10,7 +10,7 @@ function* runRequest(action) {
     const { output } = yield call(api.run, action.payload);
     yield put(actions.runSuccess(output));
   } catch (e) {
-    yield put(actions.runFailure());
+    yield put(actions.runFailure(e.toString()));
   }
 }
 

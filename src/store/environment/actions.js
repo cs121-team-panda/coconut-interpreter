@@ -14,8 +14,9 @@ export function runSuccess(output) {
   };
 }
 
-export function runFailure() {
+export function runFailure(output) {
   return {
     type: actionTypes.RUN_FAILURE,
+    payload: { output },
   };
 }

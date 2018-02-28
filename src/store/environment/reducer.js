@@ -19,6 +19,7 @@ export default function reducer(state = initialState, action) {
       });
     case actionTypes.RUN_FAILURE:
       return state.merge({
+        output: fromJS(action.payload.output),
         loading: fromJS(false),
       });
     default:
