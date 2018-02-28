@@ -9,12 +9,11 @@ app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 CORS(app)
 
 @app.route('/coconut', methods=['POST'])
-@cross_origin(allow_headers=['Content-Type'])
 def coconut():
     """
     Handles Coconut code submitted by users.
     """
-    code = request.get_json()['code']
+    code = request.get_data(as_text=True)
 
     # Write a code to a file with randomly generated filename.
     filename = str(uuid.uuid4())
