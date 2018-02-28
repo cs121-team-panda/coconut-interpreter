@@ -15,7 +15,7 @@ import styles from './App.module.css';
 type Props = {
   output: string,
   loading: boolean,
-  runRequest: (code: string) => any,
+  runRequest: (code: string) => void,
 };
 
 const App = ({ output, loading, runRequest }: Props) => (
