@@ -10,6 +10,11 @@ it('renders without crashing', () => {
   mount(<CodeOutput value={''} />);
 });
 
+it('allows us to set props', () => {
+  const wrapper = mount(<CodeOutput value="Hello, world" />);
+  expect(wrapper.props().value).toEqual('Hello, world');
+});
+
 it('renders one <div.output /> component', () => {
   const wrapper = mount(<CodeOutput value="" />);
   expect(wrapper.find(`div.${styles.output}`)).toHaveLength(1);
