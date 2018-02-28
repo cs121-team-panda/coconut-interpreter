@@ -7,7 +7,7 @@ import CodeOutput from '../CodeOutput';
 import styles from '../CodeOutput.module.css';
 
 it('renders without crashing', () => {
-  mount(<CodeOutput value={''} />);
+  mount(<CodeOutput value="" />);
 });
 
 it('allows us to set props', () => {
