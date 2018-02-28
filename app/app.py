@@ -1,20 +1,12 @@
 import os
 import subprocess
 import uuid
-from flask import request, render_template, session, jsonify
+from flask import request, session, jsonify
 from flask_cors import CORS, cross_origin
 from app import create_app
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 CORS(app)
-
-@app.route("/", methods=['GET', 'POST'])
-def index():
-    if request.method == 'GET':
-        session.pop('output', None)
-        return render_template('main.html')
-    output_text = session.get('output')
-    return render_template('main.html', subprocess_output=output_text)
 
 @app.route('/coconut', methods=['POST'])
 @cross_origin(allow_headers=['Content-Type'])
