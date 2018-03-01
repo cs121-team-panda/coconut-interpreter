@@ -1,5 +1,4 @@
 import unittest
-import json
 from mock import patch
 from app.app import app
 
@@ -22,7 +21,7 @@ def factorial(n):
 0 |> factorial |> print  # 1
 3 |> factorial |> print  # 6
 '''
-FACTORIAL_OUTPUT = b'1\n6'
+FACTORIAL_OUTPUT = b'1\\n6'
 
 COMPILE_ERR_CODE = '1+'
 COMPILE_ERR_OUTPUT = b'CoconutParseError: parsing failed (line 1)'
@@ -47,7 +46,7 @@ def quick_sort([head] + tail) =
 [4,3,2,1,0] |> quick_sort |> print  # [0,1,2,3,4]
 [3,0,4,2,1] |> quick_sort |> print  # [0,1,2,3,4]
 '''
-QUICKSORT_OUTPUT = b'[]\n[3]\n[0, 1, 2, 3, 4]\n[0, 1, 2, 3, 4]\n[0, 1, 2, 3, 4]'
+QUICKSORT_OUTPUT = b'[]\\n[3]\\n[0, 1, 2, 3, 4]\\n[0, 1, 2, 3, 4]\\n[0, 1, 2, 3, 4]'
 
 # From http://coconut.readthedocs.io/en/master/DOCS.html#examples
 DATA_TYPES_CODE = '''
@@ -87,21 +86,15 @@ class InterpreterTestCase(unittest.TestCase):
     def get_code_response(self, code):
         # Use patch function to temporarily mock out sys.stdout for the test
         with patch('sys.stdout', new=MockDevice()) as _:
-            return self.app.post('/coconut', data=json.dumps({'code': code}),
-                                 content_type='application/json')
-
-    def get_data(self, response):
-        return json.loads(response.get_data(as_text=True))
+            return self.app.post('/coconut', data=code)
 
     def test_print(self):
-        res = self.get_code_response(PRINT_CODE)
-        data = self.get_data(res)
-        assert str(PRINT_OUTPUT, 'utf-8') in data['output']
+        response = self.get_code_response(PRINT_CODE)
+        assert PRINT_OUTPUT in response.data
 
     def test_factorial(self):
-        res = self.get_code_response(FACTORIAL_CODE)
-        data = self.get_data(res)
-        assert str(FACTORIAL_OUTPUT, 'utf-8') in data['output']
+        response = self.get_code_response(FACTORIAL_CODE)
+        assert FACTORIAL_OUTPUT in response.data
 
     def test_compile_error(self):
         response = self.get_code_response(COMPILE_ERR_CODE)
@@ -114,9 +107,8 @@ class InterpreterTestCase(unittest.TestCase):
         assert RUNNING_ERR_OUTPUT in response.data
 
     def test_quicksort(self):
-        res = self.get_code_response(QUICKSORT_CODE)
-        data = self.get_data(res)
-        assert str(QUICKSORT_OUTPUT, 'utf-8') in data['output']
+        response = self.get_code_response(QUICKSORT_CODE)
+        assert QUICKSORT_OUTPUT in response.data
 
     def test_data_types_compile(self):
         '''DATA_TYPES_CODE does not work with Coconut's parse function.'''
