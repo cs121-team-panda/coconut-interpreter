@@ -10,23 +10,23 @@ Developed by Jonathan Cruz, Teerapat Jenrungrot, Natalie Kadonaga, and Brittany 
 
 The interpreter consists of a simple, elegant webpage that enables users to easily enter and execute Coconut code.
 
-![The interpreter app interface](img/interface.png)
+![App interface](https://user-images.githubusercontent.com/8051724/36887245-2096868e-1da5-11e8-94ad-121c58fe3aad.png)
 
 On the left, we can use the code editor. The editor includes Python syntax highlighting. The editor also allows for the keyboard shortcuts from Ace editor (listed [here](https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts)). 
 
 Clicking run will compile and execute the program. The output will show up on the right. If there is a compiling error, the output will display the error from the Coconut compiler:
 
-![Example compile error](img/compile_error.png)
+![Example compile error output](https://user-images.githubusercontent.com/8051724/36887226-0e07d086-1da5-11e8-9ec7-8f46cb136580.png)
 
 If there is a runtime error, the output will display the traceback:
 
-![Example runtime error output](img/running_error.png)
+![Example runtime error output](https://user-images.githubusercontent.com/8051724/36887259-36c45bc0-1da5-11e8-9c04-10d2cf888986.png)
 
 After the code runs, the user's code is stored in the session, so they can make changes to their existing code. 
 
 The interpreter also supports multiple lines of output:
 
-![Example multiple line output](img/multiline_output.png)
+![Example multiple line output](https://user-images.githubusercontent.com/8051724/36887253-2c783556-1da5-11e8-95dc-bae4fb6cdf41.png)
 
 # Issues
 
