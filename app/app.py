@@ -15,6 +15,9 @@ def coconut():
     Handles Coconut code submitted by users.
     """
     code = request.form['code']
+    # Get optional compile arguments
+    # Examples: http://coconut.readthedocs.io/en/master/DOCS.html#usage
+    compile_args = request.values.get('args')
 
     # Write a code to a file with randomly generated filename.
     filename = str(uuid.uuid4())
@@ -30,9 +33,15 @@ def coconut():
     coconut_error = None
     python_error = None
 
+    # Create command to pass to subprocess
+    full_compile_args = ["coconut", filename]
+    # Append compile arguments if necessary
+    if compile_args:
+        full_compile_args += compile_args.split(' ')
+
     # Compile the user's code with Coconut compiler
     try:
-        subprocess.run(["coconut", filename], stderr=subprocess.PIPE, check=True)
+        subprocess.run(full_compile_args, stderr=subprocess.PIPE, check=True)
     except subprocess.CalledProcessError as error:
         compile_error = True
         output_text = str(error.stderr, 'utf-8')
