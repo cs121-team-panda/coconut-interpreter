@@ -65,6 +65,10 @@ def size(Node(l, r)) = size(l) + size(r)
 size(Node(Empty(), Leaf(10))) == 1
 '''
 
+# Other examples: http://coconut.readthedocs.io/en/master/DOCS.html#usage
+COMPILE_ARGS = '--line-numbers'
+COMPILE_ARGS_OUTPUT = b'(print)(\\"hello, world!\\")  # line 1'
+
 class MockDevice():
     """
     A mock device to temporarily suppress output to stdout, so that
@@ -83,10 +87,10 @@ class InterpreterTestCase(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def get_code_response(self, code):
+    def get_code_response(self, code, args=None):
         # Use patch function to temporarily mock out sys.stdout for the test
         with patch('sys.stdout', new=MockDevice()) as _:
-            return self.app.post('/coconut', data=code)
+            return self.app.post('/coconut', data=dict(code=code, args=args))
 
     def test_print(self):
         response = self.get_code_response(PRINT_CODE)
@@ -114,6 +118,12 @@ class InterpreterTestCase(unittest.TestCase):
         '''DATA_TYPES_CODE does not work with Coconut's parse function.'''
         response = self.get_code_response(DATA_TYPES_CODE)
         self.assertEqual(response.status_code, 200)
+
+    def test_compile_args(self):
+        '''Tests ability to pass optional arguments to Coconut compiler.'''
+        response = self.get_code_response(code=PRINT_CODE, args=COMPILE_ARGS)
+        self.assertEqual(response.status_code, 200)
+        assert COMPILE_ARGS_OUTPUT in response.data
 
 if __name__ == "__main__":
     unittest.main()
