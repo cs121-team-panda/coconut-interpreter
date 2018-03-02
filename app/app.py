@@ -25,6 +25,7 @@ def coconut():
     compile_error = None
     running_error = None
     proc = None
+    coconut_code = None
 
     # Compile the user's code with Coconut compiler
     try:
@@ -36,6 +37,14 @@ def coconut():
 
     if not compile_error:
         print("Finish compilation [{:}] to [{:}.py]".format(filename, filename))
+
+        # Obtain coconut code.
+        compiled_code = None
+        with open(filename + ".py", "r") as compiled_file:
+            compiled_code = compiled_file.read()
+
+        SEPARATOR = "# Compiled Coconut: -----------------------------------------------------------\n\n"
+        coconut_code = compiled_code.split(SEPARATOR)[-1]
 
         # Run the compiled code.
         try:
@@ -59,11 +68,17 @@ def coconut():
     print("Delete temp files {:} and {:}.py".format(filename, filename))
 
     # Store output in session to show in browser
+    session['compile_error'] = compile_error
+    session['running_error'] = running_error
     session['output'] = output_text
+    session['coconut_code'] = coconut_code
     print("Output is\n{:}".format(output_text))
 
     # Return JSON output
-    return jsonify({'output': session['output']})
+    return jsonify({'output': session['output'],
+                    'coconut_code': session['coconut_code'],
+                    'running_error': session['running_error'],
+                    'compile_error': session['compile_error']})
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
