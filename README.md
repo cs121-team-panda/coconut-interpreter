@@ -1,9 +1,40 @@
 # Coconut Online Interpreter [![Inline docs](http://inch-ci.org/github/cs121-team-panda/coconut-interpreter-flask.svg?branch=master)](http://inch-ci.org/github/cs121-team-panda/coconut-interpreter-flask) [![CircleCI](https://circleci.com/gh/cs121-team-panda/coconut-interpreter-flask/tree/master.svg?style=svg)](https://circleci.com/gh/cs121-team-panda/coconut-interpreter-flask/tree/master)
 
-Coconut is a functional programming language that compiles to Python so Coconut programs can run on any Python interpreter. Since there has not been a standard online interpreter for Coconut, the goal for this project is to create a simple, elegant webpage that enables users to enter and execute Coconut code. 
+[Coconut](http://coconut-lang.org/) is a functional programming language that compiles to Python. This project is an online interpreter for Coconut. On the webpage, the user can interact with the code editor and click the run button to execute their program and view the output.
 
-# Background
-Executing the user's code on the backend can pose security threats. For example, the user could use Cross Site Scripting or XSS, which attempts to have applications load a malicious script in the browser. This type of script can try access user's credentials data, get cookie information, modify settings, download bits, etc..
+Try the current version at: [https://cs121-team-panda.github.io/coconut-interpreter/](https://cs121-team-panda.github.io/coconut-interpreter/)
 
-# Developers
-Jonathan Cruz, Teerapat Jenrungrot, Natalie Kadonaga, Brittany Wang.
+Developed by Jonathan Cruz, Teerapat Jenrungrot, Natalie Kadonaga, and Brittany Wang.
+
+# Features
+
+The interpreter consists of a simple, elegant webpage that enables users to easily enter and execute Coconut code.
+
+![The interpreter app interface](img/interface.png)
+
+On the left, we can use the code editor. The editor includes Python syntax highlighting. The editor also allows for the keyboard shortcuts from Ace editor (listed [here](https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts)). 
+
+Clicking run will compile and execute the program. The output will show up on the right. If there is a compiling error, the output will display the error from the Coconut compiler:
+
+![Example compile error](img/compile_error.png)
+
+If there is a runtime error, the output will display the traceback:
+
+![Example runtime error output](img/running_error.png)
+
+After the code runs, the user's code is stored in the session, so they can make changes to their existing code. 
+
+The interpreter also supports multiple lines of output:
+
+![Example multiple line output](img/multiline_output.png)
+
+# Issues
+
+See the [Issues](https://github.com/cs121-team-panda/coconut-interpreter-flask/issues) tab for additional information.
+
+## Security
+
+Major security concerns for online compilers/interpreters are malicious codes submitted from users. In our current system, the code is evaluated on the server-side. From the server perspective, the server may happen to run the potentially malicious code. Some potential problems may arise, at least but not limited to:
+
+* DDoS attacks to exhaust the server's resources.
+* Manipulation of file structures using `os` module
