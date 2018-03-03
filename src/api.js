@@ -1,4 +1,5 @@
 import request from './utils/request';
+import { toFormData } from './utils/payload';
 
 const baseUrl =
   process.env.NODE_ENV === 'development'
@@ -8,5 +9,5 @@ const baseUrl =
 export const run = payload =>
   request(`${baseUrl}/coconut`, {
     method: 'POST',
-    body: payload.code,
+    body: toFormData(payload),
   });
