@@ -16,7 +16,7 @@ def coconut():
     code = request.form['code']
     # Get optional compile arguments
     # Examples: http://coconut.readthedocs.io/en/master/DOCS.html#usage
-    compile_args = request.form['args']
+    compile_args = request.form.get('args', None)
 
     # Write a code to a file with randomly generated filename.
     filename = str(uuid.uuid4())
