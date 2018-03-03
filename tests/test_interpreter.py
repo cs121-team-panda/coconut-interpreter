@@ -86,7 +86,7 @@ class InterpreterTestCase(unittest.TestCase):
     def get_code_response(self, code):
         # Use patch function to temporarily mock out sys.stdout for the test
         with patch('sys.stdout', new=MockDevice()) as _:
-            return self.app.post('/coconut', data=code)
+            return self.app.post('/coconut', data={'code': code})
 
     def test_print(self):
         response = self.get_code_response(PRINT_CODE)

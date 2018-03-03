@@ -13,7 +13,7 @@ def coconut():
     """
     Handles Coconut code submitted by users.
     """
-    code = request.get_data(as_text=True)
+    code = request.form['code']
 
     # Write a code to a file with randomly generated filename.
     filename = str(uuid.uuid4())
