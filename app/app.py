@@ -1,7 +1,7 @@
 import os
 import subprocess
 import uuid
-from flask import request, session, jsonify
+from flask import request, jsonify
 from flask_cors import CORS
 from app import create_app
 
@@ -67,18 +67,14 @@ def coconut():
     subprocess.run(["rm", filename])
     print("Delete temp files {:} and {:}.py".format(filename, filename))
 
-    # Store output in session to show in browser
-    session['compile_error'] = compile_error
-    session['running_error'] = running_error
-    session['output'] = output_text
-    session['coconut_code'] = coconut_code
+    # Print output
     print("Output is\n{:}".format(output_text))
 
     # Return JSON output
-    return jsonify({'output': session['output'],
-                    'coconut_code': session['coconut_code'],
-                    'running_error': session['running_error'],
-                    'compile_error': session['compile_error']})
+    return jsonify({'output': output_text,
+                    'coconut_code': coconut_code,
+                    'running_error': running_error,
+                    'compile_error': compile_error})
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
