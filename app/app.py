@@ -25,7 +25,7 @@ def coconut():
     compile_error = None
     running_error = None
     proc = None
-    coconut_code = None
+    python_code = None
 
     # Compile the user's code with Coconut compiler
     try:
@@ -44,7 +44,7 @@ def coconut():
             compiled_code = compiled_file.read()
 
         SEPARATOR = "# Compiled Coconut: -----------------------------------------------------------\n\n"
-        coconut_code = compiled_code.split(SEPARATOR)[-1]
+        python_code = compiled_code.split(SEPARATOR)[-1]
 
         # Run the compiled code.
         try:
@@ -72,9 +72,9 @@ def coconut():
 
     # Return JSON output
     return jsonify({'output': output_text,
-                    'coconut_code': coconut_code,
-                    'running_error': running_error,
-                    'compile_error': compile_error})
+                    'python': python_code,
+                    'runningError': running_error,
+                    'compileError': compile_error})
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
