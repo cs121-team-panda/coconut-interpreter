@@ -48,6 +48,7 @@ it('renders disabled run button while loading', () => {
 
 it('simulates click events', () => {
   const wrapper = mount(<CodeEditor runRequest={runRequest} loading={false} />);
+  wrapper.setState({ code: '"Hello, world" |> print' });
   wrapper.find('button').simulate('click');
   expect(runRequest.mock.calls).toHaveLength(1);
 });

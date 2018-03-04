@@ -28,7 +28,7 @@ export default class CodeEditor extends Component<Props, State> {
   };
 
   handleClick = () => {
-    this.props.runRequest(this.state.code);
+    if (this.state.code.trim()) this.props.runRequest(this.state.code);
   };
 
   componentDidMount() {
