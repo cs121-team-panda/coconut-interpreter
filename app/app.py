@@ -21,11 +21,11 @@ def coconut():
         output.write(code)
 
     # Initialize parameters
-    output_text = None
-    compile_error = None
-    running_error = None
+    output_text = ''
+    compile_error = False
+    running_error = False
     proc = None
-    python_code = None
+    python_code = ''
 
     # Compile the user's code with Coconut compiler
     try:
