@@ -9,7 +9,7 @@ import 'brace/theme/dracula';
 import styles from './CodeEditor.module.css';
 
 type Props = {
-  runRequest: (code: string) => any,
+  runRequest: (code: string) => void,
   loading: boolean,
 };
 
@@ -18,15 +18,8 @@ type State = {
 };
 
 export default class CodeEditor extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      code: '',
-    };
-  }
-
-  componentDidMount = () => {
-    this.refs.code.editor.renderer.setPadding(24);
+  state = {
+    code: '',
   };
 
   handleChange = (newCode: string) => {
@@ -36,6 +29,10 @@ export default class CodeEditor extends Component<Props, State> {
   handleClick = () => {
     this.props.runRequest(this.state.code);
   };
+
+  componentDidMount() {
+    this.refs.code.editor.renderer.setPadding(24);
+  }
 
   render() {
     return (

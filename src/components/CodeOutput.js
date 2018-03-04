@@ -13,11 +13,11 @@ type Props = {
 };
 
 export default class CodeOutput extends Component<Props> {
-  componentDidMount = () => {
+  componentDidMount() {
     this.refs.output.editor.renderer.setPadding(24);
     this.refs.output.editor.renderer.$cursorLayer.element.style.display =
       'none';
-  };
+  }
 
   render() {
     return (
