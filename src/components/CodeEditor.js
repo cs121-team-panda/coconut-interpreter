@@ -7,6 +7,7 @@ import 'brace/mode/python';
 import 'brace/theme/dracula';
 
 import styles from './CodeEditor.module.css';
+import { aceStyleProps } from '../constants';
 
 type Props = {
   runRequest: (code: string) => void,
@@ -49,20 +50,12 @@ export default class CodeEditor extends Component<Props, State> {
         </div>
         <AceEditor
           ref="code"
+          name="code"
           mode="python"
           theme="dracula"
-          onChange={this.handleChange}
-          name="code"
           value={this.state.code}
-          showGutter={false}
-          highlightActiveLine={false}
-          showPrintMargin={false}
-          wrapEnabled={true}
-          scrollMargin={[24, 24, 0, 0]}
-          setOptions={{ indentedSoftWrap: false }}
-          width=""
-          height="calc(100% - 42px)"
-          editorProps={{ $blockScrolling: Infinity }}
+          onChange={this.handleChange}
+          {...aceStyleProps}
         />
       </div>
     );

@@ -7,6 +7,7 @@ import 'brace/mode/text';
 import 'brace/theme/chrome';
 
 import styles from './CodeOutput.module.css';
+import { aceStyleProps } from '../constants';
 
 type Props = {
   value: string,
@@ -25,20 +26,12 @@ export default class CodeOutput extends Component<Props> {
         <div className={styles.header}>Output</div>
         <AceEditor
           ref="output"
+          name="output"
           mode="text"
           theme="chrome"
-          name="output"
           value={this.props.value}
-          showGutter={false}
           readOnly={true}
-          highlightActiveLine={false}
-          showPrintMargin={false}
-          wrapEnabled={true}
-          scrollMargin={[24, 24, 0, 0]}
-          setOptions={{ indentedSoftWrap: false }}
-          width=""
-          height="calc(100% - 42px)"
-          editorProps={{ $blockScrolling: Infinity }}
+          {...aceStyleProps}
         />
       </div>
     );
