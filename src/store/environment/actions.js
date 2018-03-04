@@ -7,10 +7,10 @@ export function runRequest(code) {
   };
 }
 
-export function runSuccess(output) {
+export function runSuccess(payload) {
   return {
     type: actionTypes.RUN_SUCCESS,
-    payload: { output },
+    payload,
   };
 }
 

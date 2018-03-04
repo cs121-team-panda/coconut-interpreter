@@ -14,20 +14,21 @@ import styles from './App.module.css';
 
 type Props = {
   output: string,
+  outputPython: string,
   loading: boolean,
   runRequest: (code: string) => void,
 };
 
-const App = ({ output, loading, runRequest }: Props) => (
+const App = ({ output, outputPython, loading, runRequest }: Props) => (
   <div className={styles.container}>
     <CodeEditor runRequest={runRequest} loading={loading} />
-    <CodeOutput value={output} loading={loading} />
+    <CodeOutput value={output} python={outputPython} loading={loading} />
   </div>
 );
 
 const mapStateToProps = createSelector(
-  [mySelectors.output, mySelectors.loading],
-  (output, loading) => ({ output, loading })
+  [mySelectors.output, mySelectors.outputPython, mySelectors.loading],
+  (output, outputPython, loading) => ({ output, outputPython, loading })
 );
 
 const mapDispatchToProps = dispatch => ({

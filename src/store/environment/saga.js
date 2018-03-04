@@ -7,8 +7,8 @@ import * as api from '../../api';
 
 function* runRequest(action) {
   try {
-    const { output } = yield call(api.run, action.payload);
-    yield put(actions.runSuccess(output));
+    const payload = yield call(api.run, action.payload);
+    yield put(actions.runSuccess(payload));
   } catch (e) {
     yield put(actions.runFailure(e.toString()));
   }

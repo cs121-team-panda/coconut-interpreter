@@ -5,6 +5,7 @@ import AceEditor from 'react-ace';
 import type { EditorProps } from 'react-ace';
 
 import 'brace/mode/text';
+import 'brace/mode/python';
 import 'brace/theme/chrome';
 
 import styles from './CodeOutput.module.css';
@@ -12,18 +13,21 @@ import { aceStyleProps } from '../constants';
 
 type Props = {
   value: string,
+  python: string,
   loading: boolean,
 };
 
 type State = {
   loadingDots: string,
   interval: ?IntervalID,
+  showPython: boolean,
 };
 
 export default class CodeOutput extends Component<Props, State> {
   state = {
     loadingDots: '',
     interval: null,
+    showPython: false,
   };
 
   updateLoadingDots() {
@@ -47,13 +51,28 @@ export default class CodeOutput extends Component<Props, State> {
   render() {
     return (
       <div className={styles.output}>
-        <div className={styles.header}>Output</div>
+        <div className={styles.header}>
+          Output
+          <label className={styles.headerCheck}>
+            <input
+              onChange={event =>
+                this.setState({ showPython: event.target.checked })
+              }
+              type="checkbox"
+            />
+            Python
+          </label>
+        </div>
         <AceEditor
           ref="output"
           name="output"
-          mode="text"
+          mode={this.state.showPython ? 'python' : 'text'}
           theme="chrome"
-          value={this.props.loading ? this.state.loadingDots : this.props.value}
+          value={
+            this.props.loading
+              ? this.state.loadingDots
+              : this.state.showPython ? this.props.python : this.props.value
+          }
           onLoad={this.onEditorLoad}
           readOnly={true}
           {...aceStyleProps}
