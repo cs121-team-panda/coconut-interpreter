@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
 import AceEditor from 'react-ace';
 
@@ -7,7 +7,7 @@ import CodeOutput from '../CodeOutput';
 import styles from '../CodeOutput.module.css';
 
 it('renders without crashing', () => {
-  mount(<CodeOutput value="" />);
+  shallow(<CodeOutput value="" />);
 });
 
 it('allows us to set props', () => {
@@ -16,16 +16,16 @@ it('allows us to set props', () => {
 });
 
 it('renders one <div.output /> component', () => {
-  const wrapper = mount(<CodeOutput value="" />);
+  const wrapper = shallow(<CodeOutput value="" />);
   expect(wrapper.find(`div.${styles.output}`)).toHaveLength(1);
 });
 
 it('renders one <div.header /> component', () => {
-  const wrapper = mount(<CodeOutput value="" />);
+  const wrapper = shallow(<CodeOutput value="" />);
   expect(wrapper.find(`div.${styles.header}`)).toHaveLength(1);
 });
 
 it('renders one <AceEditor /> component', () => {
-  const wrapper = mount(<CodeOutput value="" />);
+  const wrapper = shallow(<CodeOutput value="" />);
   expect(wrapper.find(AceEditor)).toHaveLength(1);
 });

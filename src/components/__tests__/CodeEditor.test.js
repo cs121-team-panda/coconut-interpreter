@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
 import AceEditor from 'react-ace';
 
@@ -13,26 +13,34 @@ beforeEach(() => {
 });
 
 it('renders without crashing', () => {
-  mount(<CodeEditor runRequest={runRequest} loading={false} />);
+  shallow(<CodeEditor runRequest={runRequest} loading={false} />);
 });
 
 it('renders one <div.editor /> component', () => {
-  const wrapper = mount(<CodeEditor runRequest={runRequest} loading={false} />);
+  const wrapper = shallow(
+    <CodeEditor runRequest={runRequest} loading={false} />
+  );
   expect(wrapper.find(`div.${styles.editor}`)).toHaveLength(1);
 });
 
 it('renders one <div.header /> component', () => {
-  const wrapper = mount(<CodeEditor runRequest={runRequest} loading={false} />);
+  const wrapper = shallow(
+    <CodeEditor runRequest={runRequest} loading={false} />
+  );
   expect(wrapper.find(`div.${styles.header}`)).toHaveLength(1);
 });
 
 it('renders one <AceEditor /> component', () => {
-  const wrapper = mount(<CodeEditor runRequest={runRequest} loading={false} />);
+  const wrapper = shallow(
+    <CodeEditor runRequest={runRequest} loading={false} />
+  );
   expect(wrapper.find(AceEditor)).toHaveLength(1);
 });
 
 it('renders one <button /> component', () => {
-  const wrapper = mount(<CodeEditor runRequest={runRequest} loading={false} />);
+  const wrapper = shallow(
+    <CodeEditor runRequest={runRequest} loading={false} />
+  );
   expect(wrapper.find('button')).toHaveLength(1);
 });
 

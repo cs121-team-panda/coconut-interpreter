@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import AceEditor from 'react-ace';
+import type { EditorProps } from 'react-ace';
 
 import 'brace/mode/python';
 import 'brace/theme/dracula';
@@ -31,8 +32,8 @@ export default class CodeEditor extends Component<Props, State> {
     if (this.state.code.trim()) this.props.runRequest(this.state.code);
   };
 
-  componentDidMount() {
-    this.refs.code.editor.renderer.setPadding(24);
+  onEditorLoad(editor: EditorProps) {
+    editor.renderer.setPadding(24);
   }
 
   render() {
@@ -55,6 +56,7 @@ export default class CodeEditor extends Component<Props, State> {
           theme="dracula"
           value={this.state.code}
           onChange={this.handleChange}
+          onLoad={this.onEditorLoad}
           {...aceStyleProps}
         />
       </div>

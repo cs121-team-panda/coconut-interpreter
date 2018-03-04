@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import AceEditor from 'react-ace';
+import type { EditorProps } from 'react-ace';
 
 import 'brace/mode/text';
 import 'brace/theme/chrome';
@@ -29,8 +30,7 @@ export default class CodeOutput extends Component<Props, State> {
     this.setState(prevState => ({ loadingDots: prevState.loadingDots + '.' }));
   }
 
-  componentDidMount() {
-    const editor = this.refs.output.editor;
+  onEditorLoad(editor: EditorProps) {
     editor.renderer.setPadding(24);
     editor.renderer.$cursorLayer.element.style.display = 'none';
   }
@@ -54,6 +54,7 @@ export default class CodeOutput extends Component<Props, State> {
           mode="text"
           theme="chrome"
           value={this.props.loading ? this.state.loadingDots : this.props.value}
+          onLoad={this.onEditorLoad}
           readOnly={true}
           {...aceStyleProps}
         />
