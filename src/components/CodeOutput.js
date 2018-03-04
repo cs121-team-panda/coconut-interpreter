@@ -11,13 +11,37 @@ import { aceStyleProps } from '../constants';
 
 type Props = {
   value: string,
+  loading: boolean,
 };
 
-export default class CodeOutput extends Component<Props> {
+type State = {
+  loadingDots: string,
+  interval: ?IntervalID,
+};
+
+export default class CodeOutput extends Component<Props, State> {
+  state = {
+    loadingDots: '',
+    interval: null,
+  };
+
+  updateLoadingDots() {
+    this.setState(prevState => ({ loadingDots: prevState.loadingDots + '.' }));
+  }
+
   componentDidMount() {
-    this.refs.output.editor.renderer.setPadding(24);
-    this.refs.output.editor.renderer.$cursorLayer.element.style.display =
-      'none';
+    const editor = this.refs.output.editor;
+    editor.renderer.setPadding(24);
+    editor.renderer.$cursorLayer.element.style.display = 'none';
+  }
+
+  componentWillReceiveProps(nextProps: Props) {
+    if (nextProps.loading) {
+      const interval = setInterval(() => this.updateLoadingDots(), 1000);
+      this.setState({ loadingDots: '', interval });
+    } else {
+      if (this.state.interval) clearInterval(this.state.interval);
+    }
   }
 
   render() {
@@ -29,7 +53,7 @@ export default class CodeOutput extends Component<Props> {
           name="output"
           mode="text"
           theme="chrome"
-          value={this.props.value}
+          value={this.props.loading ? this.state.loadingDots : this.props.value}
           readOnly={true}
           {...aceStyleProps}
         />

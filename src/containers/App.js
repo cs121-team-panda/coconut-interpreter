@@ -21,7 +21,7 @@ type Props = {
 const App = ({ output, loading, runRequest }: Props) => (
   <div className={styles.container}>
     <CodeEditor runRequest={runRequest} loading={loading} />
-    <CodeOutput value={output} />
+    <CodeOutput value={output} loading={loading} />
   </div>
 );
 
