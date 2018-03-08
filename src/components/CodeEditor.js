@@ -2,9 +2,9 @@
 
 import React, { Component } from 'react';
 import AceEditor from 'react-ace';
+import CoconutMode from '../utils/coconut.js';
 import type { EditorProps } from 'react-ace';
 
-import 'brace/mode/python';
 import 'brace/theme/dracula';
 
 import styles from './CodeEditor.module.css';
@@ -34,6 +34,9 @@ export default class CodeEditor extends Component<Props, State> {
 
   onEditorLoad(editor: EditorProps) {
     editor.renderer.setPadding(24);
+    // Set editor mode for Coconut-specific syntax highlighting.
+    const coconutMode = new CoconutMode();
+    editor.getSession().setMode(coconutMode);
   }
 
   render() {
@@ -52,7 +55,7 @@ export default class CodeEditor extends Component<Props, State> {
         <AceEditor
           ref="code"
           name="code"
-          mode="python"
+          mode="text"
           theme="dracula"
           value={this.state.code}
           onChange={this.handleChange}
