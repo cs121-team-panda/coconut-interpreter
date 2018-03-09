@@ -4,6 +4,7 @@ import uuid
 from flask import request, jsonify
 from flask_cors import CORS
 from app import create_app
+from .trace import extract_trace_py, extract_trace_coco
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 CORS(app)
@@ -26,6 +27,8 @@ def coconut():
     running_error = False
     proc = None
     python_code = ''
+    coconut_error_lines = []
+    python_error_lines = []
 
     # Compile the user's code with Coconut compiler
     try:
@@ -35,7 +38,9 @@ def coconut():
         output_text = str(error.stderr, 'utf-8')
         print("Error in compiling Coconut's code")
 
-    if not compile_error:
+    if compile_error:
+        coconut_error_lines = extract_trace_coco(output_text)
+    else:
         print("Finish compilation [{:}] to [{:}.py]".format(filename, filename))
 
         # Obtain coconut code.
@@ -55,7 +60,9 @@ def coconut():
             output_text = str(error.stderr, 'utf-8')
             print("Error in running Coconut's code")
 
-        if not running_error:
+        if running_error:
+            python_error_lines = extract_trace_py(output_text)
+        else:
             # Store output from the run
             output_text = proc.stdout.decode('utf-8')
             print("Finish running [{:}]".format(filename + ".py"))
@@ -73,8 +80,8 @@ def coconut():
     # Return JSON output
     return jsonify({'output': output_text,
                     'python': python_code,
-                    'runningError': running_error,
-                    'compileError': compile_error})
+                    'pythonErrorLines': python_error_lines,
+                    'coconutErrorLines': coconut_error_lines})
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
