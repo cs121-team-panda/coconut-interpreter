@@ -25,8 +25,6 @@ def extract_trace_py(output):
                 curr['line'] = int(line_num.lstrip('line '))
                 curr['context'] = context.lstrip('in ')
                 curr['call'] = call
-                # Offset line number by length of coconut header
-                curr['line'] -= 637
         elif capture:
             # Line with error
             curr['error'] = line

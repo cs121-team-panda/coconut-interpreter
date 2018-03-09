@@ -49,7 +49,8 @@ def coconut():
             compiled_code = compiled_file.read()
 
         SEPARATOR = "# Compiled Coconut: -----------------------------------------------------------\n\n"
-        python_code = compiled_code.split(SEPARATOR)[-1]
+        header, python_code = compiled_code.split(SEPARATOR)
+        header_len = header.count('\n') + SEPARATOR.count('\n')
 
         # Run the compiled code.
         try:
@@ -62,6 +63,8 @@ def coconut():
 
         if running_error:
             python_error_lines = extract_trace_py(output_text)
+            # Offset line number by length of coconut header
+            python_error_lines = [line_num-header_len for line_num in python_error_lines]
         else:
             # Store output from the run
             output_text = proc.stdout.decode('utf-8')
