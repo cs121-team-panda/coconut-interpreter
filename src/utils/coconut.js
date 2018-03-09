@@ -9,7 +9,7 @@ export class CoconutHighlightRules extends window.ace.acequire(
     var keywords =
       'and|as|assert|break|class|continue|def|del|elif|else|except|exec|' +
       'finally|for|from|global|if|import|in|is|lambda|not|or|pass|print|' +
-      'raise|return|try|while|with|yield|async|await|' +
+      'raise|return|try|while|with|yield|async|await|data|' +
       // Coconut-specific:
       'match|case';
     // TODO: Add rest
@@ -26,10 +26,13 @@ export class CoconutHighlightRules extends window.ace.acequire(
       'chr|frozenset|long|reload|vars|classmethod|getattr|map|repr|xrange|' +
       'cmp|globals|max|reversed|zip|compile|hasattr|memoryview|round|' +
       '__import__|complex|hash|min|set|apply|delattr|help|next|setattr|' +
-      'buffer|dict|hex|object|slice|coerce|dir|id|oct|sorted|intern|' +
+      'buffer|dict|hex|object|slice|coerce|dir|id|oct|sorted|intern|self|' +
       // Coconut-specific
-      'reduce|takewhile|dropwhile|tee|count|makedata|consume|parallel_map';
-    // TODO: Add rest
+      'reduce|takewhile|dropwhile|tee|count|makedata|consume|parallel_map|' +
+      'addpattern|recursive_iterator|concurrent_map|fmap|__fmap__|starmap|reiterable|' +
+      'scan|groupsof|py_chr|py_filter|py_hex|py_input|py_init|py_object|py_oct|' +
+      'py_open|py_print|py_range|py_xrange|py_str|py_map|py_zip|';
+
     var keywordMapper = this.createKeywordMapper(
       {
         'invalid.deprecated': 'debugger',
