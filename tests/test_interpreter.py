@@ -67,11 +67,15 @@ size(Node(Empty(), Leaf(10))) == 1
 
 PARSE_ERROR_CODE = '1 +'
 
-PARSE_ERROR_OUTPUT = b'"coconutErrorLines": [\n    1\n  ]'
+PARSE_ERROR_OUTPUT = b'"coconutError": {\n    "call": "1 +", \n    "error": "CoconutParseError: parsing failed", \n    "line": 1\n  }'
+
+SYNTAX_ERROR_CODE = '1 + "A'
+
+SYNTAX_ERROR_OUTPUT = b'"coconutError": {\n    "call": "1 + \\"A", \n    "error": "CoconutSyntaxError: linebreak in non-multiline string", \n    "line": 1\n  }'
 
 TRACEBACK_CODE = '1 + "A"'
 
-TRACEBACK_OUTPUT = b'"pythonErrorLines": [\n    1\n  ]'
+TRACEBACK_OUTPUT = b'"pythonError": {\n    "call": "1 + \\"A\\"", \n    "error": "TypeError: unsupported operand type(s) for +: \'int\' and \'str\'", \n    "line": 1\n  }'
 
 class MockDevice():
     """
@@ -125,10 +129,17 @@ class InterpreterTestCase(unittest.TestCase):
 
     def test_parse_error(self):
         response = self.get_code_response(PARSE_ERROR_CODE)
+        print(response.data)
         assert PARSE_ERROR_OUTPUT in response.data
+
+    def test_syntax_error(self):
+        response = self.get_code_response(SYNTAX_ERROR_CODE)
+        print(response.data)
+        assert SYNTAX_ERROR_OUTPUT in response.data
 
     def test_traceback(self):
         response = self.get_code_response(TRACEBACK_CODE)
+        print(response.data)
         assert TRACEBACK_OUTPUT in response.data
 
 if __name__ == "__main__":

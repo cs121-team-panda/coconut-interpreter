@@ -23,12 +23,12 @@ def coconut():
 
     # Initialize parameters
     output_text = ''
+    python_code = ''
+    proc = None
     compile_error = False
     running_error = False
-    proc = None
-    python_code = ''
-    coconut_error_lines = []
-    python_error_lines = []
+    coconut_error = None
+    python_error = None
 
     # Compile the user's code with Coconut compiler
     try:
@@ -38,9 +38,7 @@ def coconut():
         output_text = str(error.stderr, 'utf-8')
         print("Error in compiling Coconut's code")
 
-    if compile_error:
-        coconut_error_lines = extract_trace_coco(output_text)
-    else:
+    if not compile_error:
         print("Finish compilation [{:}] to [{:}.py]".format(filename, filename))
 
         # Obtain coconut code.
@@ -61,17 +59,18 @@ def coconut():
             output_text = str(error.stderr, 'utf-8')
             print("Error in running Coconut's code")
 
-        if running_error:
-            python_error_lines = extract_trace_py(output_text)
-            # Offset line number by length of coconut header
-            python_error_lines = [line_num-header_len for line_num in python_error_lines]
-        else:
-            # Store output from the run
-            output_text = proc.stdout.decode('utf-8')
-            print("Finish running [{:}]".format(filename + ".py"))
+        print("Finish running [{:}]".format(filename + ".py"))
 
         # Remove temporary file that we compiled (*.py)
         subprocess.run(["rm", filename + '.py'])
+
+        if not running_error:
+            # Store output from the run
+            output_text = proc.stdout.decode('utf-8')
+        else:
+            python_error = extract_trace_py(output_text, header_len)
+    else:
+        coconut_error = extract_trace_coco(output_text)
 
     # Remove temporary file that stored the code
     subprocess.run(["rm", filename])
@@ -83,8 +82,8 @@ def coconut():
     # Return JSON output
     return jsonify({'output': output_text,
                     'python': python_code,
-                    'pythonErrorLines': python_error_lines,
-                    'coconutErrorLines': coconut_error_lines})
+                    'pythonError': python_error,
+                    'coconutError': coconut_error})
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))

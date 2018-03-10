@@ -1,13 +1,11 @@
 TRACEBACK_ID = 'Traceback (most recent call last):'
-PARSE_ERROR_ID = 'CoconutParseError: parsing failed'
 
-def extract_trace_py(output):
+def extract_trace_py(output, offset=0):
     """Extracts info from python trace output
     Returns line numbers of errors.
     """
     capture = False
-    tracebacks = []
-    curr = {}
+    traceback = {}
 
     lines = output.split('\n')
     for index, line in enumerate(lines):
@@ -20,45 +18,38 @@ def extract_trace_py(output):
                 fname, line_num, context = [s.strip() for s in line.split(',')]
                 # Next line is the called function
                 call = lines[index+1].strip()
-                # Update current trace
-                curr['file'] = fname.lstrip('File ')[1:-1]
-                curr['line'] = int(line_num.lstrip('line '))
-                curr['context'] = context.lstrip('in ')
-                curr['call'] = call
+                # Update traceback
+                # traceback['file'] = fname.lstrip('File ')[1:-1]
+                traceback['line'] = int(line_num.lstrip('line ')) - offset
+                # traceback['context'] = context.lstrip('in ')
+                traceback['call'] = call
         elif capture:
             # Line with error
-            curr['error'] = line
-            tracebacks.append(curr)
-            curr = {}
+            traceback['error'] = line
             break
 
-    # Return list of line numbers
-    return [traceback['line'] for traceback in tracebacks]
+    return traceback
 
 def extract_trace_coco(output):
     """Extracts info from coconut parse error output
     Returns line numbers of errors.
     """
     capture = False
-    tracebacks = []
-    curr = {}
+    traceback = {}
 
     lines = output.split('\n')
     for line in lines:
-        if PARSE_ERROR_ID in line:
+        if line.startswith('Coconut') and 'Error:' in line:
             capture = True
-            line_num = line.lstrip(PARSE_ERROR_ID).strip()[1:-1]
-            curr['line'] = int(line_num.lstrip('line '))
+            error, line_num = line.split(' (line')
+            traceback['error'] = error.strip()
+            traceback['line'] = int(line_num[:-1])
         elif capture and line.startswith('  '):
             # Line with called function
             line = line.strip()
-            curr['call'] = line
+            if 'call' not in traceback or line != '^':
+                traceback['call'] = line
         elif capture:
-            # Line with error
-            curr['error'] = line
-            tracebacks.append(curr)
-            curr = {}
             break
 
-    # Return list of line numbers
-    return [traceback['line'] for traceback in tracebacks]
+    return traceback
