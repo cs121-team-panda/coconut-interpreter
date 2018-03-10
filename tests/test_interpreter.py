@@ -129,17 +129,14 @@ class InterpreterTestCase(unittest.TestCase):
 
     def test_parse_error(self):
         response = self.get_code_response(PARSE_ERROR_CODE)
-        print(response.data)
         assert PARSE_ERROR_OUTPUT in response.data
 
     def test_syntax_error(self):
         response = self.get_code_response(SYNTAX_ERROR_CODE)
-        print(response.data)
         assert SYNTAX_ERROR_OUTPUT in response.data
 
     def test_traceback(self):
         response = self.get_code_response(TRACEBACK_CODE)
-        print(response.data)
         assert TRACEBACK_OUTPUT in response.data
 
 if __name__ == "__main__":
