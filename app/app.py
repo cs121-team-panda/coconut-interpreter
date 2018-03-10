@@ -69,8 +69,10 @@ def coconut():
             output_text = proc.stdout.decode('utf-8')
         else:
             python_error = extract_trace_py(output_text, header_len)
+            output_text = python_error['error']
     else:
         coconut_error = extract_trace_coco(output_text)
+        output_text = coconut_error['error']
 
     # Remove temporary file that stored the code
     subprocess.run(["rm", filename])
