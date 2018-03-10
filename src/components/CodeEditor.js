@@ -2,12 +2,12 @@
 
 import React, { Component } from 'react';
 import AceEditor from 'react-ace';
-import CoconutMode from '../utils/coconut.js';
 import type { EditorProps } from 'react-ace';
 
 import 'brace/theme/dracula';
 
 import styles from './CodeEditor.module.css';
+import CoconutMode from '../utils/coconut';
 import { aceStyleProps } from '../constants';
 
 type Props = {
