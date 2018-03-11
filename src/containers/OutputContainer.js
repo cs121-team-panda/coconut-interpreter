@@ -6,7 +6,7 @@ import { createSelector } from 'reselect';
 
 import * as mySelectors from '../store/environment/selectors';
 
-import CodeOutput from '../components/CodeOutput';
+import Output from '../components/Output';
 
 type Props = {
   output: string,
@@ -15,7 +15,7 @@ type Props = {
 };
 
 const OutputContainer = ({ output, outputPython, loading }: Props) => (
-  <CodeOutput value={output} python={outputPython} loading={loading} />
+  <Output value={output} python={outputPython} loading={loading} />
 );
 
 const mapStateToProps = createSelector(

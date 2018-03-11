@@ -8,7 +8,7 @@ import 'brace/mode/text';
 import 'brace/mode/python';
 import 'brace/theme/chrome';
 
-import styles from './CodeOutput.module.css';
+import styles from './Output.module.css';
 import aceStyleProps from '../constants';
 
 type Props = {
@@ -23,7 +23,7 @@ type State = {
   showPython: boolean,
 };
 
-export default class CodeOutput extends Component<Props, State> {
+export default class Output extends Component<Props, State> {
   state = {
     loadingDots: '',
     interval: null,

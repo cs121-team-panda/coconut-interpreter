@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import configureStore from 'redux-mock-store';
 
 import OutputContainer from '../OutputContainer';
-import CodeOutput from '../../components/CodeOutput';
+import Output from '../../components/Output';
 import environment from '../../store/environment';
 
 const mockStore = configureStore();
@@ -20,5 +20,5 @@ it('renders without crashing', () => {
 
 it('renders one <Editor /> component', () => {
   const wrapper = shallow(<OutputContainer store={store} />).dive();
-  expect(wrapper.find(CodeOutput)).toHaveLength(1);
+  expect(wrapper.find(Output)).toHaveLength(1);
 });
