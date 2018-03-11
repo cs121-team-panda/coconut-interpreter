@@ -4,6 +4,7 @@ import uuid
 from flask import request, jsonify
 from flask_cors import CORS
 from app import create_app
+from .trace import extract_trace_py, extract_trace_coco
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 CORS(app)
@@ -22,10 +23,12 @@ def coconut():
 
     # Initialize parameters
     output_text = ''
+    python_code = ''
+    proc = None
     compile_error = False
     running_error = False
-    proc = None
-    python_code = ''
+    coconut_error = None
+    python_error = None
 
     # Compile the user's code with Coconut compiler
     try:
@@ -44,7 +47,8 @@ def coconut():
             compiled_code = compiled_file.read()
 
         SEPARATOR = "# Compiled Coconut: -----------------------------------------------------------\n\n"
-        python_code = compiled_code.split(SEPARATOR)[-1]
+        header, python_code = compiled_code.split(SEPARATOR)
+        header_len = header.count('\n') + SEPARATOR.count('\n')
 
         # Run the compiled code.
         try:
@@ -55,13 +59,20 @@ def coconut():
             output_text = str(error.stderr, 'utf-8')
             print("Error in running Coconut's code")
 
-        if not running_error:
-            # Store output from the run
-            output_text = proc.stdout.decode('utf-8')
-            print("Finish running [{:}]".format(filename + ".py"))
+        print("Finish running [{:}]".format(filename + ".py"))
 
         # Remove temporary file that we compiled (*.py)
         subprocess.run(["rm", filename + '.py'])
+
+        if not running_error:
+            # Store output from the run
+            output_text = proc.stdout.decode('utf-8')
+        else:
+            python_error = extract_trace_py(output_text, header_len)
+            output_text = python_error['error']
+    else:
+        coconut_error = extract_trace_coco(output_text)
+        output_text = coconut_error['error']
 
     # Remove temporary file that stored the code
     subprocess.run(["rm", filename])
@@ -73,8 +84,8 @@ def coconut():
     # Return JSON output
     return jsonify({'output': output_text,
                     'python': python_code,
-                    'runningError': running_error,
-                    'compileError': compile_error})
+                    'pythonError': python_error,
+                    'coconutError': coconut_error})
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))

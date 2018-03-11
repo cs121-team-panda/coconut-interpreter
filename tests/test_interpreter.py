@@ -65,6 +65,18 @@ def size(Node(l, r)) = size(l) + size(r)
 size(Node(Empty(), Leaf(10))) == 1
 '''
 
+PARSE_ERROR_CODE = '1 +'
+
+PARSE_ERROR_OUTPUT = b'"coconutError": {\n    "call": "1 +", \n    "error": "CoconutParseError: parsing failed", \n    "line": 1\n  }'
+
+SYNTAX_ERROR_CODE = '1 + "A'
+
+SYNTAX_ERROR_OUTPUT = b'"coconutError": {\n    "call": "1 + \\"A", \n    "error": "CoconutSyntaxError: linebreak in non-multiline string", \n    "line": 1\n  }'
+
+TRACEBACK_CODE = '1 + "A"'
+
+TRACEBACK_OUTPUT = b'"pythonError": {\n    "call": "1 + \\"A\\"", \n    "error": "TypeError: unsupported operand type(s) for +: \'int\' and \'str\'", \n    "line": 1\n  }'
+
 class MockDevice():
     """
     A mock device to temporarily suppress output to stdout, so that
@@ -114,6 +126,18 @@ class InterpreterTestCase(unittest.TestCase):
         '''DATA_TYPES_CODE does not work with Coconut's parse function.'''
         response = self.get_code_response(DATA_TYPES_CODE)
         self.assertEqual(response.status_code, 200)
+
+    def test_parse_error(self):
+        response = self.get_code_response(PARSE_ERROR_CODE)
+        assert PARSE_ERROR_OUTPUT in response.data
+
+    def test_syntax_error(self):
+        response = self.get_code_response(SYNTAX_ERROR_CODE)
+        assert SYNTAX_ERROR_OUTPUT in response.data
+
+    def test_traceback(self):
+        response = self.get_code_response(TRACEBACK_CODE)
+        assert TRACEBACK_OUTPUT in response.data
 
 if __name__ == "__main__":
     unittest.main()
