@@ -19,8 +19,13 @@
   },
   "scripts": {
     "flow": "flow",
-    "format": "prettier --write 'src/**/*.{js,css}'",
-    "lint": "eslint 'src/**/*.js'",
+    "lint": "yarn lint:js && yarn lint:css",
+    "lint:js": "eslint 'src/**/*.js'",
+    "lint:css": "stylelint 'src/**/*.css'",
+    "format": "yarn format:js && yarn format:css",
+    "format:js": "yarn lint:js --fix",
+    "format:css": "yarn lint:css --fix",
+    "check-all": "yarn lint && yarn flow",
     "precommit": "lint-staged",
     "predeploy": "yarn build",
     "deploy": "gh-pages -d build",
@@ -30,10 +35,9 @@
     "eject": "react-scripts eject"
   },
   "lint-staged": {
-    "src/**/*.{js,css}": [
-      "prettier --write",
-      "git add"
-    ]
+    "*.js": ["eslint --no-ignore --fix", "git add"],
+    "*.json": ["prettier --write", "git add"],
+    "*.css": ["stylelint --fix", "git add"]
   },
   "browserslist": {
     "development": [
@@ -41,12 +45,7 @@
       "last 2 firefox versions",
       "last 2 edge versions"
     ],
-    "production": [
-      ">1%",
-      "last 4 versions",
-      "Firefox ESR",
-      "not ie < 11"
-    ]
+    "production": [">1%", "last 4 versions", "Firefox ESR", "not ie < 11"]
   },
   "devDependencies": {
     "enzyme": "^3.3.0",
