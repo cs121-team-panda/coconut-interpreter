@@ -9,18 +9,38 @@ import * as mySelectors from '../store/environment/selectors';
 import Output from '../components/Output';
 
 type Props = {
+  loading: boolean,
   output: string,
   outputPython: string,
-  loading: boolean,
+  pythonErrorCall: ?string,
+  pythonErrorLine: ?number,
 };
 
-const OutputContainer = ({ output, outputPython, loading }: Props) => (
-  <Output value={output} python={outputPython} loading={loading} />
+const OutputContainer = (props: Props) => (
+  <Output
+    loading={props.loading}
+    value={props.output}
+    python={props.outputPython}
+    errorCall={props.pythonErrorCall}
+    errorLine={props.pythonErrorLine}
+  />
 );
 
 const mapStateToProps = createSelector(
-  [mySelectors.output, mySelectors.outputPython, mySelectors.loading],
-  (output, outputPython, loading) => ({ output, outputPython, loading })
+  [
+    mySelectors.loading,
+    mySelectors.output,
+    mySelectors.outputPython,
+    mySelectors.pythonErrorCall,
+    mySelectors.pythonErrorLine,
+  ],
+  (loading, output, outputPython, pythonErrorCall, pythonErrorLine) => ({
+    loading,
+    output,
+    outputPython,
+    pythonErrorCall,
+    pythonErrorLine,
+  })
 );
 
 export default connect(mapStateToProps)(OutputContainer);

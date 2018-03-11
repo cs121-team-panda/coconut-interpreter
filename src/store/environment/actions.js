@@ -2,9 +2,16 @@
 
 import * as actionTypes from './actionTypes';
 
+type Error = {
+  call: string,
+  line: number,
+};
+
 export type Payload = {
   output: string,
   python: string,
+  coconutError: ?Error,
+  pythonError: ?Error,
 };
 
 export function runRequest(code: string) {

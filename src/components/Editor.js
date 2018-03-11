@@ -8,6 +8,7 @@ import 'brace/theme/dracula';
 
 import Header from './Header';
 import styles from './Editor.module.css';
+import errorMarker from '../utils/highlighter';
 import CoconutMode from '../utils/coconut';
 import {
   aceStyleProps,
@@ -18,6 +19,8 @@ import {
 type Props = {
   runRequest: (code: string) => void,
   loading: boolean,
+  errorLine: ?number,
+  errorCall: ?string,
 };
 
 type State = {
@@ -34,6 +37,12 @@ export default class Editor extends Component<Props, State> {
     // Set editor mode for Coconut-specific syntax highlighting.
     const coconutMode = new CoconutMode();
     editor.getSession().setMode(coconutMode);
+  };
+
+  getMarkers = () => {
+    const { errorLine, errorCall } = this.props;
+    const { code } = this.state;
+    return errorMarker(code, errorLine, errorCall, styles.errorMarker);
   };
 
   handleChange = (newCode: string) => {
@@ -68,6 +77,7 @@ export default class Editor extends Component<Props, State> {
           onChange={this.handleChange}
           onLoad={this.onEditorLoad}
           {...aceStyleProps}
+          markers={this.getMarkers()}
         />
       </div>
     );

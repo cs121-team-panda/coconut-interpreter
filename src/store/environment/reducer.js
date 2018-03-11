@@ -8,6 +8,8 @@ import type { Action } from './actions';
 export const initialState = fromJS({
   output: '',
   outputPython: '',
+  coconutError: null,
+  pythonError: null,
   loading: false,
 });
 
@@ -21,6 +23,8 @@ export default function reducer(state: Map = initialState, action: Action) {
       return state.merge({
         output: fromJS(action.payload.output),
         outputPython: fromJS(action.payload.python),
+        coconutError: fromJS(action.payload.coconutError),
+        pythonError: fromJS(action.payload.pythonError),
         loading: fromJS(false),
       });
     case actionTypes.RUN_FAILURE:

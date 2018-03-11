@@ -51,6 +51,11 @@ it('renders disabled run button while loading', () => {
   expect(wrapper.find('button').instance().disabled).toEqual(true);
 });
 
+it('renders zero error markers', () => {
+  const wrapper = mount(<Editor runRequest={runRequest} loading={false} />);
+  expect(wrapper.find(`.${styles.errorMarker}`)).toHaveLength(0);
+});
+
 it('simulates click events', () => {
   const wrapper = mount(<Editor runRequest={runRequest} loading={false} />);
   wrapper.setState({ code: '"Hello, world" |> print' });

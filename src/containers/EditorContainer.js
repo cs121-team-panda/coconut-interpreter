@@ -10,17 +10,33 @@ import * as myActions from '../store/environment/actions';
 import Editor from '../components/Editor';
 
 type Props = {
-  loading: boolean,
   runRequest: (code: string) => void,
+  loading: boolean,
+  coconutErrorCall: ?string,
+  coconutErrorLine: ?number,
 };
 
-const EditorContainer = ({ loading, runRequest }: Props) => (
-  <Editor runRequest={runRequest} loading={loading} />
+const EditorContainer = (props: Props) => (
+  <Editor
+    runRequest={props.runRequest}
+    loading={props.loading}
+    errorCall={props.coconutErrorCall}
+    errorLine={props.coconutErrorLine}
+  />
 );
 
-const mapStateToProps = createSelector([mySelectors.loading], loading => ({
-  loading,
-}));
+const mapStateToProps = createSelector(
+  [
+    mySelectors.loading,
+    mySelectors.coconutErrorCall,
+    mySelectors.coconutErrorLine,
+  ],
+  (loading, coconutErrorCall, coconutErrorLine) => ({
+    loading,
+    coconutErrorCall,
+    coconutErrorLine,
+  })
+);
 
 const mapDispatchToProps = dispatch => ({
   runRequest: code => {

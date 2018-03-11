@@ -35,6 +35,11 @@ it('renders one <AceEditor /> component', () => {
   expect(wrapper.find(AceEditor)).toHaveLength(1);
 });
 
+it('renders zero error markers', () => {
+  const wrapper = mount(<Output value="" loading={false} />);
+  expect(wrapper.find(`.${styles.errorMarker}`)).toHaveLength(0);
+});
+
 it('simulates change events', () => {
   const wrapper = mount(<Output value="" loading={false} />);
   wrapper.find('input').simulate('change', { target: { checked: true } });

@@ -10,6 +10,7 @@ import 'brace/theme/chrome';
 
 import Header from './Header';
 import styles from './Output.module.css';
+import errorMarker from '../utils/highlighter';
 import {
   aceStyleProps,
   outputHeaderColor,
@@ -17,9 +18,11 @@ import {
 } from '../constants';
 
 type Props = {
+  loading: boolean,
   value: string,
   python: string,
-  loading: boolean,
+  errorLine: ?number,
+  errorCall: ?string,
 };
 
 type State = {
@@ -46,6 +49,12 @@ export default class Output extends Component<Props, State> {
     editor.renderer.setPadding(24);
     // eslint-disable-next-line no-param-reassign
     editor.renderer.$cursorLayer.element.style.display = 'none';
+  };
+
+  getMarkers = () => {
+    if (this.props.loading) return [];
+    const { python, errorLine, errorCall } = this.props;
+    return errorMarker(python, errorLine, errorCall, styles.errorMarker);
   };
 
   getValue = () => {
@@ -84,6 +93,7 @@ export default class Output extends Component<Props, State> {
           onLoad={this.onEditorLoad}
           readOnly
           {...aceStyleProps}
+          markers={this.state.showPython ? this.getMarkers() : []}
         />
       </div>
     );
