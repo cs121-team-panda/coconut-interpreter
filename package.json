@@ -20,6 +20,7 @@
   "scripts": {
     "flow": "flow",
     "format": "prettier --write 'src/**/*.{js,css}'",
+    "lint": "eslint 'src/**/*.js'",
     "precommit": "lint-staged",
     "predeploy": "yarn build",
     "deploy": "gh-pages -d build",
@@ -50,6 +51,11 @@
   "devDependencies": {
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-css-modules": "^2.7.5",
+    "eslint-plugin-flowtype": "^2.46.1",
+    "eslint-plugin-prettier": "^2.6.0",
     "flow-bin": "^0.66.0",
     "gh-pages": "^1.1.0",
     "husky": "^0.14.3",
