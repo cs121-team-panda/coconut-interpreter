@@ -24,7 +24,7 @@ def factorial(n):
 FACTORIAL_OUTPUT = b'1\\n6'
 
 COMPILE_ERR_CODE = '1+'
-COMPILE_ERR_OUTPUT = b'CoconutParseError: parsing failed (line 1)'
+COMPILE_ERR_OUTPUT = b'CoconutParseError: parsing failed'
 
 RUNNING_ERR_CODE = '1+"a"'
 RUNNING_ERR_OUTPUT = b'TypeError: unsupported operand type(s) for +'
