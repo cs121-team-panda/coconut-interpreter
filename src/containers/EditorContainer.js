@@ -7,7 +7,7 @@ import { createSelector } from 'reselect';
 import * as mySelectors from '../store/environment/selectors';
 import * as myActions from '../store/environment/actions';
 
-import CodeEditor from '../components/CodeEditor';
+import Editor from '../components/Editor';
 
 type Props = {
   loading: boolean,
@@ -15,7 +15,7 @@ type Props = {
 };
 
 const EditorContainer = ({ loading, runRequest }: Props) => (
-  <CodeEditor runRequest={runRequest} loading={loading} />
+  <Editor runRequest={runRequest} loading={loading} />
 );
 
 const mapStateToProps = createSelector([mySelectors.loading], loading => ({

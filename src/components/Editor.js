@@ -6,7 +6,7 @@ import type { EditorProps } from 'react-ace';
 
 import 'brace/theme/dracula';
 
-import styles from './CodeEditor.module.css';
+import styles from './Editor.module.css';
 import CoconutMode from '../utils/coconut';
 import aceStyleProps from '../constants';
 
@@ -19,7 +19,7 @@ type State = {
   code: string,
 };
 
-export default class CodeEditor extends Component<Props, State> {
+export default class Editor extends Component<Props, State> {
   state = {
     code: '',
   };

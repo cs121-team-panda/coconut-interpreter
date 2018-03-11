@@ -18,7 +18,7 @@ it('renders without crashing', () => {
   shallow(<OutputContainer store={store} />);
 });
 
-it('renders one <CodeEditor /> component', () => {
+it('renders one <Editor /> component', () => {
   const wrapper = shallow(<OutputContainer store={store} />).dive();
   expect(wrapper.find(CodeOutput)).toHaveLength(1);
 });
