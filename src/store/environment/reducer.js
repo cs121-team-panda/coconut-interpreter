@@ -1,5 +1,9 @@
+// @flow
+
 import { fromJS } from 'immutable';
+import type { Map } from 'immutable';
 import * as actionTypes from './actionTypes';
+import type { Action } from './actions';
 
 export const initialState = fromJS({
   output: '',
@@ -7,7 +11,7 @@ export const initialState = fromJS({
   loading: false,
 });
 
-export default function reducer(state = initialState, action) {
+export default function reducer(state: Map = initialState, action: Action) {
   switch (action.type) {
     case actionTypes.RUN_REQUEST:
       return state.merge({
