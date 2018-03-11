@@ -6,9 +6,14 @@ import type { EditorProps } from 'react-ace';
 
 import 'brace/theme/dracula';
 
+import Header from './Header';
 import styles from './Editor.module.css';
 import CoconutMode from '../utils/coconut';
-import aceStyleProps from '../constants';
+import {
+  aceStyleProps,
+  editorHeaderColor,
+  editorHeaderTextColor,
+} from '../constants';
 
 type Props = {
   runRequest: (code: string) => void,
@@ -42,8 +47,11 @@ export default class Editor extends Component<Props, State> {
   render() {
     return (
       <div className={styles.editor}>
-        <div className={styles.header}>
-          Coconut Editor
+        <Header
+          name="Coconut Editor"
+          color={editorHeaderColor}
+          textColor={editorHeaderTextColor}
+        >
           <button
             className={styles.headerButton}
             onClick={this.handleClick}
@@ -51,7 +59,7 @@ export default class Editor extends Component<Props, State> {
           >
             Run
           </button>
-        </div>
+        </Header>
         <AceEditor
           name="code"
           mode="text"

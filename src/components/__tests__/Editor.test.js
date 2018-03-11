@@ -1,9 +1,10 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-
 import AceEditor from 'react-ace';
 
 import Editor from '../Editor';
+import styles from '../Editor.module.css';
+import Header from '../Header';
 
 let runRequest;
 
@@ -15,9 +16,19 @@ it('renders without crashing', () => {
   shallow(<Editor runRequest={runRequest} loading={false} />);
 });
 
-it('renders two <div /> components: editor, header', () => {
+it('renders one <div.editor /> element', () => {
   const wrapper = shallow(<Editor runRequest={runRequest} loading={false} />);
-  expect(wrapper.find('div')).toHaveLength(2);
+  expect(wrapper.find(`div.${styles.editor}`)).toHaveLength(1);
+});
+
+it('renders one <button.headerButton /> element', () => {
+  const wrapper = shallow(<Editor runRequest={runRequest} loading={false} />);
+  expect(wrapper.find(`button.${styles.headerButton}`)).toHaveLength(1);
+});
+
+it('renders one <Header /> component', () => {
+  const wrapper = shallow(<Editor runRequest={runRequest} loading={false} />);
+  expect(wrapper.find(Header)).toHaveLength(1);
 });
 
 it('renders one <AceEditor /> component', () => {

@@ -2,20 +2,7 @@
   grid-area: editor;
 }
 
-.header {
-  height: 42px;
-  background-color: #44475a;
-  padding: 0 24px;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 3;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
 .headerButton {
-  height: 42px;
   float: right;
   border: none;
   color: #fff;

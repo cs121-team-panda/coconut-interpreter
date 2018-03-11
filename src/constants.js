@@ -1,4 +1,4 @@
-const aceStyleProps = {
+export const aceStyleProps = {
   showGutter: false,
   highlightActiveLine: false,
   showPrintMargin: false,
@@ -10,4 +10,8 @@ const aceStyleProps = {
   editorProps: { $blockScrolling: Infinity },
 };
 
-export default aceStyleProps;
+export const editorHeaderColor = '#44475a';
+export const editorHeaderTextColor = '#fff';
+
+export const outputHeaderColor = '#ebebeb';
+export const outputHeaderTextColor = '#000';

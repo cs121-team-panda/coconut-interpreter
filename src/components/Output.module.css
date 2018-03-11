@@ -2,28 +2,8 @@
   grid-area: output;
 }
 
-.header {
-  height: 42px;
-  background-color: #ebebeb;
-  padding: 0 24px;
-  color: #000;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 3;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.headerCheck {
-  height: 42px;
+.headerSwitch {
   float: right;
-  border: none;
-  color: #000;
-  font-size: 14px;
-  font-weight: 700;
   line-height: 2.8;
-  text-transform: uppercase;
-  background-color: inherit;
-  letter-spacing: 0.08em;
   cursor: pointer;
 }

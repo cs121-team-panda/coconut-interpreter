@@ -1,0 +1,9 @@
+.header {
+  height: 42px;
+  padding: 0 24px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 3;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}

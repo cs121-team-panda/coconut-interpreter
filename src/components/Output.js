@@ -8,8 +8,13 @@ import 'brace/mode/text';
 import 'brace/mode/python';
 import 'brace/theme/chrome';
 
+import Header from './Header';
 import styles from './Output.module.css';
-import aceStyleProps from '../constants';
+import {
+  aceStyleProps,
+  outputHeaderColor,
+  outputHeaderTextColor,
+} from '../constants';
 
 type Props = {
   value: string,
@@ -51,9 +56,12 @@ export default class Output extends Component<Props, State> {
     const value = this.state.showPython ? this.props.python : this.props.value;
     return (
       <div className={styles.output}>
-        <div className={styles.header}>
-          Output
-          <label className={styles.headerCheck} htmlFor="pythonSwitch">
+        <Header
+          name="Output"
+          color={outputHeaderColor}
+          textColor={outputHeaderTextColor}
+        >
+          <label className={styles.headerSwitch} htmlFor="pythonSwitch">
             <input
               onChange={event =>
                 this.setState({ showPython: event.target.checked })
@@ -63,7 +71,7 @@ export default class Output extends Component<Props, State> {
             />
             Python
           </label>
-        </div>
+        </Header>
         <AceEditor
           name="output"
           mode={this.state.showPython ? 'python' : 'text'}
