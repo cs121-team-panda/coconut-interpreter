@@ -4,7 +4,6 @@ import { shallow, mount } from 'enzyme';
 import AceEditor from 'react-ace';
 
 import CodeEditor from '../CodeEditor';
-import styles from '../CodeEditor.module.css';
 
 let runRequest;
 
@@ -16,18 +15,11 @@ it('renders without crashing', () => {
   shallow(<CodeEditor runRequest={runRequest} loading={false} />);
 });
 
-it('renders one <div.editor /> component', () => {
+it('renders two <div /> components: editor, header', () => {
   const wrapper = shallow(
     <CodeEditor runRequest={runRequest} loading={false} />
   );
-  expect(wrapper.find(`div.${styles.editor}`)).toHaveLength(1);
-});
-
-it('renders one <div.header /> component', () => {
-  const wrapper = shallow(
-    <CodeEditor runRequest={runRequest} loading={false} />
-  );
-  expect(wrapper.find(`div.${styles.header}`)).toHaveLength(1);
+  expect(wrapper.find('div')).toHaveLength(2);
 });
 
 it('renders one <AceEditor /> component', () => {
@@ -50,7 +42,7 @@ it('renders active run button while not loading', () => {
 });
 
 it('renders disabled run button while loading', () => {
-  const wrapper = mount(<CodeEditor runRequest={runRequest} loading={true} />);
+  const wrapper = mount(<CodeEditor runRequest={runRequest} loading />);
   expect(wrapper.find('button').instance().disabled).toEqual(true);
 });
 

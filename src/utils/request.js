@@ -37,10 +37,9 @@ const checkStatus = response => {
  *
  * @return {object}           The response data
  */
-const request = (url, options) => {
-  return fetch(url, options)
+const request = (url, options) =>
+  fetch(url, options)
     .then(checkStatus)
     .then(parseJSON);
-};
 
 export default request;

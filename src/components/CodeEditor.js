@@ -8,7 +8,7 @@ import 'brace/theme/dracula';
 
 import styles from './CodeEditor.module.css';
 import CoconutMode from '../utils/coconut';
-import { aceStyleProps } from '../constants';
+import aceStyleProps from '../constants';
 
 type Props = {
   runRequest: (code: string) => void,
@@ -24,6 +24,13 @@ export default class CodeEditor extends Component<Props, State> {
     code: '',
   };
 
+  onEditorLoad = (editor: EditorProps) => {
+    editor.renderer.setPadding(24);
+    // Set editor mode for Coconut-specific syntax highlighting.
+    const coconutMode = new CoconutMode();
+    editor.getSession().setMode(coconutMode);
+  };
+
   handleChange = (newCode: string) => {
     this.setState({ code: newCode });
   };
@@ -31,13 +38,6 @@ export default class CodeEditor extends Component<Props, State> {
   handleClick = () => {
     if (this.state.code.trim()) this.props.runRequest(this.state.code);
   };
-
-  onEditorLoad(editor: EditorProps) {
-    editor.renderer.setPadding(24);
-    // Set editor mode for Coconut-specific syntax highlighting.
-    const coconutMode = new CoconutMode();
-    editor.getSession().setMode(coconutMode);
-  }
 
   render() {
     return (
@@ -53,7 +53,6 @@ export default class CodeEditor extends Component<Props, State> {
           </button>
         </div>
         <AceEditor
-          ref="code"
           name="code"
           mode="text"
           theme="dracula"

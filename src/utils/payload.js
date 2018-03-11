@@ -5,8 +5,10 @@
  *
  * @return {FormData}       The FormData
  */
-export const toFormData = payload =>
+const toFormData = payload =>
   Object.keys(payload).reduce((formData, key) => {
     formData.append(key, payload[key]);
     return formData;
   }, new FormData());
+
+export default toFormData;

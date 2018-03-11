@@ -1,4 +1,4 @@
-export const aceStyleProps = {
+const aceStyleProps = {
   showGutter: false,
   highlightActiveLine: false,
   showPrintMargin: false,
@@ -9,3 +9,5 @@ export const aceStyleProps = {
   height: 'calc(100% - 42px)',
   editorProps: { $blockScrolling: Infinity },
 };
+
+export default aceStyleProps;

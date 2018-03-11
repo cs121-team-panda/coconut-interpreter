@@ -9,7 +9,7 @@ import 'brace/mode/python';
 import 'brace/theme/chrome';
 
 import styles from './CodeOutput.module.css';
-import { aceStyleProps } from '../constants';
+import aceStyleProps from '../constants';
 
 type Props = {
   value: string,
@@ -30,51 +30,47 @@ export default class CodeOutput extends Component<Props, State> {
     showPython: false,
   };
 
-  updateLoadingDots() {
-    this.setState(prevState => ({ loadingDots: prevState.loadingDots + '.' }));
-  }
-
-  onEditorLoad(editor: EditorProps) {
-    editor.renderer.setPadding(24);
-    editor.renderer.$cursorLayer.element.style.display = 'none';
-  }
-
   componentWillReceiveProps(nextProps: Props) {
     if (nextProps.loading) {
       const interval = setInterval(() => this.updateLoadingDots(), 1000);
       this.setState({ loadingDots: '', interval });
-    } else {
-      if (this.state.interval) clearInterval(this.state.interval);
-    }
+    } else if (this.state.interval) clearInterval(this.state.interval);
   }
 
+  onEditorLoad = (editor: EditorProps) => {
+    editor.renderer.setPadding(24);
+    // eslint-disable-next-line no-param-reassign
+    editor.renderer.$cursorLayer.element.style.display = 'none';
+  };
+
+  updateLoadingDots = () => {
+    this.setState(prevState => ({ loadingDots: `${prevState.loadingDots}.` }));
+  };
+
   render() {
+    const value = this.state.showPython ? this.props.python : this.props.value;
     return (
       <div className={styles.output}>
         <div className={styles.header}>
           Output
-          <label className={styles.headerCheck}>
+          <label className={styles.headerCheck} htmlFor="pythonSwitch">
             <input
               onChange={event =>
                 this.setState({ showPython: event.target.checked })
               }
               type="checkbox"
+              id="pythonSwitch"
             />
             Python
           </label>
         </div>
         <AceEditor
-          ref="output"
           name="output"
           mode={this.state.showPython ? 'python' : 'text'}
           theme="chrome"
-          value={
-            this.props.loading
-              ? this.state.loadingDots
-              : this.state.showPython ? this.props.python : this.props.value
-          }
+          value={this.props.loading ? this.state.loadingDots : value}
           onLoad={this.onEditorLoad}
-          readOnly={true}
+          readOnly
           {...aceStyleProps}
         />
       </div>
