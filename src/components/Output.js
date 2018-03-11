@@ -48,12 +48,16 @@ export default class Output extends Component<Props, State> {
     editor.renderer.$cursorLayer.element.style.display = 'none';
   };
 
+  getValue = () => {
+    if (this.props.loading) return this.state.loadingDots;
+    return this.state.showPython ? this.props.python : this.props.value;
+  };
+
   updateLoadingDots = () => {
     this.setState(prevState => ({ loadingDots: `${prevState.loadingDots}.` }));
   };
 
   render() {
-    const value = this.state.showPython ? this.props.python : this.props.value;
     return (
       <div className={styles.output}>
         <Header
@@ -76,7 +80,7 @@ export default class Output extends Component<Props, State> {
           name="output"
           mode={this.state.showPython ? 'python' : 'text'}
           theme="chrome"
-          value={this.props.loading ? this.state.loadingDots : value}
+          value={this.getValue()}
           onLoad={this.onEditorLoad}
           readOnly
           {...aceStyleProps}
