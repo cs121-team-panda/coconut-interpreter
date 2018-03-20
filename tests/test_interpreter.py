@@ -139,5 +139,8 @@ class InterpreterTestCase(unittest.TestCase):
         response = self.get_code_response(TRACEBACK_CODE)
         assert TRACEBACK_OUTPUT in response.data
 
+    def test_fail(self):
+        assert False
+    
 if __name__ == "__main__":
     unittest.main()
