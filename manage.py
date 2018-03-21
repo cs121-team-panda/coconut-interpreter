@@ -27,10 +27,13 @@ def test(coverage=False):
         os.execvp(sys.executable, [sys.executable] + sys.argv)
     import unittest
     import xmlrunner
+    import sys
     tests = unittest.TestLoader().discover('tests')
     # run tests with unittest-xml-reporting and output to $CIRCLE_TEST_REPORTS on CircleCI or
     # test-reports locally
-    xmlrunner.XMLTestRunner(output=os.environ.get('CIRCLE_TEST_REPORTS', 'test-reports')).run(tests)
+    test_runner = xmlrunner.XMLTestRunner(output=os.environ.get('CIRCLE_TEST_REPORTS', 'test-reports'))
+    results = test_runner.run(tests)
+    
     if COV:
         COV.stop()
         COV.save()
@@ -41,6 +44,10 @@ def test(coverage=False):
         COV.html_report(directory=covdir)
         print('HTML version: file://%s/index.html' % covdir)
         COV.erase()
+
+    # exit with the exit code based on whether the tests fail or not.
+    sys.exit(not results.wasSuccessful())
+    
 
 if __name__ == '__main__':
     manager.run()
