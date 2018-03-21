@@ -47,7 +47,6 @@ def test(coverage=False):
 
     # exit with the exit code based on whether the tests fail or not.
     sys.exit(not results.wasSuccessful())
-    
 
 if __name__ == '__main__':
     manager.run()
