@@ -140,7 +140,7 @@ class InterpreterTestCase(unittest.TestCase):
         assert TRACEBACK_OUTPUT in response.data
 
     def test_false(self):
-        assert False #
+        assert False 
 
 if __name__ == "__main__":
     unittest.main()
