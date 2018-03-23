@@ -3,6 +3,7 @@
 }
 
 .headerButton {
+  height: inherit;
   float: right;
   border: none;
   color: #fff;
