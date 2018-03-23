@@ -24,7 +24,7 @@ def factorial(n):
 FACTORIAL_OUTPUT = b'1\\n6'
 
 COMPILE_ERR_CODE = '1+'
-COMPILE_ERR_OUTPUT = b'CoconutParseError: parsing failed (line 1)'
+COMPILE_ERR_OUTPUT = b'CoconutParseError: parsing failed'
 
 RUNNING_ERR_CODE = '1+"a"'
 RUNNING_ERR_OUTPUT = b'TypeError: unsupported operand type(s) for +'
@@ -68,6 +68,18 @@ size(Node(Empty(), Leaf(10))) == 1
 # Other examples: http://coconut.readthedocs.io/en/master/DOCS.html#usage
 COMPILE_ARGS = '--line-numbers'
 COMPILE_ARGS_OUTPUT = b'(print)(\\"hello, world!\\")  # line 1'
+
+PARSE_ERROR_CODE = '1 +'
+
+PARSE_ERROR_OUTPUT = b'"coconutError": {\n    "call": "1 +", \n    "error": "CoconutParseError: parsing failed", \n    "line": 1\n  }'
+
+SYNTAX_ERROR_CODE = '1 + "A'
+
+SYNTAX_ERROR_OUTPUT = b'"coconutError": {\n    "call": "1 + \\"A", \n    "error": "CoconutSyntaxError: linebreak in non-multiline string", \n    "line": 1\n  }'
+
+TRACEBACK_CODE = '1 + "A"'
+
+TRACEBACK_OUTPUT = b'"pythonError": {\n    "call": "1 + \\"A\\"", \n    "error": "TypeError: unsupported operand type(s) for +: \'int\' and \'str\'", \n    "line": 1\n  }'
 
 class MockDevice():
     """
@@ -124,6 +136,19 @@ class InterpreterTestCase(unittest.TestCase):
         response = self.get_code_response(code=PRINT_CODE, args=COMPILE_ARGS)
         self.assertEqual(response.status_code, 200)
         assert COMPILE_ARGS_OUTPUT in response.data
+
+    def test_parse_error(self):
+        response = self.get_code_response(PARSE_ERROR_CODE)
+        assert PARSE_ERROR_OUTPUT in response.data
+
+    def test_syntax_error(self):
+        response = self.get_code_response(SYNTAX_ERROR_CODE)
+        assert SYNTAX_ERROR_OUTPUT in response.data
+
+    def test_traceback(self):
+        response = self.get_code_response(TRACEBACK_CODE)
+        assert TRACEBACK_OUTPUT in response.data
+
 
 if __name__ == "__main__":
     unittest.main()
