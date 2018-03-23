@@ -1,10 +1,7 @@
 import request from './utils/request';
 import toFormData from './utils/payload';
 
-const baseUrl =
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:5000'
-    : 'https://coconut-interpreter-flask.herokuapp.com';
+const baseUrl = process.env.REACT_APP_API_BASE || 'http://localhost:5000';
 
 const run = payload =>
   request(`${baseUrl}/coconut`, {
