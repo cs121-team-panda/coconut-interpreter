@@ -10,7 +10,6 @@ import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import reducers from './store/reducers';
 import sagas from './store/sagas';
-import './index.css';
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
 
