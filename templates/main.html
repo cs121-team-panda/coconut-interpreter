@@ -1,7 +1,0 @@
-<form action="{{ url_for('submit') }}" method="POST">
-    <textarea name="code"></textarea>
-    <input type="submit">
-</form>
-{% if subprocess_output %}
-    {{ subprocess_output }}
-{% endif %}
