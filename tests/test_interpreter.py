@@ -1,6 +1,7 @@
 import unittest
 from mock import patch
 from app.app import app
+
 SEPARATOR = '# Compiled Coconut: -----------------------------------------------------------\n\n'
 
 PRINT_CODE = '"hello, world!" |> print'
