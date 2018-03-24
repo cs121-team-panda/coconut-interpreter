@@ -1,6 +1,6 @@
 import unittest
 from mock import patch
-from app.app import app
+from app.my_app import app
 
 PRINT_CODE = '"hello, world!" |> print'
 PRINT_OUTPUT = b'hello, world!'
