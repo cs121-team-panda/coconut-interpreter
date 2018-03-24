@@ -6,6 +6,9 @@ from flask_cors import CORS
 from app import create_app
 from .trace import extract_trace_py, extract_trace_coco
 
+COMPILE_TIME_LIMIT = os.getenv("COMPILE_TIME_LIMIT") or 15
+EXECUTE_TIME_LIMIT = os.getenv("EXECUTE_TIME_LIMIT") or 30
+
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 CORS(app)
 
@@ -32,11 +35,16 @@ def coconut():
 
     # Compile the user's code with Coconut compiler
     try:
-        subprocess.run(["coconut", filename], stderr=subprocess.PIPE, check=True)
+        subprocess.run(["coconut", filename], stderr=subprocess.PIPE, check=True, timeout=COMPILE_TIME_LIMIT)
     except subprocess.CalledProcessError as error:
         compile_error = True
         output_text = str(error.stderr, 'utf-8')
         print("Error in compiling Coconut's code")
+    except subprocess.TimeoutExpired as error:
+        compile_error = True
+        output_text = str(error.stderr, 'utf-8')
+        print("Timeout in compiling Coconut's code")
+     
 
     if not compile_error:
         print("Finish compilation [{:}] to [{:}.py]".format(filename, filename))
@@ -53,11 +61,15 @@ def coconut():
         # Run the compiled code.
         try:
             proc = subprocess.run(["python", filename + ".py"], stdout=subprocess.PIPE,
-                                  stderr=subprocess.PIPE, check=True)
+                                  stderr=subprocess.PIPE, check=True, timeout=EXECUTE_TIME_LIMIT)
         except subprocess.CalledProcessError as error:
             running_error = True
             output_text = str(error.stderr, 'utf-8')
             print("Error in running Coconut's code")
+        except subprocess.TimeoutExpired as error:
+            running_error = True
+            output_text = str(error.stderr, 'utf-8')
+            print("Timeout in running Coconut's code")
 
         print("Finish running [{:}]".format(filename + ".py"))
 
