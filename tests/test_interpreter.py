@@ -102,7 +102,7 @@ class InterpreterTestCase(unittest.TestCase):
     def get_code_response(self, code, args=None):
         # Use patch function to temporarily mock out sys.stdout for the test
         with patch('sys.stdout', new=MockDevice()) as _:
-            return self.app.post('/coconut', data=dict(code=code, args=args))
+            return self.app.post('/coconut', data={'code': code, 'args': args})
 
     def test_print(self):
         response = self.get_code_response(PRINT_CODE)
@@ -148,6 +148,7 @@ class InterpreterTestCase(unittest.TestCase):
     def test_traceback(self):
         response = self.get_code_response(TRACEBACK_CODE)
         assert TRACEBACK_OUTPUT in response.data
+
 
 if __name__ == "__main__":
     unittest.main()
