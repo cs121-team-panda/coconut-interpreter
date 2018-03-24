@@ -73,7 +73,9 @@ def coconut():
             output_text = s.getvalue()
         else:
             python_error = extract_trace_py(output_text, header_len)
-            python_error['call'] = python_code.split('\n')[python_error['line']-1].strip()
+            line_num, python_lines = python_error['line'], python_code.split('\n')
+            if 0 < line_num < len(python_lines):
+                python_error['call'] = python_lines[line_num-1].strip()
             output_text = python_error['error']
     else:
         coconut_error = extract_trace_coco(output_text)
