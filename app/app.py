@@ -17,7 +17,7 @@ def coconut():
     code = request.form['code']
     # Get optional compile arguments
     # Examples: http://coconut.readthedocs.io/en/master/DOCS.html#usage
-    compile_args = request.form.get('args', None)
+    compile_args = request.form.get('args')
 
     # Write a code to a file with randomly generated filename.
     filename = str(uuid.uuid4())
@@ -35,9 +35,11 @@ def coconut():
 
     # Create command to pass to subprocess
     full_compile_args = ["coconut", filename]
-    # Append compile arguments if necessary
-    if compile_args:
-        full_compile_args += compile_args.split(' ')
+    # By default, choose the specific target corresponding to the current version
+    if compile_args is '':
+        compile_args = "--target sys"
+    # Append compile arguments
+    full_compile_args += compile_args.split(' ')
 
     # Compile the user's code with Coconut compiler
     try:

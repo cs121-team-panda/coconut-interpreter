@@ -69,6 +69,19 @@ size(Node(Empty(), Leaf(10))) == 1
 COMPILE_ARGS = '--line-numbers'
 COMPILE_ARGS_OUTPUT = b'(print)(\\"hello, world!\\")  # line 1'
 
+ASYNC_DEF_CODE = '''
+import asyncio
+
+async def hello():  
+    print("async success")
+
+loop = asyncio.get_event_loop()  
+loop.run_until_complete(hello())  
+loop.close()
+'''
+ASYNC_DEF_ERROR = b'CoconutTargetError: found Python 3.5 async statement (enable --target 35 to dismiss)'
+ASYNC_DEF_OUTPUT = b'async success'
+
 PARSE_ERROR_CODE = '1 +'
 
 PARSE_ERROR_OUTPUT = b'"coconutError": {\n    "call": "1 +", \n    '
@@ -102,7 +115,7 @@ class InterpreterTestCase(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def get_code_response(self, code, args=None):
+    def get_code_response(self, code, args=''):
         # Use patch function to temporarily mock out sys.stdout for the test
         with patch('sys.stdout', new=MockDevice()) as _:
             return self.app.post('/coconut', data={'code': code, 'args': args})
@@ -151,6 +164,19 @@ class InterpreterTestCase(unittest.TestCase):
     def test_traceback(self):
         response = self.get_code_response(TRACEBACK_CODE)
         assert TRACEBACK_OUTPUT in response.data
+
+    def test_async_def_fails(self):
+        '''Tests that async def is invalid syntax for Python 2.'''
+        response = self.get_code_response(code=ASYNC_DEF_CODE, args="--target 27")
+        self.assertEqual(response.status_code, 200)
+        assert ASYNC_DEF_ERROR in response.data
+
+    def test_async_def_passes(self):
+        '''Tests that async def is valid syntax w/o compile args, since Python 3.6 is default.'''
+        response = self.get_code_response(code=ASYNC_DEF_CODE)
+        self.assertEqual(response.status_code, 200)
+        print(response.data)
+        assert ASYNC_DEF_OUTPUT in response.data
 
 if __name__ == "__main__":
     unittest.main()
