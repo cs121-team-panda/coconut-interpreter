@@ -2,6 +2,8 @@ import unittest
 from mock import patch
 from app.app import app
 
+SEPARATOR = '# Compiled Coconut: -----------------------------------------------------------\n\n'
+
 PRINT_CODE = '"hello, world!" |> print'
 PRINT_OUTPUT = b'hello, world!'
 
@@ -138,6 +140,10 @@ class InterpreterTestCase(unittest.TestCase):
     def test_traceback(self):
         response = self.get_code_response(TRACEBACK_CODE)
         assert TRACEBACK_OUTPUT in response.data
+
+    def test_separator(self):
+        response = self.get_code_response(SEPARATOR + PRINT_CODE)
+        assert PRINT_OUTPUT in response.data
 
 if __name__ == "__main__":
     unittest.main()
