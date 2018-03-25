@@ -79,7 +79,7 @@ loop = asyncio.get_event_loop()
 loop.run_until_complete(hello())  
 loop.close()
 '''
-ASYNC_DEF_ERROR = b'CoconutTargetError: found Python 3.5 async statement (enable --target 35 to dismiss)'
+ASYNC_DEF_ERROR = b'CoconutTargetError: found Python 3.5 async statement'
 ASYNC_DEF_OUTPUT = b'async success'
 
 PARSE_ERROR_CODE = '1 +'
@@ -175,7 +175,6 @@ class InterpreterTestCase(unittest.TestCase):
         '''Tests that async def is valid syntax w/o compile args, since Python 3.6 is default.'''
         response = self.get_code_response(code=ASYNC_DEF_CODE)
         self.assertEqual(response.status_code, 200)
-        print(response.data)
         assert ASYNC_DEF_OUTPUT in response.data
 
 if __name__ == "__main__":
