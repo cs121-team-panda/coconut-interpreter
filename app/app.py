@@ -47,7 +47,7 @@ def coconut():
             compiled_code = compiled_file.read()
 
         SEPARATOR = "# Compiled Coconut: -----------------------------------------------------------\n\n"
-        header, python_code = compiled_code.split(SEPARATOR)
+        header, python_code = compiled_code.split(SEPARATOR, maxsplit=1)
         header_len = header.count('\n') + SEPARATOR.count('\n')
 
         # Run the compiled code.
