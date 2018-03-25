@@ -2,12 +2,12 @@ import os
 import sys
 import contextlib
 import traceback
+from io import StringIO
 from flask import request, jsonify
-from flask_cors import CORS
-from app import create_app
 from coconut.convenience import parse, setup
 from coconut.exceptions import CoconutException
-from io import StringIO
+from flask_cors import CORS
+from app import create_app
 from .trace import extract_trace_py, extract_trace_coco
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
