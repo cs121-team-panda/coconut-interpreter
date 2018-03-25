@@ -16,7 +16,7 @@ On the right, the user can see loading dots as the code loads in the output sect
 
 ![loading dots](https://user-images.githubusercontent.com/25191981/37872827-5b566c40-2fc4-11e8-9c95-a7fb303618e8.png)
 
-On the left, we can use the code editor. The editor allows for the keyboard shortcuts from Ace editor (listed [here](https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts)). In addition, the editor includes Python and Coconut specific syntax highlighting (keywords listed [here](http://coconut.readthedocs.io/en/latest/DOCS.html#keywords)):
+On the left, we can use the code editor. The editor allows for the keyboard shortcuts from Ace editor (listed [here](https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts)). In addition, the editor includes Python and Coconut syntax highlighting for all keywords (Coconut specific keywords listed [here](http://coconut.readthedocs.io/en/latest/DOCS.html#keywords)):
 
 ![coconut specific](https://user-images.githubusercontent.com/25191981/37872803-ddc2393a-2fc3-11e8-8f81-d632ac8755ec.png)
 
@@ -30,7 +30,7 @@ The interpreter also supports multiple lines of output:
 
 ![Example multiple line output](https://user-images.githubusercontent.com/8051724/36887253-2c783556-1da5-11e8-95dc-bae4fb6cdf41.png)
 
-The user also has the option of seeing the compiled Python code by check marking the Python box at the top right corner:
+The user has the option of seeing the compiled Python code by clicking the box next to Python at the top right corner:
 
 ![python code](https://user-images.githubusercontent.com/25191981/37872848-b85c00c6-2fc4-11e8-90b0-93612406085e.png)
 
