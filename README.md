@@ -2,7 +2,7 @@
 
 [Coconut](http://coconut-lang.org/) is a functional programming language that compiles to Python. This project is an online interpreter for Coconut. On the webpage, the user can interact with the code editor and click the run button to execute their program and view the output.
 
-Try the current version at: [https://cs121-team-panda.github.io/coconut-interpreter/](https://cs121-team-panda.github.io/coconut-interpreter/)
+Try the current version at: [http://coconut-interpreter.herokuapp.com/](http://coconut-interpreter.herokuapp.com/)
 
 Developed by Jonathan Cruz, Teerapat Jenrungrot, Natalie Kadonaga, and Brittany Wang.
 
@@ -12,21 +12,28 @@ The interpreter consists of a simple, elegant webpage that enables users to easi
 
 ![App interface](https://user-images.githubusercontent.com/8051724/36887245-2096868e-1da5-11e8-94ad-121c58fe3aad.png)
 
-On the left, we can use the code editor. The editor includes Python syntax highlighting. The editor also allows for the keyboard shortcuts from Ace editor (listed [here](https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts)). 
+On the right, the user can see loading dots as the code loads in the output section:
 
-Clicking run will compile and execute the program. The output will show up on the right. If there is a compiling error, the output will display the error from the Coconut compiler:
+![loading dots](https://user-images.githubusercontent.com/25191981/37872827-5b566c40-2fc4-11e8-9c95-a7fb303618e8.png)
 
-![Example compile error output](https://user-images.githubusercontent.com/8051724/36887226-0e07d086-1da5-11e8-9ec7-8f46cb136580.png)
+On the left, we can use the code editor. The editor allows for the keyboard shortcuts from Ace editor (listed [here](https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts)). In addition, the editor includes Python and Coconut specific syntax highlighting (keywords listed [here](http://coconut.readthedocs.io/en/latest/DOCS.html#keywords)):
 
-If there is a runtime error, the output will display the traceback:
+![coconut specific](https://user-images.githubusercontent.com/25191981/37872803-ddc2393a-2fc3-11e8-8f81-d632ac8755ec.png)
 
-![Example runtime error output](https://user-images.githubusercontent.com/8051724/36887259-36c45bc0-1da5-11e8-9c04-10d2cf888986.png)
+Clicking run will compile and execute the program. The output will show up on the right. If there is a compiling error, the output will display the error from the Coconut compiler along with the traceback highlighted in red in the user's original code:
+
+![Example compile error and red tracebacks](https://user-images.githubusercontent.com/25191981/37872744-441a1fa0-2fc3-11e8-8563-e4e3e82077c6.png)
 
 After the code runs, the user's code is stored in the session, so they can make changes to their existing code. 
 
 The interpreter also supports multiple lines of output:
 
 ![Example multiple line output](https://user-images.githubusercontent.com/8051724/36887253-2c783556-1da5-11e8-95dc-bae4fb6cdf41.png)
+
+The user also has the option of seeing the compiled Python code by check marking the Python box at the top right corner:
+
+![python code](https://user-images.githubusercontent.com/25191981/37872848-b85c00c6-2fc4-11e8-90b0-93612406085e.png)
+
 
 # Issues
 
