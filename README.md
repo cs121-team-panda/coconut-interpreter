@@ -10,29 +10,33 @@ Developed by Jonathan Cruz, Teerapat Jenrungrot, Natalie Kadonaga, and Brittany 
 
 The interpreter consists of a simple, elegant webpage that enables users to easily enter and execute Coconut code.
 
-![App interface](https://user-images.githubusercontent.com/8051724/36887245-2096868e-1da5-11e8-94ad-121c58fe3aad.png)
+![hello world](https://user-images.githubusercontent.com/25191981/37873631-7263c75a-2fd5-11e8-9d28-5d967f193c53.png)
 
 On the right, the user can see loading dots as the code loads in the output section:
 
-![loading dots](https://user-images.githubusercontent.com/25191981/37872827-5b566c40-2fc4-11e8-9c95-a7fb303618e8.png)
+![dots](https://user-images.githubusercontent.com/25191981/37873635-848e7664-2fd5-11e8-882e-bec66dd498fd.png)
 
 On the left, we can use the code editor. The editor allows for the keyboard shortcuts from Ace editor (listed [here](https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts)). In addition, the editor includes Python and Coconut syntax highlighting for all keywords (Coconut specific keywords listed [here](http://coconut.readthedocs.io/en/latest/DOCS.html#keywords)):
 
-![coconut specific](https://user-images.githubusercontent.com/25191981/37872803-ddc2393a-2fc3-11e8-8f81-d632ac8755ec.png)
+![coco specific](https://user-images.githubusercontent.com/25191981/37873637-91acd57a-2fd5-11e8-8b51-2c916fff5f44.png)
 
 Clicking run will compile and execute the program. The output will show up on the right. If there is a compiling error, the output will display the error from the Coconut compiler along with the traceback highlighted in red in the user's original code:
 
-![Example compile error and red tracebacks](https://user-images.githubusercontent.com/25191981/37872744-441a1fa0-2fc3-11e8-8563-e4e3e82077c6.png)
+![red tracebacks](https://user-images.githubusercontent.com/25191981/37873641-a2df53cc-2fd5-11e8-9e4d-9b943ac765f0.png)
 
 After the code runs, the user's code is stored in the session, so they can make changes to their existing code. 
 
 The interpreter also supports multiple lines of output:
 
-![Example multiple line output](https://user-images.githubusercontent.com/8051724/36887253-2c783556-1da5-11e8-95dc-bae4fb6cdf41.png)
+![example code](https://user-images.githubusercontent.com/25191981/37873646-b5bba32e-2fd5-11e8-8f03-2b0e6258ef77.png)
+
 
 The user has the option of seeing the compiled Python code by clicking the box next to Python at the top right corner:
 
-![python code](https://user-images.githubusercontent.com/25191981/37872848-b85c00c6-2fc4-11e8-90b0-93612406085e.png)
+![python code](https://user-images.githubusercontent.com/25191981/37873648-c3827b04-2fd5-11e8-9279-832c6a487e4d.png)
+
+The user is also able to see tracebacks highlighted in red in the Python code as well:
+![tracebacks in python](https://user-images.githubusercontent.com/25191981/37873653-eb697e10-2fd5-11e8-92ae-c8b99efc8eb2.png)
 
 
 # Issues
