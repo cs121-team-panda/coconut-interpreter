@@ -43,7 +43,4 @@ See the [Issues](https://github.com/cs121-team-panda/coconut-interpreter-flask/i
 
 ## Security
 
-Major security concerns for online compilers/interpreters are malicious codes submitted from users. In our current system, the code is evaluated on the server-side. From the server perspective, the server may happen to run the potentially malicious code. Some potential problems may arise, at least but not limited to:
-
-* DDoS attacks to exhaust the server's resources.
-* Manipulation of file structures using `os` module
+The Coconut Interpreter uses AWS Lambda, a containerized, serverless backend which allows users to run code safely. 
