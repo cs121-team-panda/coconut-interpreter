@@ -6,6 +6,12 @@ Try the current version at: [https://cs121-team-panda.github.io/coconut-interpre
 
 Developed by Jonathan Cruz, Teerapat Jenrungrot, Natalie Kadonaga, and Brittany Wang.
 
+# Installation
+```pip install -r requirements.txt```
+
+# How to Run
+To run the app locally, make sure Python 3.6 is installed [(recent Python versions here)](https://www.python.org/downloads/). Clone the coconut-interpreter flask project ```git clone https://github.com/cs121-team-panda/coconut-interpreter-flask.git```. Next, run Python 3.6 in that project directory and then the command ```python manage.py runserver```. 
+
 # Features
 
 The interpreter consists of a simple, elegant webpage that enables users to easily enter and execute Coconut code.
@@ -43,4 +49,4 @@ See the [Issues](https://github.com/cs121-team-panda/coconut-interpreter-flask/i
 
 ## Security
 
-The Coconut Interpreter uses AWS Lambda, a containerized, serverless backend which allows users to run code safely. 
+The Coconut Interpreter uses AWS Lambda, a containerized, serverless backend which allows for safe execution of untrusted code. 
