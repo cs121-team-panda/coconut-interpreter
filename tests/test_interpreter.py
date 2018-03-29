@@ -1,6 +1,6 @@
 import unittest
 from mock import patch
-from app.app import app
+from app.my_app import app
 
 SEPARATOR = '# Compiled Coconut: -----------------------------------------------------------\n\n'
 
