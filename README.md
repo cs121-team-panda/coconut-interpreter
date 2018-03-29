@@ -7,12 +7,13 @@ Try the current version at: [https://cs121-team-panda.github.io/coconut-interpre
 Developed by Jonathan Cruz, Teerapat Jenrungrot, Natalie Kadonaga, and Brittany Wang.
 
 ## Installation
-```pip install -r requirements.txt```
+```
+pip install -r requirements.txt
+```
 
 ## Running the app
-Requires Python 3 [(recent Python version here)](https://www.python.org/downloads/). 
+Requires Python 3. 
 ```
-git clone https://github.com/cs121-team-panda/coconut-interpreter-flask.git
 python manage.py runserver 
 ```
 
