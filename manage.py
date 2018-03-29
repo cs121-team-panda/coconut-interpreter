@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import os
 from flask_script import Manager, Server
-from app.app import app
+from app.my_app import app
 
 COV = None
 if os.environ.get('FLASK_COVERAGE'):

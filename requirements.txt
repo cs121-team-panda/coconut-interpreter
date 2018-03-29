@@ -20,4 +20,4 @@ unittest-xml-reporting==2.1.0
 vispy==0.5.2
 wcwidth==0.1.7
 Werkzeug==0.14.1
-
+zappa==0.45.1
