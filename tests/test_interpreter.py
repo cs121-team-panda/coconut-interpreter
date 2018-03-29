@@ -1,6 +1,9 @@
+import json
 import unittest
 from mock import patch
 from app.app import app
+
+SEPARATOR = '# Compiled Coconut: -----------------------------------------------------------\n\n'
 
 PRINT_CODE = '"hello, world!" |> print'
 PRINT_OUTPUT = b'hello, world!'
@@ -65,10 +68,11 @@ def size(Node(l, r)) = size(l) + size(r)
 size(Node(Empty(), Leaf(10))) == 1
 '''
 
-# Other examples: http://coconut.readthedocs.io/en/master/DOCS.html#usage
-COMPILE_ARGS = '--line-numbers'
-COMPILE_ARGS_OUTPUT = b'(print)(\\"hello, world!\\")  # line 1'
+# Other examples: http://coconut.readthedocs.io/en/master/DOCS.html#setup
+LINE_NUMS_ARG = {'line_numbers': True}
+LINE_NUMS_OUTPUT = b'(print)(\\"hello, world!\\")  # line 1'
 
+TARGET_27_ARG = {'target': 27}
 ASYNC_DEF_CODE = '''
 import asyncio
 
@@ -115,10 +119,15 @@ class InterpreterTestCase(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def get_code_response(self, code, args=''):
+    def get_code_response(self, code, args=None):
+        # Use None as default argument as good Python practice, since a mutable default
+        # argument will be shared across all invocations of the function.
+        if args is None:
+            args = {}
         # Use patch function to temporarily mock out sys.stdout for the test
         with patch('sys.stdout', new=MockDevice()) as _:
-            return self.app.post('/coconut', data={'code': code, 'args': args})
+            return self.app.post('/coconut', data=json.dumps({'code': code, 'args': args}),
+                                 content_type='application/json')
 
     def test_print(self):
         response = self.get_code_response(PRINT_CODE)
@@ -149,9 +158,9 @@ class InterpreterTestCase(unittest.TestCase):
 
     def test_compile_args(self):
         '''Tests ability to pass optional arguments to Coconut compiler.'''
-        response = self.get_code_response(code=PRINT_CODE, args=COMPILE_ARGS)
+        response = self.get_code_response(code=PRINT_CODE, args=LINE_NUMS_ARG)
         self.assertEqual(response.status_code, 200)
-        assert COMPILE_ARGS_OUTPUT in response.data
+        assert LINE_NUMS_OUTPUT in response.data
 
     def test_parse_error(self):
         response = self.get_code_response(PARSE_ERROR_CODE)
@@ -167,7 +176,7 @@ class InterpreterTestCase(unittest.TestCase):
 
     def test_async_def_fails(self):
         '''Tests that async def is invalid syntax for Python 2.'''
-        response = self.get_code_response(code=ASYNC_DEF_CODE, args="--target 27")
+        response = self.get_code_response(code=ASYNC_DEF_CODE, args=TARGET_27_ARG)
         self.assertEqual(response.status_code, 200)
         assert ASYNC_DEF_ERROR in response.data
 
@@ -176,6 +185,10 @@ class InterpreterTestCase(unittest.TestCase):
         response = self.get_code_response(code=ASYNC_DEF_CODE)
         self.assertEqual(response.status_code, 200)
         assert ASYNC_DEF_OUTPUT in response.data
+
+    def test_separator(self):
+        response = self.get_code_response(SEPARATOR + PRINT_CODE)
+        assert PRINT_OUTPUT in response.data
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,7 +1,12 @@
+import json
 import os
-import subprocess
-import uuid
+import sys
+import contextlib
+import traceback
+from io import StringIO
 from flask import request, jsonify
+from coconut.convenience import parse, setup
+from coconut.exceptions import CoconutException
 from flask_cors import CORS
 from app import create_app
 from .trace import extract_trace_py, extract_trace_coco
@@ -9,85 +14,82 @@ from .trace import extract_trace_py, extract_trace_coco
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 CORS(app)
 
+@contextlib.contextmanager
+def stdoutIO(stdout=None):
+    old = sys.stdout
+    if stdout is None:
+        stdout = StringIO()
+    sys.stdout = stdout
+    yield stdout
+    sys.stdout = old
+
 @app.route('/coconut', methods=['POST'])
 def coconut():
     """
     Handles Coconut code submitted by users.
     """
-    code = request.form['code']
+    coconut_code = json.loads(request.get_data())['code']
+
     # Get optional compile arguments
     # Examples: http://coconut.readthedocs.io/en/master/DOCS.html#usage
-    compile_args = request.form.get('args')
+    compile_args = json.loads(request.get_data())['args']
 
-    # Write a code to a file with randomly generated filename.
-    filename = str(uuid.uuid4())
-    with open(filename, 'w') as output:
-        output.write(code)
+    # If target not specified by user, choose the specific target corresponding to
+    # the current version
+    if not compile_args.get('target'):
+        compile_args['target'] = 'sys'
 
     # Initialize parameters
     output_text = ''
     python_code = ''
-    proc = None
     compile_error = False
     running_error = False
     coconut_error = None
     python_error = None
 
-    # Create command to pass to subprocess
-    full_compile_args = ["coconut", filename]
-    # By default, choose the specific target corresponding to the current version
-    if compile_args is '':
-        compile_args = "--target sys"
-    # Append compile arguments
-    full_compile_args += compile_args.split(' ')
-
     # Compile the user's code with Coconut compiler
     try:
-        subprocess.run(full_compile_args, stderr=subprocess.PIPE, check=True)
-    except subprocess.CalledProcessError as error:
+        setup(**compile_args)
+        compiled_code = parse(coconut_code, 'exec')
+    except CoconutException as error:
         compile_error = True
-        output_text = str(error.stderr, 'utf-8')
-        print("Error in compiling Coconut's code")
+        output_text = '{}: {}'.format(error.__class__.__name__, error)
+        print("Error in compiling Coconut code")
 
     if not compile_error:
-        print("Finish compilation [{:}] to [{:}.py]".format(filename, filename))
-
-        # Obtain coconut code.
-        compiled_code = None
-        with open(filename + ".py", "r") as compiled_file:
-            compiled_code = compiled_file.read()
+        print("Finish compilation")
 
         SEPARATOR = "# Compiled Coconut: -----------------------------------------------------------\n\n"
-        header, python_code = compiled_code.split(SEPARATOR)
+        header, python_code = compiled_code.split(SEPARATOR, maxsplit=1)
         header_len = header.count('\n') + SEPARATOR.count('\n')
 
         # Run the compiled code.
-        try:
-            proc = subprocess.run(["python", filename + ".py"], stdout=subprocess.PIPE,
-                                  stderr=subprocess.PIPE, check=True)
-        except subprocess.CalledProcessError as error:
-            running_error = True
-            output_text = str(error.stderr, 'utf-8')
-            print("Error in running Coconut's code")
+        with stdoutIO() as s:
+            try:
+                # Necessary for _coconut_sys definition in exec environment
+                d = {'sys': globals()['sys']}
+                exec(compiled_code, d)
+            except Exception:
+                running_error = True
+                output_text = traceback.format_exc()
 
-        print("Finish running [{:}]".format(filename + ".py"))
+        if running_error:
+            print("Error in running Coconut code")
 
-        # Remove temporary file that we compiled (*.py)
-        subprocess.run(["rm", filename + '.py'])
+        print("Finish running")
 
         if not running_error:
             # Store output from the run
-            output_text = proc.stdout.decode('utf-8')
+            output_text = s.getvalue()
         else:
             python_error = extract_trace_py(output_text, header_len)
+            line_num, python_lines = python_error['line'], python_code.split('\n')
+            if 0 < line_num < len(python_lines):
+                python_error['call'] = python_lines[line_num-1].strip()
             output_text = python_error['error']
     else:
         coconut_error = extract_trace_coco(output_text)
         output_text = coconut_error['error']
-
-    # Remove temporary file that stored the code
-    subprocess.run(["rm", filename])
-    print("Delete temp files {:} and {:}.py".format(filename, filename))
 
     # Print output
     print("Output is\n{:}".format(output_text))
