@@ -120,14 +120,14 @@ class InterpreterTestCase(unittest.TestCase):
         pass
 
     def get_code_response(self, code, args=None):
-        # Use None as default argument as good Python practice, since a mutable default
-        # argument will be shared across all invocations of the function.
+        # Use None as default argument as good Python practice, since a mutable
+        # default arg will be shared across all invocations of the function.
         if args is None:
             args = {}
         # Use patch function to temporarily mock out sys.stdout for the test
         with patch('sys.stdout', new=MockDevice()) as _:
-            return self.app.post('/coconut', data=json.dumps({'code': code, 'args': args}),
-                                 content_type='application/json')
+            return self.app.post('/coconut',
+                                 data={'code': code, 'args': json.dumps(args)})
 
     def test_print(self):
         response = self.get_code_response(PRINT_CODE)
