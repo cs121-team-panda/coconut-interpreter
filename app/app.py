@@ -28,11 +28,12 @@ def coconut():
     """
     Handles Coconut code submitted by users.
     """
-    coconut_code = json.loads(request.get_data())['code']
+    data = json.loads(request.get_data())
+    coconut_code = data['code']
 
     # Get optional compile arguments
     # Examples: http://coconut.readthedocs.io/en/master/DOCS.html#usage
-    compile_args = json.loads(request.get_data())['args']
+    compile_args = data.get('args', {})
 
     # If target not specified by user, choose the specific target corresponding to
     # the current version
