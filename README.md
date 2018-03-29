@@ -6,27 +6,47 @@ Try the current version at: [https://cs121-team-panda.github.io/coconut-interpre
 
 Developed by Jonathan Cruz, Teerapat Jenrungrot, Natalie Kadonaga, and Brittany Wang.
 
+## Installation
+```
+pip install -r requirements.txt
+```
+
+## Running the app
+Requires Python 3. 
+```
+python manage.py runserver 
+```
+
 # Features
 
 The interpreter consists of a simple, elegant webpage that enables users to easily enter and execute Coconut code.
 
-![App interface](https://user-images.githubusercontent.com/8051724/36887245-2096868e-1da5-11e8-94ad-121c58fe3aad.png)
+![ui](https://user-images.githubusercontent.com/35832643/37873776-fcecfff2-2fd7-11e8-991b-339363e8489e.png)
 
-On the left, we can use the code editor. The editor includes Python syntax highlighting. The editor also allows for the keyboard shortcuts from Ace editor (listed [here](https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts)). 
+On the right, the user can see loading dots as the code loads in the output section:
 
-Clicking run will compile and execute the program. The output will show up on the right. If there is a compiling error, the output will display the error from the Coconut compiler:
+![dots](https://user-images.githubusercontent.com/35832643/37873777-0d66bf4e-2fd8-11e8-8f14-555df97d3312.png)
 
-![Example compile error output](https://user-images.githubusercontent.com/8051724/36887226-0e07d086-1da5-11e8-9ec7-8f46cb136580.png)
+On the left, we can use the code editor. The editor allows for the keyboard shortcuts from Ace editor (listed [here](https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts)). In addition, the editor includes Python and Coconut syntax highlighting for all keywords (Coconut specific keywords listed [here](http://coconut.readthedocs.io/en/latest/DOCS.html#keywords)):
 
-If there is a runtime error, the output will display the traceback:
+![coco specific](https://user-images.githubusercontent.com/35832643/37873781-17561450-2fd8-11e8-8659-1c70463a48aa.png)
 
-![Example runtime error output](https://user-images.githubusercontent.com/8051724/36887259-36c45bc0-1da5-11e8-9c04-10d2cf888986.png)
+Clicking run will compile and execute the program. The output will show up on the right. If there is a compiling error, the output will display the error from the Coconut compiler along with the traceback highlighted in red in the user's original code:
+
+![red tracebacks](https://user-images.githubusercontent.com/35832643/37873784-28079e7c-2fd8-11e8-8c7e-14a954f44264.png)
 
 After the code runs, the user's code is stored in the session, so they can make changes to their existing code. 
 
 The interpreter also supports multiple lines of output:
 
-![Example multiple line output](https://user-images.githubusercontent.com/8051724/36887253-2c783556-1da5-11e8-95dc-bae4fb6cdf41.png)
+![example code](https://user-images.githubusercontent.com/35832643/37873786-338affdc-2fd8-11e8-8544-cb8c85bd9be3.png)
+
+The user has the option of seeing the compiled Python code by clicking the box next to Python at the top right corner:
+
+![python code](https://user-images.githubusercontent.com/35832643/37873787-43191844-2fd8-11e8-90b0-e58317c27420.png)
+
+The user is also able to see tracebacks highlighted in red in the Python code as well:
+![python tracebacks](https://user-images.githubusercontent.com/35832643/37873790-49e9130e-2fd8-11e8-9bb1-2f3467d09393.png)
 
 # Issues
 
@@ -34,7 +54,4 @@ See the [Issues](https://github.com/cs121-team-panda/coconut-interpreter-flask/i
 
 ## Security
 
-Major security concerns for online compilers/interpreters are malicious codes submitted from users. In our current system, the code is evaluated on the server-side. From the server perspective, the server may happen to run the potentially malicious code. Some potential problems may arise, at least but not limited to:
-
-* DDoS attacks to exhaust the server's resources.
-* Manipulation of file structures using `os` module
+The Coconut Interpreter uses AWS Lambda, a containerized, serverless backend which allows for safe execution of untrusted code. 
