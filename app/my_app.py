@@ -49,10 +49,15 @@ def coconut():
     if not compile_error:
         print("Finish compilation")
 
-        SEPARATOR = "# Compiled Coconut: -----------------------------------------------------------"
-        header, python_code = compiled_code.split(SEPARATOR, maxsplit=1)
-        header_len = header.count('\n') + SEPARATOR.count('\n') + 2
-        python_code = python_code.lstrip()
+        SEPARATOR = "# Compiled Coconut: -----------------------------------------------------------\n\n"
+        splits = compiled_code.split(SEPARATOR, maxsplit=1)
+        if len(splits) == 2:
+            header, python_code = splits
+        else:
+            header = splits[0]
+            python_code = ""
+
+        header_len = header.count('\n') + SEPARATOR.count('\n')
 
         # Run the compiled code.
         with stdoutIO() as s:
