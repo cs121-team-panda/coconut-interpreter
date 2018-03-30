@@ -1,6 +1,6 @@
 TRACEBACK_ID = 'Traceback (most recent call last):'
 
-def extract_trace_py(output, offset=2):
+def extract_trace_py(output, offset=0):
     """Extracts info from python trace output
     Returns line numbers of errors.
     """
