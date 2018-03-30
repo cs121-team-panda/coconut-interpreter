@@ -49,9 +49,9 @@ def coconut():
     if not compile_error:
         print("Finish compilation")
 
-        SEPARATOR = "# Compiled Coconut: -----------------------------------------------------------\n\n"
+        SEPARATOR = "# Compiled Coconut: -----------------------------------------------------------"
         header, python_code = compiled_code.split(SEPARATOR, maxsplit=1)
-        header_len = header.count('\n') + SEPARATOR.count('\n')
+        header_len = header.count('\n') + SEPARATOR.count('\n') + 2
 
         # Run the compiled code.
         with stdoutIO() as s:
@@ -74,8 +74,9 @@ def coconut():
         else:
             python_error = extract_trace_py(output_text, header_len)
             line_num, python_lines = python_error['line'], python_code.split('\n')
+
             if 0 < line_num < len(python_lines):
-                python_error['call'] = python_lines[line_num-1].strip()
+                python_error['call'] = python_lines[line_num + 1].strip()
             output_text = python_error['error']
     else:
         coconut_error = extract_trace_coco(output_text)
