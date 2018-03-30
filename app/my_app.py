@@ -52,6 +52,7 @@ def coconut():
         SEPARATOR = "# Compiled Coconut: -----------------------------------------------------------"
         header, python_code = compiled_code.split(SEPARATOR, maxsplit=1)
         header_len = header.count('\n') + SEPARATOR.count('\n') + 2
+        python_code = python_code.strip()
 
         # Run the compiled code.
         with stdoutIO() as s:
