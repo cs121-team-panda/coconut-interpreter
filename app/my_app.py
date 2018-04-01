@@ -60,7 +60,13 @@ def coconut():
         print("Finish compilation")
 
         SEPARATOR = "# Compiled Coconut: -----------------------------------------------------------\n\n"
-        header, python_code = compiled_code.split(SEPARATOR, maxsplit=1)
+        splits = compiled_code.split(SEPARATOR, maxsplit=1)
+        if len(splits) == 2:
+            header, python_code = splits
+        else:
+            header = splits[0]
+            python_code = ""
+
         header_len = header.count('\n') + SEPARATOR.count('\n')
 
         # Run the compiled code.

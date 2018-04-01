@@ -101,6 +101,10 @@ TRACEBACK_CODE = '1 + "A"'
 TRACEBACK_OUTPUT = b'"pythonError": {\n    "call": "1 + \\"A\\"", \n    '
 '"error": "TypeError: unsupported operand type(s) for +: \'int\' and \'str\'", \n    "line": 1\n  }'
 
+EMPTY_CODE = '"a"'
+
+EMPTY_OUTPUT = b''
+
 class MockDevice():
     """
     A mock device to temporarily suppress output to stdout, so that
@@ -189,6 +193,10 @@ class InterpreterTestCase(unittest.TestCase):
     def test_separator(self):
         response = self.get_code_response(SEPARATOR + PRINT_CODE)
         assert PRINT_OUTPUT in response.data
+
+    def test_emptycode(self):
+        response = self.get_code_response(EMPTY_CODE)
+        assert EMPTY_OUTPUT in response.data
 
 if __name__ == "__main__":
     unittest.main()
