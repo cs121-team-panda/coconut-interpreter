@@ -29,7 +29,7 @@ type State = {
 
 export default class Editor extends Component<Props, State> {
   state = {
-    code: '',
+    code: window.initialCode || '',
   };
 
   onEditorLoad = (editor: EditorProps) => {
