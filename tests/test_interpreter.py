@@ -1,3 +1,4 @@
+import json
 import unittest
 from mock import patch
 from app.my_app import app
@@ -67,17 +68,38 @@ def size(Node(l, r)) = size(l) + size(r)
 size(Node(Empty(), Leaf(10))) == 1
 '''
 
+# Other examples: http://coconut.readthedocs.io/en/master/DOCS.html#setup
+LINE_NUMS_ARG = {'line_numbers': True}
+LINE_NUMS_OUTPUT = b'(print)(\\"hello, world!\\")  # line 1'
+
+TARGET_27_ARG = {'target': 27}
+ASYNC_DEF_CODE = '''
+import asyncio
+
+async def hello():  
+    print("async success")
+
+loop = asyncio.get_event_loop()  
+loop.run_until_complete(hello())  
+loop.close()
+'''
+ASYNC_DEF_ERROR = b'CoconutTargetError: found Python 3.5 async statement'
+ASYNC_DEF_OUTPUT = b'async success'
+
 PARSE_ERROR_CODE = '1 +'
 
-PARSE_ERROR_OUTPUT = b'"coconutError": {\n    "call": "1 +", \n    "error": "CoconutParseError: parsing failed", \n    "line": 1\n  }'
+PARSE_ERROR_OUTPUT = b'"coconutError": {\n    "call": "1 +", \n    '
+'"error": "CoconutParseError: parsing failed", \n    "line": 1\n  }'
 
 SYNTAX_ERROR_CODE = '1 + "A'
 
-SYNTAX_ERROR_OUTPUT = b'"coconutError": {\n    "call": "1 + \\"A", \n    "error": "CoconutSyntaxError: linebreak in non-multiline string", \n    "line": 1\n  }'
+SYNTAX_ERROR_OUTPUT = b'"coconutError": {\n    "call": "1 + \\"A", \n    '
+'"error": "CoconutSyntaxError: linebreak in non-multiline string", \n    "line": 1\n  }'
 
 TRACEBACK_CODE = '1 + "A"'
 
-TRACEBACK_OUTPUT = b'"pythonError": {\n    "call": "1 + \\"A\\"", \n    "error": "TypeError: unsupported operand type(s) for +: \'int\' and \'str\'", \n    "line": 1\n  }'
+TRACEBACK_OUTPUT = b'"pythonError": {\n    "call": "1 + \\"A\\"", \n    '
+'"error": "TypeError: unsupported operand type(s) for +: \'int\' and \'str\'", \n    "line": 1\n  }'
 
 EMPTY_CODE = '"a"'
 
@@ -101,10 +123,15 @@ class InterpreterTestCase(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def get_code_response(self, code):
+    def get_code_response(self, code, args=None):
+        # Use None as default argument as good Python practice, since a mutable
+        # default arg will be shared across all invocations of the function.
+        if args is None:
+            args = {}
         # Use patch function to temporarily mock out sys.stdout for the test
         with patch('sys.stdout', new=MockDevice()) as _:
-            return self.app.post('/coconut', data={'code': code})
+            return self.app.post('/coconut',
+                                 data={'code': code, 'args': json.dumps(args)})
 
     def test_print(self):
         response = self.get_code_response(PRINT_CODE)
@@ -133,6 +160,12 @@ class InterpreterTestCase(unittest.TestCase):
         response = self.get_code_response(DATA_TYPES_CODE)
         self.assertEqual(response.status_code, 200)
 
+    def test_compile_args(self):
+        '''Tests ability to pass optional arguments to Coconut compiler.'''
+        response = self.get_code_response(code=PRINT_CODE, args=LINE_NUMS_ARG)
+        self.assertEqual(response.status_code, 200)
+        assert LINE_NUMS_OUTPUT in response.data
+
     def test_parse_error(self):
         response = self.get_code_response(PARSE_ERROR_CODE)
         assert PARSE_ERROR_OUTPUT in response.data
@@ -144,6 +177,18 @@ class InterpreterTestCase(unittest.TestCase):
     def test_traceback(self):
         response = self.get_code_response(TRACEBACK_CODE)
         assert TRACEBACK_OUTPUT in response.data
+
+    def test_async_def_fails(self):
+        '''Tests that async def is invalid syntax for Python 2.'''
+        response = self.get_code_response(code=ASYNC_DEF_CODE, args=TARGET_27_ARG)
+        self.assertEqual(response.status_code, 200)
+        assert ASYNC_DEF_ERROR in response.data
+
+    def test_async_def_passes(self):
+        '''Tests that async def is valid syntax w/o compile args, since Python 3.6 is default.'''
+        response = self.get_code_response(code=ASYNC_DEF_CODE)
+        self.assertEqual(response.status_code, 200)
+        assert ASYNC_DEF_OUTPUT in response.data
 
     def test_separator(self):
         response = self.get_code_response(SEPARATOR + PRINT_CODE)

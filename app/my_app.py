@@ -1,3 +1,4 @@
+import json
 import os
 import sys
 import contextlib
@@ -29,6 +30,15 @@ def coconut():
     """
     coconut_code = request.form['code']
 
+    # Get optional compile arguments
+    # Examples: http://coconut.readthedocs.io/en/master/DOCS.html#usage
+    compile_args = json.loads(request.form.get('args', '{}'))
+
+    # If target not specified by user, choose the specific target corresponding to
+    # the current version
+    if not compile_args.get('target'):
+        compile_args['target'] = 'sys'
+
     # Initialize parameters
     output_text = ''
     python_code = ''
@@ -39,7 +49,7 @@ def coconut():
 
     # Compile the user's code with Coconut compiler
     try:
-        setup(target='sys')
+        setup(**compile_args)
         compiled_code = parse(coconut_code, 'exec')
     except CoconutException as error:
         compile_error = True
