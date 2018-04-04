@@ -318,7 +318,12 @@ class PersistentDrawer extends React.Component {
               >
                 Coconut Interpreter
               </Typography>
-              <Button color="inherit" className={classes.runButton}>
+              <Button
+                color="inherit"
+                className={classes.runButton}
+                onClick={this.props.handleClick}
+                disabled={this.props.loading}
+              >
                 Run
               </Button>
             </Toolbar>
@@ -347,6 +352,8 @@ PersistentDrawer.propTypes = {
   classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   theme: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   aceEditor: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  handleClick: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 export default withStyles(styles, { withTheme: true })(PersistentDrawer);
