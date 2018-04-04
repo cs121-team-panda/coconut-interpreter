@@ -1,24 +1,36 @@
 // @flow
 
 import * as React from 'react';
+import { withStyles } from 'material-ui/styles';
 
-import styles from './Header.module.css';
+const styles = () => ({
+  header: {
+    height: '42px',
+    padding: '0 24px',
+    fontSize: '14px',
+    fontWeight: 700,
+    lineHeight: 3,
+    textTransform: 'uppercase',
+    letterSpacing: '0.08em',
+  },
+});
 
 type Props = {
   name: string,
   color: string,
   textColor: string,
   children: React.Element<any>,
+  classes: $Call<typeof styles>,
 };
 
-const Header = ({ name, color, textColor, children }: Props) => (
+const Header = (props: Props) => (
   <div
-    className={styles.header}
-    style={{ backgroundColor: color, color: textColor }}
+    className={props.classes.header}
+    style={{ backgroundColor: props.color, color: props.textColor }}
   >
-    {name}
-    {children}
+    {props.name}
+    {props.children}
   </div>
 );
 
-export default Header;
+export default withStyles(styles)(Header);

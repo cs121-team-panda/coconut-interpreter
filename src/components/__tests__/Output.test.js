@@ -3,7 +3,6 @@ import { shallow, mount } from 'enzyme';
 import AceEditor from 'react-ace';
 
 import Output from '../Output';
-import styles from '../Output.module.css';
 import Header from '../Header';
 
 it('renders without crashing', () => {
@@ -15,33 +14,18 @@ it('allows us to set props', () => {
   expect(wrapper.props().value).toEqual('Hello, world');
 });
 
-it('renders one <div.output /> element', () => {
-  const wrapper = shallow(<Output value="" loading={false} />);
-  expect(wrapper.find(`div.${styles.output}`)).toHaveLength(1);
-});
-
-it('renders one <label.headerSwitch /> element', () => {
-  const wrapper = shallow(<Output value="" loading={false} />);
-  expect(wrapper.find(`label.${styles.headerSwitch}`)).toHaveLength(1);
-});
-
 it('renders one <Header /> component', () => {
-  const wrapper = shallow(<Output value="" loading={false} />);
+  const wrapper = shallow(<Output value="" loading={false} />).dive();
   expect(wrapper.find(Header)).toHaveLength(1);
 });
 
 it('renders one <AceEditor /> component', () => {
-  const wrapper = shallow(<Output value="" loading={false} />);
+  const wrapper = shallow(<Output value="" loading={false} />).dive();
   expect(wrapper.find(AceEditor)).toHaveLength(1);
 });
 
-it('renders zero error markers', () => {
-  const wrapper = mount(<Output value="" loading={false} />);
-  expect(wrapper.find(`.${styles.errorMarker}`)).toHaveLength(0);
-});
-
 it('simulates change events', () => {
-  const wrapper = mount(<Output value="" loading={false} />);
+  const wrapper = shallow(<Output value="" loading={false} />).dive();
   wrapper.find('input').simulate('change', { target: { checked: true } });
   expect(wrapper.state('showPython')).toEqual(true);
 });

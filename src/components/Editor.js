@@ -3,11 +3,11 @@
 import React, { Component } from 'react';
 import AceEditor from 'react-ace';
 import type { EditorProps } from 'react-ace';
+import { withStyles } from 'material-ui/styles';
 
 import 'brace/theme/dracula';
 
 import Header from './Header';
-import styles from './Editor.module.css';
 import errorMarker from '../utils/highlighter';
 import CoconutMode from '../utils/coconut';
 import {
@@ -16,18 +16,46 @@ import {
   editorHeaderTextColor,
 } from '../constants';
 
+const styles = () => ({
+  editor: {
+    gridArea: 'editor',
+  },
+  headerButton: {
+    height: 'inherit',
+    float: 'right',
+    border: 'none',
+    color: '#fff',
+    fontFamily: 'Roboto',
+    fontSize: '14px',
+    fontWeight: 700,
+    textTransform: 'uppercase',
+    backgroundColor: 'inherit',
+    letterSpacing: '0.08em',
+    cursor: 'pointer',
+  },
+  'headerButton:disabled': {
+    color: '#999',
+    cursor: 'default',
+  },
+  errorMarker: {
+    position: 'absolute',
+    background: 'rgba(255, 0, 0, 0.4)',
+  },
+});
+
 type Props = {
   runRequest: (code: string) => void,
   loading: boolean,
   errorLine: ?number,
   errorCall: ?string,
+  classes: $Call<typeof styles>,
 };
 
 type State = {
   code: string,
 };
 
-export default class Editor extends Component<Props, State> {
+class Editor extends Component<Props, State> {
   state = {
     code: window.initialCode || '',
   };
@@ -40,9 +68,9 @@ export default class Editor extends Component<Props, State> {
   };
 
   getMarkers = () => {
-    const { errorLine, errorCall } = this.props;
+    const { errorLine, errorCall, classes } = this.props;
     const { code } = this.state;
-    return errorMarker(code, errorLine, errorCall, styles.errorMarker);
+    return errorMarker(code, errorLine, errorCall, classes.errorMarker);
   };
 
   handleChange = (newCode: string) => {
@@ -54,15 +82,16 @@ export default class Editor extends Component<Props, State> {
   };
 
   render() {
+    const { classes } = this.props;
     return (
-      <div className={styles.editor}>
+      <div className={classes.editor}>
         <Header
           name="Coconut Editor"
           color={editorHeaderColor}
           textColor={editorHeaderTextColor}
         >
           <button
-            className={styles.headerButton}
+            className={classes.headerButton}
             onClick={this.handleClick}
             disabled={this.props.loading}
           >
@@ -83,3 +112,5 @@ export default class Editor extends Component<Props, State> {
     );
   }
 }
+
+export default withStyles(styles)(Editor);

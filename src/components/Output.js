@@ -3,13 +3,13 @@
 import React, { Component } from 'react';
 import AceEditor from 'react-ace';
 import type { EditorProps } from 'react-ace';
+import { withStyles } from 'material-ui/styles';
 
 import 'brace/mode/text';
 import 'brace/mode/python';
 import 'brace/theme/chrome';
 
 import Header from './Header';
-import styles from './Output.module.css';
 import errorMarker from '../utils/highlighter';
 import {
   aceStyleProps,
@@ -17,12 +17,27 @@ import {
   outputHeaderTextColor,
 } from '../constants';
 
+const styles = () => ({
+  output: {
+    gridArea: 'output',
+  },
+  headerSwitch: {
+    float: 'right',
+    cursor: 'pointer',
+  },
+  errorMarker: {
+    position: 'absolute',
+    background: 'rgba(255, 0, 0, 0.4)',
+  },
+});
+
 type Props = {
   loading: boolean,
   value: string,
   python: string,
   errorLine: ?number,
   errorCall: ?string,
+  classes: $Call<typeof styles>,
 };
 
 type State = {
@@ -31,7 +46,7 @@ type State = {
   showPython: boolean,
 };
 
-export default class Output extends Component<Props, State> {
+class Output extends Component<Props, State> {
   state = {
     loadingDots: '',
     interval: null,
@@ -53,8 +68,8 @@ export default class Output extends Component<Props, State> {
 
   getMarkers = () => {
     if (this.props.loading) return [];
-    const { python, errorLine, errorCall } = this.props;
-    return errorMarker(python, errorLine, errorCall, styles.errorMarker);
+    const { python, errorLine, errorCall, classes } = this.props;
+    return errorMarker(python, errorLine, errorCall, classes.errorMarker);
   };
 
   getValue = () => {
@@ -67,14 +82,15 @@ export default class Output extends Component<Props, State> {
   };
 
   render() {
+    const { classes } = this.props;
     return (
-      <div className={styles.output}>
+      <div className={classes.output}>
         <Header
           name="Output"
           color={outputHeaderColor}
           textColor={outputHeaderTextColor}
         >
-          <label className={styles.headerSwitch} htmlFor="pythonSwitch">
+          <label className={classes.headerSwitch} htmlFor="pythonSwitch">
             <input
               onChange={event =>
                 this.setState({ showPython: event.target.checked })
@@ -99,3 +115,5 @@ export default class Output extends Component<Props, State> {
     );
   }
 }
+
+export default withStyles(styles)(Output);

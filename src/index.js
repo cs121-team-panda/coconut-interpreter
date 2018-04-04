@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { Helmet } from 'react-helmet';
 import { createStore, applyMiddleware, compose } from 'redux';
@@ -8,6 +8,8 @@ import { combineReducers } from 'redux-immutable';
 import { fromJS } from 'immutable';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
+import CssBaseline from 'material-ui/CssBaseline';
+import 'typeface-roboto'; // eslint-disable-line import/extensions
 import reducers from './store/reducers';
 import sagas from './store/sagas';
 import App from './containers/App';
@@ -16,16 +18,17 @@ import * as serviceWorker from './serviceWorker';
 const sagaMiddleware = createSagaMiddleware();
 
 const createApp = store => (
-  <div>
+  <>
     <Helmet>
       <title>Coconut Interpreter</title>
       <meta name="fragment" content="!" />
       <meta name="description" content="Online Coconut interpreter." />
     </Helmet>
+    <CssBaseline />
     <Provider store={store}>
       <App />
     </Provider>
-  </div>
+  </>
 );
 const initialState = fromJS({});
 // eslint-disable-next-line no-underscore-dangle
