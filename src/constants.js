@@ -6,7 +6,7 @@ export const aceStyleProps = {
   scrollMargin: [24, 24, 0, 0],
   setOptions: { indentedSoftWrap: false, displayIndentGuides: false },
   width: '100%',
-  height: 'calc(100% - 42px)',
+  height: 'calc(100%)', // TODO: fix calculation
   editorProps: { $blockScrolling: Infinity },
 };
 

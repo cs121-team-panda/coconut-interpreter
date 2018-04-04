@@ -7,14 +7,10 @@ import { withStyles } from 'material-ui/styles';
 
 import 'brace/theme/dracula';
 
-import Header from './Header';
+import PersistentDrawer from './PersistentDrawer';
 import errorMarker from '../utils/highlighter';
+import { aceStyleProps } from '../constants';
 import CoconutMode from '../utils/coconut';
-import {
-  aceStyleProps,
-  editorHeaderColor,
-  editorHeaderTextColor,
-} from '../constants';
 
 const styles = () => ({
   editor: {
@@ -82,32 +78,22 @@ class Editor extends Component<Props, State> {
   };
 
   render() {
-    const { classes } = this.props;
+    const aceEditor = (
+      <AceEditor
+        name="code"
+        mode="text"
+        theme="dracula"
+        value={this.state.code}
+        onChange={this.handleChange}
+        onLoad={this.onEditorLoad}
+        {...aceStyleProps}
+        markers={this.getMarkers()}
+      />
+    );
+
     return (
-      <div className={classes.editor}>
-        <Header
-          name="Coconut Editor"
-          color={editorHeaderColor}
-          textColor={editorHeaderTextColor}
-        >
-          <button
-            className={classes.headerButton}
-            onClick={this.handleClick}
-            disabled={this.props.loading}
-          >
-            Run
-          </button>
-        </Header>
-        <AceEditor
-          name="code"
-          mode="text"
-          theme="dracula"
-          value={this.state.code}
-          onChange={this.handleChange}
-          onLoad={this.onEditorLoad}
-          {...aceStyleProps}
-          markers={this.getMarkers()}
-        />
+      <div className={styles.editor}>
+        <PersistentDrawer aceEditor={aceEditor} />
       </div>
     );
   }

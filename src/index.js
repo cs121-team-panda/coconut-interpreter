@@ -23,6 +23,14 @@ const createApp = store => (
       <title>Coconut Interpreter</title>
       <meta name="fragment" content="!" />
       <meta name="description" content="Online Coconut interpreter." />
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+      />
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      />
     </Helmet>
     <CssBaseline />
     <Provider store={store}>
