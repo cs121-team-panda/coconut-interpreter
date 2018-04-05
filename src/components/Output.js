@@ -4,30 +4,47 @@ import React, { Component } from 'react';
 import AceEditor from 'react-ace';
 import type { EditorProps } from 'react-ace';
 import { withStyles } from 'material-ui/styles';
+import AppBar from 'material-ui/AppBar';
+import Toolbar from 'material-ui/Toolbar';
+import Typography from 'material-ui/Typography';
+import { FormControlLabel } from 'material-ui/Form';
+import Checkbox from 'material-ui/Checkbox';
 
 import 'brace/mode/text';
 import 'brace/mode/python';
 import 'brace/theme/chrome';
 
-import Header from './Header';
 import errorMarker from '../utils/highlighter';
-import {
-  aceStyleProps,
-  outputHeaderColor,
-  outputHeaderTextColor,
-} from '../constants';
+import { aceStyleProps, outputHeaderColor } from '../constants';
 
 const styles = () => ({
   output: {
     gridArea: 'output',
+    flexGrow: 1,
+  },
+  label: {
+    fontSize: 16,
+    textTransform: 'uppercase',
   },
   headerSwitch: {
+    right: 0,
+    position: 'absolute',
     float: 'right',
     cursor: 'pointer',
   },
   errorMarker: {
     position: 'absolute',
     background: 'rgba(255, 0, 0, 0.4)',
+  },
+  toolbarRoot: {
+    minHeight: 48,
+  },
+  appBar: {
+    backgroundColor: outputHeaderColor,
+  },
+  headerText: {
+    fontSize: 16,
+    textTransform: 'uppercase',
   },
 });
 
@@ -81,26 +98,32 @@ class Output extends Component<Props, State> {
     this.setState(prevState => ({ loadingDots: `${prevState.loadingDots}.` }));
   };
 
+  handleChange = name => event => {
+    this.setState({ [name]: event.target.checked });
+  };
+
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.output}>
-        <Header
-          name="Output"
-          color={outputHeaderColor}
-          textColor={outputHeaderTextColor}
-        >
-          <label className={classes.headerSwitch} htmlFor="pythonSwitch">
-            <input
-              onChange={event =>
-                this.setState({ showPython: event.target.checked })
+        <AppBar className={classes.appBar} position="static">
+          <Toolbar classes={{ root: classes.toolbarRoot }}>
+            <Typography className={classes.headerText}>Output</Typography>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={this.state.showPython}
+                  onChange={this.handleChange('showPython')}
+                  value="showPython"
+                  color="flat"
+                />
               }
-              type="checkbox"
-              id="pythonSwitch"
+              label="Python"
+              classes={{ label: classes.label }}
+              className={classes.headerSwitch}
             />
-            Python
-          </label>
-        </Header>
+          </Toolbar>
+        </AppBar>
         <AceEditor
           name="output"
           mode={this.state.showPython ? 'python' : 'text'}
