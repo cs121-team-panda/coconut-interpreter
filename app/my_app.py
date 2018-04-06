@@ -74,7 +74,12 @@ def coconut():
             try:
                 # Necessary for _coconut_sys definition in exec environment
                 d = {'sys': globals()['sys']}
-                exec(compiled_code, d)
+                # If target is Python 2, replace Python 2 header with Python 3 header.
+                if compile_args['target'][0] == '2':
+                    python_3_header = getheader('initial', '3') + getheader('code', '3')
+                    exec(python_3_header + python_code, d)
+                else:
+                    exec(compiled_code, d)
             except Exception:
                 running_error = True
                 output_text = traceback.format_exc()
