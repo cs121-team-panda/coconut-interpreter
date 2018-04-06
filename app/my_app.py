@@ -4,11 +4,13 @@ import sys
 import contextlib
 import traceback
 from io import StringIO
-from flask import request, jsonify
+
 from coconut.convenience import parse, setup
 from coconut.exceptions import CoconutException
 from coconut.compiler.header import getheader, section
+from flask import request, jsonify
 from flask_cors import CORS
+
 from app import create_app
 from .trace import extract_trace_py, extract_trace_coco
 
@@ -60,6 +62,8 @@ def coconut():
     if not compile_error:
         print("Finish compilation")
 
+        # Retrieve formatted section break created by the compiler that separates
+        # header and Python code.
         SEPARATOR = section("Compiled Coconut")
         splits = compiled_code.split(SEPARATOR, maxsplit=1)
         if len(splits) == 2:

@@ -73,6 +73,7 @@ LINE_NUMS_ARG = {'line_numbers': True}
 LINE_NUMS_OUTPUT = b'(print)(\\"hello, world!\\")  # line 1'
 
 TARGET_27_ARG = {'target': 27}
+TARGET_36_ARG = {'target': 36}
 ASYNC_DEF_CODE = '''
 import asyncio
 
@@ -138,7 +139,7 @@ class InterpreterTestCase(unittest.TestCase):
         assert PRINT_OUTPUT in response.data
 
     def test_factorial(self):
-        response = self.get_code_response(FACTORIAL_CODE)
+        response = self.get_code_response(code=FACTORIAL_CODE, args=TARGET_36_ARG)
         assert FACTORIAL_OUTPUT in response.data
         response = self.get_code_response(code=FACTORIAL_CODE, args=TARGET_27_ARG)
         assert FACTORIAL_OUTPUT in response.data
@@ -154,7 +155,7 @@ class InterpreterTestCase(unittest.TestCase):
         assert RUNNING_ERR_OUTPUT in response.data
 
     def test_quicksort(self):
-        response = self.get_code_response(QUICKSORT_CODE)
+        response = self.get_code_response(code=QUICKSORT_CODE, args=TARGET_36_ARG)
         assert QUICKSORT_OUTPUT in response.data
         response = self.get_code_response(code=QUICKSORT_CODE, args=TARGET_27_ARG)
         assert QUICKSORT_OUTPUT in response.data
