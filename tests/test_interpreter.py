@@ -129,7 +129,8 @@ class InterpreterTestCase(unittest.TestCase):
         if args is None:
             args = {}
         # Use patch function to temporarily mock out sys.stdout for the test
-        with patch('sys.stdout', new=MockDevice()) as _:
+        # TODO
+        # with patch('sys.stdout', new=MockDevice()) as _:
             return self.app.post('/coconut',
                                  data={'code': code, 'args': json.dumps(args)})
 
@@ -176,11 +177,15 @@ class InterpreterTestCase(unittest.TestCase):
 
     def test_traceback(self):
         response = self.get_code_response(TRACEBACK_CODE)
+        print("TODO remove")
+        print(response.data)
         assert TRACEBACK_OUTPUT in response.data
 
     def test_async_def_fails(self):
         '''Tests that async def is invalid syntax for Python 2.'''
         response = self.get_code_response(code=ASYNC_DEF_CODE, args=TARGET_27_ARG)
+        print("TODO remove")
+        print(response.data)
         self.assertEqual(response.status_code, 200)
         assert ASYNC_DEF_ERROR in response.data
 

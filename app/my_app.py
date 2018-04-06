@@ -7,6 +7,7 @@ from io import StringIO
 from flask import request, jsonify
 from coconut.convenience import parse, setup
 from coconut.exceptions import CoconutException
+# from coconut.compiler.header import getheader, section
 from flask_cors import CORS
 from app import create_app
 from .trace import extract_trace_py, extract_trace_coco
@@ -59,6 +60,7 @@ def coconut():
     if not compile_error:
         print("Finish compilation")
 
+        # SEPARATOR = section("Compiled Coconut")
         SEPARATOR = "# Compiled Coconut: -----------------------------------------------------------\n\n"
         splits = compiled_code.split(SEPARATOR, maxsplit=1)
         if len(splits) == 2:
@@ -74,12 +76,14 @@ def coconut():
             try:
                 # Necessary for _coconut_sys definition in exec environment
                 d = {'sys': globals()['sys']}
-                # If target is Python 2, replace Python 2 header with Python 3 header.
-                if compile_args['target'][0] == '2':
-                    python_3_header = getheader('initial', '3') + getheader('code', '3')
-                    exec(python_3_header + python_code, d)
-                else:
-                    exec(compiled_code, d)
+                # If major target version doesn't match current, replace the header.
+                # sys_version = str(sys.version_info[0])
+                # if compile_args['target'] != 'sys' or compile_args['target'][0] != sys_version:
+                #     print("Replaced Coconut header with header from version ", sys_version)
+                #     new_header = getheader('initial', sys_version) + \
+                #         getheader('code', sys_version)
+                #     compiled_code = new_header + python_code
+                exec(compiled_code, d)
             except Exception:
                 running_error = True
                 output_text = traceback.format_exc()
