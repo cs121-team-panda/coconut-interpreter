@@ -140,6 +140,8 @@ class InterpreterTestCase(unittest.TestCase):
     def test_factorial(self):
         response = self.get_code_response(FACTORIAL_CODE)
         assert FACTORIAL_OUTPUT in response.data
+        response = self.get_code_response(code=FACTORIAL_CODE, args=TARGET_27_ARG)
+        assert FACTORIAL_OUTPUT in response.data
 
     def test_compile_error(self):
         response = self.get_code_response(COMPILE_ERR_CODE)
@@ -153,6 +155,8 @@ class InterpreterTestCase(unittest.TestCase):
 
     def test_quicksort(self):
         response = self.get_code_response(QUICKSORT_CODE)
+        assert QUICKSORT_OUTPUT in response.data
+        response = self.get_code_response(code=QUICKSORT_CODE, args=TARGET_27_ARG)
         assert QUICKSORT_OUTPUT in response.data
 
     def test_data_types_compile(self):
