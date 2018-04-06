@@ -10,7 +10,7 @@ import * as myActions from '../store/environment/actions';
 import Editor from '../components/Editor';
 
 type Props = {
-  runRequest: (code: string) => void,
+  runRequest: (code: string, args: string) => void,
   loading: boolean,
   coconutErrorCall: ?string,
   coconutErrorLine: ?number,
@@ -39,8 +39,8 @@ const mapStateToProps = createSelector(
 );
 
 const mapDispatchToProps = dispatch => ({
-  runRequest: code => {
-    dispatch(myActions.runRequest(code));
+  runRequest: (code, args) => {
+    dispatch(myActions.runRequest(code, args));
   },
 });
 

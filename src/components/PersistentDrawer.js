@@ -143,6 +143,15 @@ const options = {
   no_tco: ['no_tco', 'False (Default)', 'True'],
 };
 
+const values = {
+  target: ['sys', '26', '27', '32', '33', '35', '36'],
+  strict: [false, true],
+  minify: [false, true],
+  line_numbers: [false, true],
+  keep_lines: [false, true],
+  no_tco: [false, true],
+};
+
 class PersistentDrawer extends React.Component {
   state = {
     open: false,
@@ -162,6 +171,14 @@ class PersistentDrawer extends React.Component {
       line_numbers: 1,
       keep_lines: 1,
       no_tco: 1,
+    },
+    args: {
+      target: 'sys',
+      strict: false,
+      minify: false,
+      line_numbers: false,
+      keep_lines: false,
+      no_tco: false,
     },
   };
 
@@ -193,6 +210,10 @@ class PersistentDrawer extends React.Component {
       selectedIndex: {
         ...this.state.selectedIndex,
         [value]: index,
+      },
+      args: {
+        ...this.state.args,
+        [value]: values[value][index - 1],
       },
       anchorEl: {
         ...this.state.anchorEl,
@@ -310,7 +331,7 @@ class PersistentDrawer extends React.Component {
               <Button
                 color="inherit"
                 className={classes.runButton}
-                onClick={this.props.handleClick}
+                onClick={() => this.props.handleClick(this.state.args)}
                 disabled={this.props.loading}
               >
                 Run

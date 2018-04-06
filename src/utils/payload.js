@@ -7,7 +7,11 @@
  */
 const toFormData = payload =>
   Object.keys(payload).reduce((formData, key) => {
-    formData.append(key, payload[key]);
+    let value = payload[key];
+    if (typeof value === 'object') {
+      value = JSON.stringify(value);
+    }
+    formData.append(key, value);
     return formData;
   }, new FormData());
 

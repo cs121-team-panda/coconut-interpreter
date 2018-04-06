@@ -14,10 +14,19 @@ export type Payload = {
   pythonError: ?Error,
 };
 
-export function runRequest(code: string) {
+export type Args = {
+  target: string,
+  strict: boolean,
+  minify: boolean,
+  line_numbers: boolean,
+  keep_lines: boolean,
+  no_tco: boolean,
+};
+
+export function runRequest(code: string, args: Args) {
   return {
     type: actionTypes.RUN_REQUEST,
-    payload: { code },
+    payload: { code, args },
   };
 }
 
@@ -36,6 +45,6 @@ export function runFailure(output: string) {
 }
 
 export type Action =
-  | $Call<typeof runRequest, string>
+  | $Call<typeof runRequest, string, Args>
   | $Call<typeof runSuccess, Payload>
   | $Call<typeof runFailure, string>;
