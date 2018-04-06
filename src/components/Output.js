@@ -21,6 +21,9 @@ const styles = () => ({
   output: {
     gridArea: 'output',
     flexGrow: 1,
+    '& #output > .ace_gutter': {
+      background: 'transparent',
+    },
   },
   label: {
     fontSize: 16,
