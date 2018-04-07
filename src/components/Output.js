@@ -15,7 +15,11 @@ import 'brace/mode/python';
 import 'brace/theme/chrome';
 
 import errorMarker from '../utils/highlighter';
-import { aceStyleProps, outputHeaderColor } from '../constants';
+import {
+  aceStyleProps,
+  outputHeaderColor,
+  headerTextStyle,
+} from '../constants';
 
 const styles = () => ({
   output: {
@@ -26,12 +30,9 @@ const styles = () => ({
     },
   },
   label: {
-    fontSize: 16,
-    textTransform: 'uppercase',
+    ...headerTextStyle,
   },
   headerSwitch: {
-    right: 0,
-    position: 'absolute',
     float: 'right',
     cursor: 'pointer',
   },
@@ -41,13 +42,15 @@ const styles = () => ({
   },
   toolbarRoot: {
     minHeight: 48,
+    padding: '0 24px',
   },
   appBar: {
     backgroundColor: outputHeaderColor,
+    boxShadow: 'none',
   },
   headerText: {
-    fontSize: 16,
-    textTransform: 'uppercase',
+    flex: 1,
+    ...headerTextStyle,
   },
 });
 

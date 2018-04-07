@@ -14,7 +14,7 @@ import IconButton from 'material-ui/IconButton';
 import GearIcon from 'material-ui-icons/Settings';
 import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
 
-import { editorHeaderColor } from '../constants';
+import { editorHeaderColor, headerTextStyle } from '../constants';
 
 const drawerWidth = 240;
 
@@ -23,9 +23,8 @@ const styles = theme => ({
     flexGrow: 1,
   },
   headerText: {
-    textTransform: 'uppercase',
-    fontSize: 16,
     flex: 1,
+    ...headerTextStyle,
   },
   appFrame: {
     zIndex: 1,
@@ -41,6 +40,7 @@ const styles = theme => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    boxShadow: 'none',
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -53,7 +53,7 @@ const styles = theme => ({
     marginLeft: drawerWidth,
   },
   menuButton: {
-    marginLeft: 12,
+    marginLeft: -12,
     marginRight: 20,
   },
   hide: {
@@ -95,12 +95,11 @@ const styles = theme => ({
     marginLeft: 0,
   },
   runButton: {
-    fontSize: 15,
-    right: 0,
-    position: 'absolute',
+    ...headerTextStyle,
   },
   toolbarRoot: {
     minHeight: 48,
+    padding: '0 24px',
   },
   gearIcon: {
     fontSize: 21,

@@ -16,3 +16,10 @@ export const editorHeaderTextColor = '#fff';
 
 export const outputHeaderColor = '#ebebeb';
 export const outputHeaderTextColor = '#000';
+
+export const headerTextStyle = {
+  fontSize: 16,
+  textTransform: 'uppercase',
+  fontWeight: 700,
+  letterSpacing: '0.08em',
+};
