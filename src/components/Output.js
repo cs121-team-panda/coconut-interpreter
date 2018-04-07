@@ -121,7 +121,7 @@ class Output extends Component<Props, State> {
                   checked={this.state.showPython}
                   onChange={this.handleChange('showPython')}
                   value="showPython"
-                  color="flat"
+                  color="default"
                 />
               }
               label="Python"

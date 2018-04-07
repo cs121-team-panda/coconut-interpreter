@@ -253,6 +253,7 @@ class PersistentDrawer extends React.Component {
           <List component="nav">
             {optionKeys.map(option => (
               <ListItem
+                key={option}
                 button
                 aria-haspopup="true"
                 aria-controls={option}
@@ -268,6 +269,7 @@ class PersistentDrawer extends React.Component {
           </List>
           {optionKeys.map(option => (
             <Menu
+              key={option}
               id={option}
               anchorEl={anchorEl[option]}
               open={Boolean(anchorEl[option])}
