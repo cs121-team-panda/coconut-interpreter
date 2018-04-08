@@ -135,7 +135,9 @@ class InterpreterTestCase(unittest.TestCase):
                                  data={'code': code, 'args': json.dumps(args)})
 
     def test_print(self):
-        response = self.get_code_response(PRINT_CODE)
+        response = self.get_code_response(code=PRINT_CODE, args=TARGET_36_ARG)
+        assert PRINT_OUTPUT in response.data
+        response = self.get_code_response(code=PRINT_CODE, args=TARGET_27_ARG)
         assert PRINT_OUTPUT in response.data
 
     def test_factorial(self):
@@ -145,12 +147,18 @@ class InterpreterTestCase(unittest.TestCase):
         assert FACTORIAL_OUTPUT in response.data
 
     def test_compile_error(self):
-        response = self.get_code_response(COMPILE_ERR_CODE)
+        response = self.get_code_response(code=COMPILE_ERR_CODE, args=TARGET_36_ARG)
+        self.assertEqual(response.status_code, 200)
+        assert COMPILE_ERR_OUTPUT in response.data
+        response = self.get_code_response(code=COMPILE_ERR_CODE, args=TARGET_27_ARG)
         self.assertEqual(response.status_code, 200)
         assert COMPILE_ERR_OUTPUT in response.data
 
     def test_running_error(self):
-        response = self.get_code_response(RUNNING_ERR_CODE)
+        response = self.get_code_response(code=RUNNING_ERR_CODE, args=TARGET_36_ARG)
+        self.assertEqual(response.status_code, 200)
+        assert RUNNING_ERR_OUTPUT in response.data
+        response = self.get_code_response(code=RUNNING_ERR_CODE, args=TARGET_27_ARG)
         self.assertEqual(response.status_code, 200)
         assert RUNNING_ERR_OUTPUT in response.data
 
@@ -162,25 +170,36 @@ class InterpreterTestCase(unittest.TestCase):
 
     def test_data_types_compile(self):
         '''DATA_TYPES_CODE does not work with Coconut's parse function.'''
-        response = self.get_code_response(DATA_TYPES_CODE)
+        response = self.get_code_response(code=DATA_TYPES_CODE, args=TARGET_36_ARG)
+        self.assertEqual(response.status_code, 200)
+        response = self.get_code_response(code=DATA_TYPES_CODE, args=TARGET_27_ARG)
         self.assertEqual(response.status_code, 200)
 
     def test_compile_args(self):
         '''Tests ability to pass optional arguments to Coconut compiler.'''
-        response = self.get_code_response(code=PRINT_CODE, args=LINE_NUMS_ARG)
+        response = self.get_code_response(code=PRINT_CODE, args={**LINE_NUMS_ARG, **TARGET_36_ARG})
+        self.assertEqual(response.status_code, 200)
+        assert LINE_NUMS_OUTPUT in response.data
+        response = self.get_code_response(code=PRINT_CODE, args={**LINE_NUMS_ARG, **TARGET_27_ARG})
         self.assertEqual(response.status_code, 200)
         assert LINE_NUMS_OUTPUT in response.data
 
     def test_parse_error(self):
-        response = self.get_code_response(PARSE_ERROR_CODE)
+        response = self.get_code_response(code=PARSE_ERROR_CODE, args=TARGET_36_ARG)
+        assert PARSE_ERROR_OUTPUT in response.data
+        response = self.get_code_response(code=PARSE_ERROR_CODE, args=TARGET_27_ARG)
         assert PARSE_ERROR_OUTPUT in response.data
 
     def test_syntax_error(self):
-        response = self.get_code_response(SYNTAX_ERROR_CODE)
+        response = self.get_code_response(code=SYNTAX_ERROR_CODE, args=TARGET_36_ARG)
+        assert SYNTAX_ERROR_OUTPUT in response.data
+        response = self.get_code_response(code=SYNTAX_ERROR_CODE, args=TARGET_27_ARG)
         assert SYNTAX_ERROR_OUTPUT in response.data
 
     def test_traceback(self):
-        response = self.get_code_response(TRACEBACK_CODE)
+        response = self.get_code_response(code=TRACEBACK_CODE, args=TARGET_36_ARG)
+        assert TRACEBACK_OUTPUT in response.data
+        response = self.get_code_response(code=TRACEBACK_CODE, args=TARGET_27_ARG)
         assert TRACEBACK_OUTPUT in response.data
 
     def test_async_def_fails(self):
@@ -196,11 +215,15 @@ class InterpreterTestCase(unittest.TestCase):
         assert ASYNC_DEF_OUTPUT in response.data
 
     def test_separator(self):
-        response = self.get_code_response(SEPARATOR + PRINT_CODE)
+        response = self.get_code_response(code=SEPARATOR + PRINT_CODE, args=TARGET_36_ARG)
+        assert PRINT_OUTPUT in response.data
+        response = self.get_code_response(code=SEPARATOR + PRINT_CODE, args=TARGET_27_ARG)
         assert PRINT_OUTPUT in response.data
 
     def test_emptycode(self):
-        response = self.get_code_response(EMPTY_CODE)
+        response = self.get_code_response(code=EMPTY_CODE, args=TARGET_36_ARG)
+        assert EMPTY_OUTPUT in response.data
+        response = self.get_code_response(code=EMPTY_CODE, args=TARGET_27_ARG)
         assert EMPTY_OUTPUT in response.data
 
 if __name__ == "__main__":
