@@ -80,8 +80,7 @@ def coconut():
                 # If major target version doesn't match current, replace the header.
                 sys_version = str(sys.version_info[0])
                 if compile_args['target'] != 'sys' or compile_args['target'][0] != sys_version:
-                    header = getheader('initial', sys_version) + \
-                        getheader('code', sys_version)
+                    header = getheader('initial', sys_version) + getheader('code', sys_version)
                     compiled_code = header + SEPARATOR + python_code
                 exec(compiled_code, d)
             except Exception:
