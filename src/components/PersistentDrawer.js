@@ -13,6 +13,7 @@ import Divider from 'material-ui/Divider';
 import IconButton from 'material-ui/IconButton';
 import GearIcon from 'material-ui-icons/Settings';
 import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
+import PlayArrow from 'material-ui-icons/PlayArrow';
 
 import { editorHeaderColor, headerTextStyle } from '../constants';
 
@@ -336,6 +337,7 @@ class PersistentDrawer extends React.Component {
                 disabled={this.props.loading}
               >
                 Run
+                <PlayArrow />
               </Button>
             </Toolbar>
           </AppBar>
