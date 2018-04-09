@@ -4,10 +4,13 @@ import sys
 import contextlib
 import traceback
 from io import StringIO
-from flask import request, jsonify
+
 from coconut.convenience import parse, setup
 from coconut.exceptions import CoconutException
+from coconut.compiler.header import getheader, section
+from flask import request, jsonify
 from flask_cors import CORS
+
 from app import create_app
 from .trace import extract_trace_py, extract_trace_coco
 
@@ -59,7 +62,9 @@ def coconut():
     if not compile_error:
         print("Finish compilation")
 
-        SEPARATOR = "# Compiled Coconut: -----------------------------------------------------------\n\n"
+        # Retrieve formatted section break created by the compiler that separates
+        # header and Python code.
+        SEPARATOR = section("Compiled Coconut")
         splits = compiled_code.split(SEPARATOR, maxsplit=1)
         if len(splits) == 2:
             header, python_code = splits
@@ -67,13 +72,16 @@ def coconut():
             header = splits[0]
             python_code = ""
 
-        header_len = header.count('\n') + SEPARATOR.count('\n')
-
         # Run the compiled code.
         with stdoutIO() as s:
             try:
                 # Necessary for _coconut_sys definition in exec environment
                 d = {'sys': globals()['sys']}
+                # If major target version doesn't match current, replace the header.
+                sys_version = str(sys.version_info[0])
+                if compile_args['target'] != 'sys' or compile_args['target'][0] != sys_version:
+                    header = getheader('initial', sys_version) + getheader('code', sys_version)
+                    compiled_code = header + SEPARATOR + python_code
                 exec(compiled_code, d)
             except Exception:
                 running_error = True
@@ -88,6 +96,7 @@ def coconut():
             # Store output from the run
             output_text = s.getvalue()
         else:
+            header_len = header.count('\n') + SEPARATOR.count('\n')
             python_error = extract_trace_py(output_text, header_len)
             line_num, python_lines = python_error['line'], python_code.split('\n')
             if 0 < line_num < len(python_lines):
