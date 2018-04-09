@@ -108,48 +108,26 @@ const styles = theme => ({
 });
 
 const optionKeyLabels = {
-  target: 'Allowable Target',
-  strict: 'Enforce code cleanliness standards',
-  minify: 'Reduce size of Compiled Python',
-  line_numbers: 'Show line numbers',
-  keep_lines: 'Keep line numbers',
-  no_tco: 'No TCO',
+  target: 'Target Python version',
 };
 
-const optionKeys = [
-  'target',
-  'strict',
-  'minify',
-  'line_numbers',
-  'keep_lines',
-  'no_tco',
-];
+const optionKeys = ['target'];
 
 const options = {
   target: [
-    'Allowable Targets',
-    'Current latest version (Default)',
-    'Python >= 2.6',
-    'Python >= 2.7',
-    'Python >= 3.2',
-    'Python >= 3.3',
-    'Python >= 3.5',
-    'Python >= 3.6',
+    'target',
+    'Latest version (Default)',
+    'Python 2.6',
+    'Python 2.7',
+    'Python 3.2',
+    'Python 3.3',
+    'Python 3.5',
+    'Python 3.6',
   ],
-  strict: ['Strict', 'False (Default)', 'True'],
-  minify: ['Minify', 'False (Default)', 'True'],
-  line_numbers: ['line_numbers', 'False (Default)', 'True'],
-  keep_lines: ['keep_lines', 'False (Default)', 'True'],
-  no_tco: ['no_tco', 'False (Default)', 'True'],
 };
 
 const values = {
   target: ['sys', '26', '27', '32', '33', '35', '36'],
-  strict: [false, true],
-  minify: [false, true],
-  line_numbers: [false, true],
-  keep_lines: [false, true],
-  no_tco: [false, true],
 };
 
 class PersistentDrawer extends React.Component {
@@ -158,27 +136,12 @@ class PersistentDrawer extends React.Component {
     anchor: 'left',
     anchorEl: {
       target: null,
-      strict: null,
-      minify: null,
-      line_numbers: null,
-      keep_lines: null,
-      no_tco: null,
     },
     selectedIndex: {
       target: 1,
-      strict: 1,
-      minify: 1,
-      line_numbers: 1,
-      keep_lines: 1,
-      no_tco: 1,
     },
     args: {
       target: 'sys',
-      strict: false,
-      minify: false,
-      line_numbers: false,
-      keep_lines: false,
-      no_tco: false,
     },
   };
 

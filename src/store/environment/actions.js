@@ -16,11 +16,6 @@ export type Payload = {
 
 export type Args = {
   target: string,
-  strict: boolean,
-  minify: boolean,
-  line_numbers: boolean,
-  keep_lines: boolean,
-  no_tco: boolean,
 };
 
 export function runRequest(code: string, args: Args) {
