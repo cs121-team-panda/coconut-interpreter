@@ -9,7 +9,6 @@ import { fromJS } from 'immutable';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import CssBaseline from 'material-ui/CssBaseline';
-import 'typeface-roboto'; // eslint-disable-line import/extensions
 import reducers from './store/reducers';
 import sagas from './store/sagas';
 import App from './containers/App';
