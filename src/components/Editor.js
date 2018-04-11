@@ -17,23 +17,6 @@ const styles = () => ({
   editor: {
     gridArea: 'editor',
   },
-  headerButton: {
-    height: 'inherit',
-    float: 'right',
-    border: 'none',
-    color: '#fff',
-    fontFamily: 'Roboto',
-    fontSize: '14px',
-    fontWeight: 700,
-    textTransform: 'uppercase',
-    backgroundColor: 'inherit',
-    letterSpacing: '0.08em',
-    cursor: 'pointer',
-  },
-  'headerButton:disabled': {
-    color: '#999',
-    cursor: 'default',
-  },
   errorMarker: {
     position: 'absolute',
     background: 'rgba(255, 0, 0, 0.4)',
