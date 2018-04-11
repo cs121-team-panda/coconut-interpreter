@@ -1,5 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+// @flow
+
+import * as React from 'react';
 import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
@@ -14,12 +15,15 @@ import IconButton from 'material-ui/IconButton';
 import GearIcon from 'material-ui-icons/Settings';
 import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
 import PlayArrow from 'material-ui-icons/PlayArrow';
+import AceEditor from 'react-ace';
+import type { Theme } from 'material-ui/styles';
 
 import { editorHeaderColor, headerTextStyle } from '../constants';
+import type { Args } from '../store/environment/actions';
 
 const drawerWidth = 240;
 
-const styles = theme => ({
+const styles = (theme: Theme) => ({
   root: {
     flexGrow: 1,
   },
@@ -43,6 +47,7 @@ const styles = theme => ({
     }),
     boxShadow: 'none',
   },
+  // $FlowFixMe: Cannot assign computed property using object literal
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(['margin', 'width'], {
@@ -86,6 +91,7 @@ const styles = theme => ({
   'content-left': {
     marginLeft: -drawerWidth - 5,
   },
+  // $FlowFixMe: Cannot assign computed property using object literal
   contentShift: {
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
@@ -130,7 +136,22 @@ const values = {
   target: ['sys', '26', '27', '32', '33', '35', '36'],
 };
 
-class PersistentDrawer extends React.Component {
+type Props = {
+  aceEditor: React.Element<typeof AceEditor>,
+  handleClick: (args: Args) => void,
+  loading: boolean,
+  classes: $Call<typeof styles, Theme>,
+};
+
+type State = {
+  open: boolean,
+  anchor: string,
+  anchorEl: { target: ?string },
+  selectedIndex: { target: number },
+  args: Args,
+};
+
+class PersistentDrawer extends React.Component<Props, State> {
   state = {
     open: false,
     anchor: 'left',
@@ -322,12 +343,5 @@ class PersistentDrawer extends React.Component {
     );
   }
 }
-
-PersistentDrawer.propTypes = {
-  classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-  aceEditor: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-  handleClick: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
-};
 
 export default withStyles(styles, { withTheme: true })(PersistentDrawer);
