@@ -15,6 +15,7 @@ import IconButton from 'material-ui/IconButton';
 import GearIcon from 'material-ui-icons/Settings';
 import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
 import PlayArrow from 'material-ui-icons/PlayArrow';
+import SaveIcon from 'material-ui-icons/Save';
 import AceEditor from 'react-ace';
 import type { Theme } from 'material-ui/styles';
 
@@ -110,6 +111,13 @@ const styles = (theme: Theme) => ({
   },
   gearIcon: {
     fontSize: 21,
+  },
+  downloadButton: {
+    margin: 0,
+    ...headerTextStyle,
+  },
+  downloadIcon: {
+    fontSize: 20,
   },
 });
 
@@ -215,6 +223,21 @@ class PersistentDrawer extends React.Component<Props, State> {
     });
   };
 
+  handleDownloadClick = code => {
+    const element = document.createElement('a');
+    const file = new Blob([code], { type: 'text/plain' });
+    element.href = URL.createObjectURL(file);
+    element.download = 'coconut.coco';
+    if (document.body) document.body.appendChild(element);
+    element.click();
+
+    // Timeout to prevent the element being removed too soon in some browsers like Firefox
+    setTimeout(() => {
+      if (document.body) document.body.removeChild(element);
+      window.URL.revokeObjectURL(element.href);
+    }, 100);
+  };
+
   render() {
     const { classes } = this.props;
     const { anchor, open, anchorEl } = this.state;
@@ -285,6 +308,8 @@ class PersistentDrawer extends React.Component<Props, State> {
       before = drawer;
     }
 
+    const coconutCode = this.props.aceEditor.props.value;
+
     return (
       <div className={classes.root}>
         <div className={classes.appFrame}>
@@ -314,6 +339,13 @@ class PersistentDrawer extends React.Component<Props, State> {
               >
                 Coconut Editor
               </Typography>
+              <IconButton
+                color="inherit"
+                className={classes.downloadButton}
+                onClick={() => this.handleDownloadClick(coconutCode)}
+              >
+                <SaveIcon className={classes.downloadIcon} />
+              </IconButton>
               <Button
                 color="inherit"
                 className={classes.runButton}
