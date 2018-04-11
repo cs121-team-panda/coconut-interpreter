@@ -12,6 +12,7 @@ type Props = {
   loading: boolean,
   output: string,
   outputPython: string,
+  coconutErrorCall: ?string,
   pythonErrorCall: ?string,
   pythonErrorLine: ?number,
 };
@@ -21,8 +22,9 @@ const OutputContainer = (props: Props) => (
     loading={props.loading}
     value={props.output}
     python={props.outputPython}
-    errorCall={props.pythonErrorCall}
-    errorLine={props.pythonErrorLine}
+    coconutErrorCall={props.coconutErrorCall}
+    pythonErrorCall={props.pythonErrorCall}
+    pythonErrorLine={props.pythonErrorLine}
   />
 );
 
@@ -31,13 +33,22 @@ const mapStateToProps = createSelector(
     mySelectors.loading,
     mySelectors.output,
     mySelectors.outputPython,
+    mySelectors.coconutErrorCall,
     mySelectors.pythonErrorCall,
     mySelectors.pythonErrorLine,
   ],
-  (loading, output, outputPython, pythonErrorCall, pythonErrorLine) => ({
+  (
     loading,
     output,
     outputPython,
+    coconutErrorCall,
+    pythonErrorCall,
+    pythonErrorLine
+  ) => ({
+    loading,
+    output,
+    outputPython,
+    coconutErrorCall,
     pythonErrorCall,
     pythonErrorLine,
   })
