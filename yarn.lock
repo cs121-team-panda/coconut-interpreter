@@ -3072,6 +3072,10 @@ detect-port-alt@1.1.5:
     address "^1.0.1"
     debug "^2.6.0"
 
+diff-match-patch@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/diff-match-patch/-/diff-match-patch-1.0.0.tgz#1cc3c83a490d67f95d91e39f6ad1f2e086b63048"
+
 diff@^3.2.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/diff/-/diff-3.5.0.tgz#800c0dd1e0a8bfbc95835c202ad220fe317e5a12"
@@ -4070,9 +4074,9 @@ flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
 
-flow-bin@^0.66.0:
-  version "0.66.0"
-  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.66.0.tgz#a96dde7015dc3343fd552a7b4963c02be705ca26"
+flow-bin@^0.69.0:
+  version "0.69.0"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.69.0.tgz#053159a684a6051fcbf0b71a2eb19a9679082da6"
 
 flush-write-stream@^1.0.0:
   version "1.0.3"
@@ -5994,9 +5998,9 @@ levn@^0.3.0, levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-lint-staged@^7.0.0:
-  version "7.0.2"
-  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-7.0.2.tgz#c99f6800e0525fa9c16f04c13ebe137edfd4fcd7"
+lint-staged@^7.0.4:
+  version "7.0.4"
+  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-7.0.4.tgz#1aa7f27427e4c4c85d4d6524ac98aac10cbaf1b8"
   dependencies:
     app-root-path "^2.0.1"
     chalk "^2.3.1"
@@ -6018,6 +6022,7 @@ lint-staged@^7.0.0:
     pify "^3.0.0"
     please-upgrade-node "^3.0.1"
     staged-git-files "1.1.1"
+    string-argv "^0.0.2"
     stringify-object "^3.2.2"
 
 listr-silent-renderer@^1.1.1:
@@ -7879,11 +7884,12 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-ace@^5.9.0:
-  version "5.10.0"
-  resolved "https://registry.yarnpkg.com/react-ace/-/react-ace-5.10.0.tgz#e328b37ac52759f700be5afdb86ada2f5ec84c5e"
+react-ace@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/react-ace/-/react-ace-6.0.0.tgz#c211c21825f27343a7392f102493dc3ae099886d"
   dependencies:
     brace "^0.11.0"
+    diff-match-patch "^1.0.0"
     lodash.get "^4.4.2"
     lodash.isequal "^4.1.1"
     prop-types "^15.5.8"
@@ -7913,9 +7919,9 @@ react-dev-utils@6.0.0-next.47d2d941:
     strip-ansi "4.0.0"
     text-table "0.2.0"
 
-react-dom@^16.2.0:
-  version "16.3.0"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.3.0.tgz#b318e52184188ecb5c3e81117420cca40618643e"
+react-dom@^16.3.1:
+  version "16.3.1"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.3.1.tgz#6a3c90a4fb62f915bdbcf6204422d93a7d4ca573"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -7947,6 +7953,10 @@ react-helmet@^5.2.0:
 react-is@^16.3.0:
   version "16.3.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.3.0.tgz#f0e8bfd8c09b480dd610b8639d9ed65c13601224"
+
+react-is@^16.3.1:
+  version "16.3.1"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.3.1.tgz#ee66e6d8283224a83b3030e110056798488359ba"
 
 react-jss@^8.1.0:
   version "8.4.0"
@@ -8067,7 +8077,7 @@ react-side-effect@^1.1.0:
     exenv "^1.2.1"
     shallowequal "^1.0.1"
 
-react-test-renderer@^16.0.0-0, react-test-renderer@^16.2.0:
+react-test-renderer@^16.0.0-0:
   version "16.3.0"
   resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-16.3.0.tgz#7e88d8cb4c2b95c161b6c6c998991166f74d473e"
   dependencies:
@@ -8075,6 +8085,15 @@ react-test-renderer@^16.0.0-0, react-test-renderer@^16.2.0:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
     react-is "^16.3.0"
+
+react-test-renderer@^16.3.1:
+  version "16.3.1"
+  resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-16.3.1.tgz#d9257936d8535bd40f57f3d5a84e7b0452fb17f2"
+  dependencies:
+    fbjs "^0.8.16"
+    object-assign "^4.1.1"
+    prop-types "^15.6.0"
+    react-is "^16.3.1"
 
 react-transition-group@^2.2.1:
   version "2.3.0"
@@ -8086,9 +8105,9 @@ react-transition-group@^2.2.1:
     prop-types "^15.5.8"
     warning "^3.0.0"
 
-react@^16.2.0:
-  version "16.3.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.3.0.tgz#fc5a01c68f91e9b38e92cf83f7b795ebdca8ddff"
+react@^16.3.1:
+  version "16.3.1"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.3.1.tgz#4a2da433d471251c69b6033ada30e2ed1202cfd8"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -9107,6 +9126,10 @@ stream-to-observable@^0.2.0:
 strict-uri-encode@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/strict-uri-encode/-/strict-uri-encode-1.1.0.tgz#279b225df1d582b1f54e65addd4352e18faa0713"
+
+string-argv@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/string-argv/-/string-argv-0.0.2.tgz#dac30408690c21f3c3630a3ff3a05877bdcbd736"
 
 string-length@^2.0.0:
   version "2.0.0"
