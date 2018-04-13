@@ -17,6 +17,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import SaveIcon from '@material-ui/icons/Save';
 import AceEditor from 'react-ace';
+import ReactTooltip from 'react-tooltip';
 import type { Theme } from 'material-ui/styles';
 
 import { editorHeaderColor, headerTextStyle } from '../constants';
@@ -118,6 +119,11 @@ const styles = (theme: Theme) => ({
   },
   downloadIcon: {
     fontSize: 20,
+  },
+  tooltip: {
+    fontFamily: 'Roboto',
+    fontSize: 14,
+    padding: theme.spacing.unit,
   },
 });
 
@@ -321,7 +327,16 @@ class PersistentDrawer extends React.Component<Props, State> {
               disableGutters={!open}
               classes={{ root: classes.toolbarRoot }}
             >
+              <ReactTooltip
+                id="settings"
+                className={classes.tooltip}
+                place="right"
+                type="dark"
+                effect="solid"
+              />
               <IconButton
+                data-tip="Settings"
+                data-for="settings"
                 color="inherit"
                 aria-label="open drawer"
                 onClick={this.handleDrawerOpen}
@@ -337,7 +352,16 @@ class PersistentDrawer extends React.Component<Props, State> {
               >
                 Coconut Editor
               </Typography>
+              <ReactTooltip
+                id="download"
+                className={classes.tooltip}
+                place="bottom"
+                type="dark"
+                effect="solid"
+              />
               <IconButton
+                data-tip="Download"
+                data-for="download"
                 color="inherit"
                 className={classes.downloadButton}
                 onClick={() => this.handleDownloadClick(coconutCode)}
