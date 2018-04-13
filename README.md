@@ -24,6 +24,9 @@ yarn start
 yarn test
 ```
 
-## License
+## Contributing
 
-MIT. Copyright (c) cs121-team-panda.
+Read our [contributing guide](https://github.com/cs121-team-panda/coconut-interpreter-react/blob/master/CONTRIBUTING.md) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to this repository.
+
+## License 
+This repository is MIT [licensed](https://github.com/cs121-team-panda/coconut-interpreter-react/blob/master/LICENSE).
