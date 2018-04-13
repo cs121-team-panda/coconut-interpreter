@@ -152,7 +152,8 @@ const values = {
 
 type Props = {
   aceEditor: React.Element<typeof AceEditor>,
-  handleClick: (args: Args) => void,
+  updateArgs: (args: Args) => void,
+  handleClick: () => void,
   loading: boolean,
   classes: $Call<typeof styles, Theme>,
 };
@@ -162,7 +163,6 @@ type State = {
   anchor: string,
   anchorEl: { target: ?string },
   selectedIndex: { target: number },
-  args: Args,
 };
 
 class PersistentDrawer extends React.Component<Props, State> {
@@ -174,9 +174,6 @@ class PersistentDrawer extends React.Component<Props, State> {
     },
     selectedIndex: {
       target: 1,
-    },
-    args: {
-      target: 'sys',
     },
   };
 
@@ -209,14 +206,13 @@ class PersistentDrawer extends React.Component<Props, State> {
         ...this.state.selectedIndex,
         [value]: index,
       },
-      args: {
-        ...this.state.args,
-        [value]: values[value][index - 1],
-      },
       anchorEl: {
         ...this.state.anchorEl,
         [value]: null,
       },
+    });
+    this.props.updateArgs({
+      [value]: values[value][index - 1],
     });
   };
 
@@ -371,7 +367,7 @@ class PersistentDrawer extends React.Component<Props, State> {
               <Button
                 color="inherit"
                 className={classes.runButton}
-                onClick={() => this.props.handleClick(this.state.args)}
+                onClick={this.props.handleClick}
                 disabled={this.props.loading}
               >
                 Run

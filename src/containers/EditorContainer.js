@@ -6,11 +6,14 @@ import { createSelector } from 'reselect';
 
 import * as mySelectors from '../store/environment/selectors';
 import * as myActions from '../store/environment/actions';
+import type { Args } from '../store/environment/actions';
 
 import Editor from '../components/Editor';
 
 type Props = {
-  runRequest: (code: string, args: string) => void,
+  args: Args,
+  updateArgs: (args: Args) => void,
+  runRequest: (code: string, args: Args) => void,
   loading: boolean,
   coconutErrorCall: ?string,
   coconutErrorLine: ?number,
@@ -18,6 +21,8 @@ type Props = {
 
 const EditorContainer = (props: Props) => (
   <Editor
+    args={props.args}
+    updateArgs={props.updateArgs}
     runRequest={props.runRequest}
     loading={props.loading}
     errorCall={props.coconutErrorCall}
@@ -27,11 +32,13 @@ const EditorContainer = (props: Props) => (
 
 const mapStateToProps = createSelector(
   [
+    mySelectors.args,
     mySelectors.loading,
     mySelectors.coconutErrorCall,
     mySelectors.coconutErrorLine,
   ],
-  (loading, coconutErrorCall, coconutErrorLine) => ({
+  (args, loading, coconutErrorCall, coconutErrorLine) => ({
+    args,
     loading,
     coconutErrorCall,
     coconutErrorLine,
@@ -39,6 +46,9 @@ const mapStateToProps = createSelector(
 );
 
 const mapDispatchToProps = dispatch => ({
+  updateArgs: args => {
+    dispatch(myActions.updateArgs(args));
+  },
   runRequest: (code, args) => {
     dispatch(myActions.runRequest(code, args));
   },

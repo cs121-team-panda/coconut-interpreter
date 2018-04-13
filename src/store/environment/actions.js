@@ -39,7 +39,15 @@ export function runFailure(output: string) {
   };
 }
 
+export function updateArgs(args: Args) {
+  return {
+    type: actionTypes.UPDATE_ARGS,
+    payload: { args },
+  };
+}
+
 export type Action =
   | $Call<typeof runRequest, string, Args>
   | $Call<typeof runSuccess, Payload>
-  | $Call<typeof runFailure, string>;
+  | $Call<typeof runFailure, string>
+  | $Call<typeof updateArgs, Args>;

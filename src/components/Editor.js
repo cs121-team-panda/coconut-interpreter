@@ -24,6 +24,8 @@ const styles = () => ({
 });
 
 type Props = {
+  args: Args,
+  updateArgs: (args: Args) => void,
   runRequest: (code: string, args: Args) => void,
   loading: boolean,
   errorLine: ?number,
@@ -57,8 +59,9 @@ class Editor extends Component<Props, State> {
     this.setState({ code: newCode });
   };
 
-  handleClick = (args: Args) => {
-    if (this.state.code.trim()) this.props.runRequest(this.state.code, args);
+  handleClick = () => {
+    if (this.state.code.trim())
+      this.props.runRequest(this.state.code, this.props.args);
   };
 
   render() {
@@ -79,6 +82,7 @@ class Editor extends Component<Props, State> {
       <div className={styles.editor}>
         <PersistentDrawer
           aceEditor={aceEditor}
+          updateArgs={this.props.updateArgs}
           handleClick={this.handleClick}
           loading={this.props.loading}
         />

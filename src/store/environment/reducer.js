@@ -6,6 +6,9 @@ import * as actionTypes from './actionTypes';
 import type { Action } from './actions';
 
 export const initialState = fromJS({
+  args: {
+    target: 'sys',
+  },
   output: '',
   outputPython: '',
   coconutError: null,
@@ -31,6 +34,10 @@ export default function reducer(state: Map = initialState, action: Action) {
       return state.merge({
         output: fromJS(action.payload.output),
         loading: fromJS(false),
+      });
+    case actionTypes.UPDATE_ARGS:
+      return state.merge({
+        args: fromJS(action.payload.args),
       });
     default:
       return state;

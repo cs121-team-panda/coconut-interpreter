@@ -15,7 +15,10 @@ export const pythonErrorLine = (state: Map) =>
   state.getIn(['environment', 'pythonError', 'line']);
 export const pythonErrorCall = (state: Map) =>
   state.getIn(['environment', 'pythonError', 'call']);
+export const argsTarget = (state: Map) =>
+  state.getIn(['environment', 'args', 'target']);
 
+export const args = createSelector(argsTarget, target => ({ target }));
 export const isError = createSelector(
   [coconutErrorCall, pythonErrorCall],
   (cocoErrorCall, pyErrorCall) => cocoErrorCall || pyErrorCall
