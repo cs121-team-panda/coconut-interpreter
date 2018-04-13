@@ -24,11 +24,7 @@ const createApp = store => (
       <meta name="description" content="Online Coconut interpreter." />
       <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
-      />
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        href="https://fonts.googleapis.com/css?family=Roboto"
       />
     </Helmet>
     <CssBaseline />
