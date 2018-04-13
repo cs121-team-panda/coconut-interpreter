@@ -12,10 +12,10 @@ import Menu, { MenuItem } from 'material-ui/Menu';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import IconButton from 'material-ui/IconButton';
-import GearIcon from 'material-ui-icons/Settings';
-import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
-import PlayArrow from 'material-ui-icons/PlayArrow';
-import SaveIcon from 'material-ui-icons/Save';
+import GearIcon from '@material-ui/icons/Settings';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import PlayArrow from '@material-ui/icons/PlayArrow';
+import SaveIcon from '@material-ui/icons/Save';
 import AceEditor from 'react-ace';
 import type { Theme } from 'material-ui/styles';
 
