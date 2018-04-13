@@ -36,7 +36,8 @@
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:embed": "PUBLIC_URL=/ GENERATE_SOURCEMAP=false react-scripts build",
+    "build:embed":
+      "REACT_APP_EMBED=true PUBLIC_URL=/ GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
