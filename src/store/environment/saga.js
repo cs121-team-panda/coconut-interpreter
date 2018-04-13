@@ -9,12 +9,15 @@ import * as actions from './actions';
 
 import run from '../../api';
 
+const errorMessage =
+  'Error: Failed to fetch output due to timeout or internal error';
+
 function* runRequest(action: Action) {
   try {
     const payload = yield call(run, action.payload);
     yield put(actions.runSuccess(payload));
   } catch (e) {
-    yield put(actions.runFailure(e.toString()));
+    yield put(actions.runFailure(errorMessage));
   }
 }
 
