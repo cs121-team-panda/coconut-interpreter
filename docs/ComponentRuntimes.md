@@ -1,5 +1,5 @@
 | Code      | Compiler Time (mean + stdev) | Local Host Time (mean + stdev) | Heroku Host Time (mean/stdev)| AWS (mean/stdev)| AWS Lambda (mean/stdev) | Link To Code |
-|-----------|------------------------------|--------------------------------|---------------------------------|--------------|--------------|
+|-----------|------------------------------|--------------------------------|---------------------------------|---------------------------------|--------------|--------------|
 | Factorial (Imperative) |2.1651/0.0558|2.621/0.277|4.870/0.565 |2.8275/0.0337|1.0369/0.0937|[Factorial (Imperative)](http://coconut.readthedocs.io/en/latest/HELP.html#imperative-method)|
 | Factorial (Recursive)  |2.2383/0.0712|2.421/0.093|7.106/1.929 |2.7738/0.0534|1.0808/0.1239|[Factorial (Recursive)](http://coconut.readthedocs.io/en/latest/HELP.html#recursive-method)|
 | Factorial (Iterative)  |2.3013/0.0770|2.479/0.034|7.356/1.325 |2.9588/0.0455|1.3475/0.1178|[Factorial (Iterative)](http://coconut.readthedocs.io/en/latest/HELP.html#iterative-method)|
