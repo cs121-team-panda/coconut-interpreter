@@ -49,6 +49,7 @@ class Editor extends React.Component<Props, State> {
 
   componentDidMount() {
     window.addEventListener('resize', this.handleResize);
+    window.setCode = this.setCode;
   }
 
   componentWillUnmount() {
@@ -75,6 +76,10 @@ class Editor extends React.Component<Props, State> {
       exec: this.handleClick,
     },
   ];
+
+  setCode = (code: string) => {
+    this.setState({ code });
+  };
 
   handleChange = (newCode: string) => {
     this.setState({ code: newCode });
