@@ -197,7 +197,7 @@ class PersistentDrawer extends React.Component<Props, State> {
     });
   };
 
-  handleMenuItemClick = (event, index, value) => {
+  handleMenuItemClick = (index, value) => {
     this.setState({
       selectedIndex: {
         ...this.state.selectedIndex,
@@ -214,7 +214,7 @@ class PersistentDrawer extends React.Component<Props, State> {
     });
   };
 
-  handleClose = (event, value) => {
+  handleClose = value => {
     this.setState({
       anchorEl: {
         ...this.state.anchorEl,
@@ -281,16 +281,14 @@ class PersistentDrawer extends React.Component<Props, State> {
               id={option}
               anchorEl={anchorEl[option]}
               open={Boolean(anchorEl[option])}
-              onClose={event => this.handleClose(event, option)}
+              onClose={() => this.handleClose(option)}
             >
               {options[option].map((option2, index) => (
                 <MenuItem
                   key={option2}
                   disabled={index === 0}
                   selected={index === this.state.selectedIndex[option]}
-                  onClick={event =>
-                    this.handleMenuItemClick(event, index, option)
-                  }
+                  onClick={() => this.handleMenuItemClick(index, option)}
                 >
                   {option2}
                 </MenuItem>
