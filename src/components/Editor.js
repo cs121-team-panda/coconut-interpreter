@@ -55,12 +55,20 @@ class Editor extends Component<Props, State> {
     return errorMarker(code, errorLine, errorCall, classes.errorMarker);
   };
 
+  getBindedCommands = () => [
+    {
+      name: 'run',
+      bindKey: { win: 'Ctrl-Enter', mac: 'Command-Enter' },
+      exec: this.handleClick,
+    },
+  ];
+
   handleChange = (newCode: string) => {
     this.setState({ code: newCode });
   };
 
   handleClick = () => {
-    if (this.state.code.trim())
+    if (!this.props.loading && this.state.code.trim())
       this.props.runRequest(this.state.code, this.props.args);
   };
 
@@ -75,6 +83,7 @@ class Editor extends Component<Props, State> {
         onLoad={this.onEditorLoad}
         {...aceStyleProps}
         markers={this.getMarkers()}
+        commands={this.getBindedCommands()}
       />
     );
 
