@@ -3,24 +3,17 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
-import Button from 'material-ui/Button';
 import Drawer from 'material-ui/Drawer';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import Menu, { MenuItem } from 'material-ui/Menu';
-import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import IconButton from 'material-ui/IconButton';
-import GearIcon from '@material-ui/icons/Settings';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import PlayArrow from '@material-ui/icons/PlayArrow';
-import SaveIcon from '@material-ui/icons/Save';
 import AceEditor from 'react-ace';
-import ReactTooltip from 'react-tooltip';
 import type { Theme } from 'material-ui/styles';
 
-import { editorHeaderColor, headerTextStyle } from '../constants';
+import EditorHeader from './EditorHeader';
+import { editorHeaderColor } from '../constants';
 import type { Args } from '../store/environment/actions';
 
 const drawerWidth = 240;
@@ -28,10 +21,6 @@ const drawerWidth = 240;
 const styles = (theme: Theme) => ({
   root: {
     flexGrow: 1,
-  },
-  headerText: {
-    flex: 1,
-    ...headerTextStyle,
   },
   appFrame: {
     zIndex: 1,
@@ -60,13 +49,6 @@ const styles = (theme: Theme) => ({
   'appBarShift-left': {
     marginLeft: drawerWidth,
   },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
-  hide: {
-    display: 'none',
-  },
   drawerPaper: {
     position: 'relative',
     width: drawerWidth,
@@ -83,8 +65,6 @@ const styles = (theme: Theme) => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: 0,
-    marginTop: '48px',
-    height: `calc(100% - 48)px`,
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -102,28 +82,6 @@ const styles = (theme: Theme) => ({
   },
   'contentShift-left': {
     marginLeft: 0,
-  },
-  runButton: {
-    ...headerTextStyle,
-  },
-  toolbarRoot: {
-    minHeight: 48,
-    padding: '0 24px',
-  },
-  gearIcon: {
-    fontSize: 21,
-  },
-  downloadButton: {
-    margin: 0,
-    ...headerTextStyle,
-  },
-  downloadIcon: {
-    fontSize: 20,
-  },
-  tooltip: {
-    fontFamily: 'Roboto',
-    fontSize: 14,
-    padding: theme.spacing.unit,
   },
 });
 
@@ -313,77 +271,18 @@ class PersistentDrawer extends React.Component<Props, State> {
     return (
       <div className={classes.root}>
         <div className={classes.appFrame}>
-          <AppBar
-            className={classNames(classes.appBar, {
+          <EditorHeader
+            simple={false}
+            appBarClassNames={classNames(classes.appBar, {
               [classes.appBarShift]: open,
               [classes[`appBarShift-${anchor}`]]: open,
             })}
-          >
-            <Toolbar
-              disableGutters={!open}
-              classes={{ root: classes.toolbarRoot }}
-            >
-              <ReactTooltip
-                id="settings"
-                className={classes.tooltip}
-                place="right"
-                type="dark"
-                effect="solid"
-              />
-              <IconButton
-                data-tip="Settings"
-                data-for="settings"
-                color="inherit"
-                aria-label="open drawer"
-                onClick={this.handleDrawerOpen}
-                className={classNames(classes.menuButton, open && classes.hide)}
-              >
-                <GearIcon className={classes.gearIcon} />
-              </IconButton>
-              <Typography
-                variant="title"
-                color="inherit"
-                className={classes.headerText}
-                noWrap
-              >
-                Coconut Editor
-              </Typography>
-              <ReactTooltip
-                id="download"
-                className={classes.tooltip}
-                place="bottom"
-                type="dark"
-                effect="solid"
-              />
-              <IconButton
-                data-tip="Download"
-                data-for="download"
-                color="inherit"
-                className={classes.downloadButton}
-                onClick={() => this.handleDownloadClick(coconutCode)}
-              >
-                <SaveIcon className={classes.downloadIcon} />
-              </IconButton>
-              <ReactTooltip
-                id="run"
-                className={classes.tooltip}
-                place="bottom"
-                type="dark"
-                effect="solid"
-              />
-              <Button
-                data-tip="⌘ + Enter"
-                data-for="run"
-                color="inherit"
-                className={classes.runButton}
-                onClick={this.props.handleClick}
-                disabled={this.props.loading}
-              >
-                Run
-                <PlayArrow />
-              </Button>
-            </Toolbar>
-          </AppBar>
+            open={open}
+            handleDrawerOpen={this.handleDrawerOpen}
+            coconutCode={coconutCode}
+            handleClick={this.props.handleClick}
+            loading={this.props.loading}
+          />
           {before}
           <main
             className={classNames(

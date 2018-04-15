@@ -8,7 +8,6 @@ import OutputContainer from './OutputContainer';
 
 const styles = () => ({
   container: {
-    overflow: 'hidden',
     height: '100vh',
     fontFamily: 'Roboto',
     display: 'grid',

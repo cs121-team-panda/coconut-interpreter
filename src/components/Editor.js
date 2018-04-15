@@ -1,12 +1,13 @@
 // @flow
 
-import React, { Component } from 'react';
+import * as React from 'react';
 import AceEditor from 'react-ace';
 import type { EditorProps } from 'react-ace';
 import { withStyles } from 'material-ui/styles';
 
 import 'brace/theme/dracula';
 
+import EditorHeader from './EditorHeader';
 import PersistentDrawer from './PersistentDrawer';
 import errorMarker from '../utils/highlighter';
 import { aceStyleProps } from '../constants';
@@ -35,12 +36,22 @@ type Props = {
 
 type State = {
   code: string,
+  windowWidth: number,
 };
 
-class Editor extends Component<Props, State> {
+class Editor extends React.Component<Props, State> {
   state = {
     code: window.initialCode || '',
+    windowWidth: window.innerWidth,
   };
+
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
 
   onEditorLoad = (editor: EditorProps) => {
     editor.renderer.setPadding(24);
@@ -72,29 +83,45 @@ class Editor extends Component<Props, State> {
       this.props.runRequest(this.state.code, this.props.args);
   };
 
-  render() {
-    const aceEditor = (
-      <AceEditor
-        name="code"
-        mode="text"
-        theme="dracula"
-        value={this.state.code}
-        onChange={this.handleChange}
-        onLoad={this.onEditorLoad}
-        {...aceStyleProps}
-        markers={this.getMarkers()}
-        commands={this.getBindedCommands()}
-      />
-    );
+  handleResize = () => {
+    this.setState({ windowWidth: window.innerWidth });
+  };
 
+  renderAceEditor = () => (
+    <AceEditor
+      name="code"
+      mode="text"
+      theme="dracula"
+      value={this.state.code}
+      onChange={this.handleChange}
+      onLoad={this.onEditorLoad}
+      {...aceStyleProps}
+      markers={this.getMarkers()}
+      commands={this.getBindedCommands()}
+    />
+  );
+
+  render() {
+    const { classes } = this.props;
     return (
-      <div className={styles.editor}>
-        <PersistentDrawer
-          aceEditor={aceEditor}
-          updateArgs={this.props.updateArgs}
-          handleClick={this.handleClick}
-          loading={this.props.loading}
-        />
+      <div className={classes.editor}>
+        {this.state.windowWidth < 600 ? (
+          <>
+            <EditorHeader
+              simple
+              handleClick={this.handleClick}
+              loading={this.props.loading}
+            />
+            {this.renderAceEditor()}
+          </>
+        ) : (
+          <PersistentDrawer
+            aceEditor={this.renderAceEditor()}
+            updateArgs={this.props.updateArgs}
+            handleClick={this.handleClick}
+            loading={this.props.loading}
+          />
+        )}
       </div>
     );
   }
