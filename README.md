@@ -32,7 +32,7 @@ The interpreter consists of an easy-to-use webpage (shown below) that enables us
 
 **2 - Saving to a Coconut File:** Clicking the save icon will download the contents of the code editor into a Coconut file called ```coconut.coco```.
 
-**3 - Code Executio:n:** Clicking `RUN`or using the keyboard shortcut `Ctrl + Enter` for Windows or `⌘ + Enter` for Mac will compile and execute the program.
+**3 - Code Execution:** Clicking `RUN`or using the keyboard shortcut `Ctrl + Enter` for Windows or `⌘ + Enter` for Mac will compile and execute the program.
 
 **4 - Showing the Compiled Python:** Checking the box labeled `PYTHON` will show the user the compiled Python, which is the output of the Coconut compiler. the Python code will be displayed using Python syntax highlighting.
 
@@ -41,8 +41,11 @@ The interpreter consists of an easy-to-use webpage (shown below) that enables us
 **6 - Code Execution Output:** The code execution output is on the right side of the webpage. 
 
 Furthermore, if there is an error in compilation or execution, the output will display the traceback. If the error came from the Coconut compiler, the offending Coconut line will be highlighted in red in the code editor:
+
 ![error2](https://user-images.githubusercontent.com/35832643/38785410-89d90052-40d4-11e8-93c5-8cec8fea532c.png)
+
 If the error occurred at runtime, then the offending line will be highlighted in red in the Python code:
+
 ![error1](https://user-images.githubusercontent.com/35832643/38785409-89c18620-40d4-11e8-8a52-19150efae3ea.png)
 
 
@@ -61,4 +64,8 @@ Currently, there are no known problems. However, on the current deployment, user
 
 ## Security
 
-The Coconut Interpreter uses AWS Lambda, a containerized, serverless backend which allows for safe execution of untrusted code. 
+The Coconut Interpreter uses AWS Lambda, a containerized, serverless backend which allows for safe execution of untrusted code. For instance, in the code below, attempting to access the system files will not do anything. 
+
+![security](https://user-images.githubusercontent.com/35832643/38785605-8554283e-40d6-11e8-8b08-c88a5a79837b.png)
+
+
