@@ -6,51 +6,58 @@ Try the current version at: [https://cs121-team-panda.github.io/coconut-interpre
 
 Developed by Jonathan Cruz, Teerapat Jenrungrot, Natalie Kadonaga, and Brittany Wang.
 
-## Installation
-```
-pip install -r requirements.txt
-```
+## Architecture 
+<img width="1093" alt="architecture" src="https://user-images.githubusercontent.com/35832643/38783767-b5ef5236-40bb-11e8-91b4-e1d5bdc0aa18.png">
 
-## Running the app
+The Coconut Online Interpreter project's architecture design is based on server-less computing based on AWS Lambda \cite{aws-lambda} for executing user-submitted Coconut codes. The front-end of the project is developed using React. Based on the designed architecture shown above, the interpreter is resilient to any malicious code submitted by users since the backend protection is handled by AWS Lambda services.
+
+### Prerequisites
 Requires Python 3. 
 ```
 python manage.py runserver 
 ```
 
-# Features
+## Installation
+```
+pip install -r requirements.txt
+```
+
+## Functionality
 
 The interpreter consists of a simple, elegant webpage that enables users to easily enter and execute Coconut code.
 
-![ui](https://user-images.githubusercontent.com/35832643/37873776-fcecfff2-2fd7-11e8-991b-339363e8489e.png)
+<img width="933" alt="screen shot 2018-04-15 at 3 38 19 pm" src="https://user-images.githubusercontent.com/35832643/38784213-a6b2ceee-40c3-11e8-90cf-464fcd8e8e98.png">
 
-On the right, the user can see loading dots as the code loads in the output section:
+**1 - Compilation Settings:** Clicking the settings gear will display a settings drawer. From within the drawer, the user can select which version of Python the Coconut code will compile to. By default, the latest version of Python is selected. 
 
-![dots](https://user-images.githubusercontent.com/35832643/37873777-0d66bf4e-2fd8-11e8-8f14-555df97d3312.png)
+**2 - Saving to a Coconut File:** Clicking the save icon will download the contents of the code editor into a Coconut file called ```coconut.coco```.
 
-On the left, we can use the code editor. The editor allows for the keyboard shortcuts from Ace editor (listed [here](https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts)). In addition, the editor includes Python and Coconut syntax highlighting for all keywords (Coconut specific keywords listed [here](http://coconut.readthedocs.io/en/latest/DOCS.html#keywords)):
+**3 - Code Executio:n:** Clicking `RUN`or using the keyboard shortcut `Ctrl + Enter` for Windows or `⌘ + Enter` for Mac will compile and execute the program.
 
-![coco specific](https://user-images.githubusercontent.com/35832643/37873781-17561450-2fd8-11e8-8659-1c70463a48aa.png)
+**4 - Showing the Compiled Python:** Checking the box labeled `PYTHON` will show the user the compiled Python, which is the output of the Coconut compiler. the Python code will be displayed using Python syntax highlighting.
 
-Clicking run will compile and execute the program. The output will show up on the right. If there is a compiling error, the output will display the error from the Coconut compiler along with the traceback highlighted in red in the user's original code:
+**5 - Code Editor:** The code editor, which is on the left side of the webpage, is where the user types in their Coconut code. The editor has line numbers and Coconut-specific syntax highlighting.
 
-![red tracebacks](https://user-images.githubusercontent.com/35832643/37873784-28079e7c-2fd8-11e8-8c7e-14a954f44264.png)
+**6 - Code Execution Output:** The code execution output is on the right side of the webpage. 
 
-After the code runs, the user's code is stored in the session, so they can make changes to their existing code. 
+Furthermore, if there is an error in compilation or execution, the output will display the traceback. If the error came from the Coconut compiler, the offending Coconut line will be highlighted in red in the code editor:
+![error2](https://user-images.githubusercontent.com/35832643/38785410-89d90052-40d4-11e8-93c5-8cec8fea532c.png)
+If the error occurred at runtime, then the offending line will be highlighted in red in the Python code:
+![error1](https://user-images.githubusercontent.com/35832643/38785409-89c18620-40d4-11e8-8a52-19150efae3ea.png)
 
-The interpreter also supports multiple lines of output:
 
-![example code](https://user-images.githubusercontent.com/35832643/37873786-338affdc-2fd8-11e8-8544-cb8c85bd9be3.png)
 
-The user has the option of seeing the compiled Python code by clicking the box next to Python at the top right corner:
 
-![python code](https://user-images.githubusercontent.com/35832643/37873787-43191844-2fd8-11e8-90b0-e58317c27420.png)
+## Known Problems
+Currently, there are no known problems. However, on the current deployment, users cannot choose the Coconut version on the interpreter except the version installed by developers. The developer team plans to address this issue in the future.
 
-The user is also able to see tracebacks highlighted in red in the Python code as well:
-![python tracebacks](https://user-images.githubusercontent.com/35832643/37873790-49e9130e-2fd8-11e8-9bb1-2f3467d09393.png)
+## Contributing
 
-# Issues
-
-See the [Issues](https://github.com/cs121-team-panda/coconut-interpreter-flask/issues) tab for additional information.
+1. Fork it!
+2. Create your feature branch: `git checkout -b my-new-feature`
+3. Commit your changes: `git commit -am 'Add some feature'`
+4. Push to the branch: `git push origin my-new-feature`
+5. Submit a pull request :D
 
 ## Security
 
