@@ -9,7 +9,7 @@ Developed by Jonathan Cruz, Teerapat Jenrungrot, Natalie Kadonaga, and Brittany 
 ## Architecture 
 <img width="1093" alt="architecture" src="https://user-images.githubusercontent.com/35832643/38783767-b5ef5236-40bb-11e8-91b4-e1d5bdc0aa18.png">
 
-The Coconut Online Interpreter project's architecture design is based on server-less computing based on AWS Lambda \cite{aws-lambda} for executing user-submitted Coconut codes. The front-end of the project is developed using React. Based on the designed architecture shown above, the interpreter is resilient to any malicious code submitted by users since the backend protection is handled by AWS Lambda services.
+The Coconut Online Interpreter project's architecture design is based on server-less computing based on AWS Lambda for executing user-submitted Coconut codes. The front-end of the project is developed using React. Based on the designed architecture shown above, the interpreter is resilient to any malicious code submitted by users since the backend protection is handled by AWS Lambda services.
 
 ### Prerequisites
 Requires Python 3. 
@@ -24,7 +24,7 @@ pip install -r requirements.txt
 
 ## Functionality
 
-The interpreter consists of a simple, elegant webpage that enables users to easily enter and execute Coconut code.
+The interpreter consists of an easy-to-use webpage (shown below) that enables user to easily enter and execute Coconut code. 
 
 <img width="933" alt="screen shot 2018-04-15 at 3 38 19 pm" src="https://user-images.githubusercontent.com/35832643/38784213-a6b2ceee-40c3-11e8-90cf-464fcd8e8e98.png">
 
