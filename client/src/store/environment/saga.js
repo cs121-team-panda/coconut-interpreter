@@ -14,8 +14,8 @@ const errorMessage =
 
 function* runRequest(action: Action) {
   try {
-    const payload = yield call(run, action.payload);
-    yield put(actions.runSuccess(payload));
+    const { data } = yield call(run, action.payload);
+    yield put(actions.runSuccess(data));
   } catch (e) {
     yield put(actions.runFailure(errorMessage));
   }
