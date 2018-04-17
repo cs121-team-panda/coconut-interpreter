@@ -1,37 +1,41 @@
 import React from 'react';
-import { shallow /* mount */ } from 'enzyme';
+import { shallow, mount } from 'enzyme';
+import AppBar from 'material-ui/AppBar';
 import AceEditor from 'react-ace';
 
 import Output from '../Output';
-// import Header from '../Header';
 
 it('renders without crashing', () => {
-  shallow(<Output value="" />);
+  shallow(<Output loading={false} value="" python="" isError={false} />);
 });
 
-/* TODO
 it('allows us to set props', () => {
-  const wrapper = mount(<Output value="Hello, world" loading={false} />);
+  const wrapper = mount(
+    <Output loading={false} value="Hello, world" python="" isError={false} />
+  );
   expect(wrapper.props().value).toEqual('Hello, world');
 });
-*/
 
-/* TODO
-it('renders one <Header /> component', () => {
-  const wrapper = shallow(<Output value="" loading={false} />).dive();
-  expect(wrapper.find(Header)).toHaveLength(1);
+it('renders one <AppBar /> component', () => {
+  const wrapper = shallow(
+    <Output loading={false} value="" python="" isError={false} />
+  ).dive();
+  expect(wrapper.find(AppBar)).toHaveLength(1);
 });
-*/
 
 it('renders one <AceEditor /> component', () => {
-  const wrapper = shallow(<Output value="" loading={false} />).dive();
+  const wrapper = shallow(
+    <Output loading={false} value="" python="" isError={false} />
+  ).dive();
   expect(wrapper.find(AceEditor)).toHaveLength(1);
 });
 
-/* TODO
 it('simulates change events', () => {
-  const wrapper = shallow(<Output value="" loading={false} />).dive();
+  const wrapper = mount(
+    shallow(<Output loading={false} value="" python="" isError={false} />).get(
+      0
+    )
+  );
   wrapper.find('input').simulate('change', { target: { checked: true } });
   expect(wrapper.state('showPython')).toEqual(true);
 });
-*/
