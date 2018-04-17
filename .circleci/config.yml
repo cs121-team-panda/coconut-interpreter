@@ -44,6 +44,7 @@ jobs:
       - image: circleci/node:8.9.4
     steps:
       - checkout
+      - working_directory: client
       # Download and cache dependencies
       - restore_cache:
           keys:
