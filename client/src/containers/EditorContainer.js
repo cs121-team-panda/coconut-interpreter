@@ -14,6 +14,7 @@ type Props = {
   args: Args,
   updateArgs: (args: Args) => void,
   runRequest: (code: string, args: Args) => void,
+  cancelRun: () => void,
   loading: boolean,
   coconutErrorCall: ?string,
   coconutErrorLine: ?number,
@@ -24,6 +25,7 @@ const EditorContainer = (props: Props) => (
     args={props.args}
     updateArgs={props.updateArgs}
     runRequest={props.runRequest}
+    cancelRun={props.cancelRun}
     loading={props.loading}
     errorCall={props.coconutErrorCall}
     errorLine={props.coconutErrorLine}
@@ -51,6 +53,9 @@ const mapDispatchToProps = dispatch => ({
   },
   runRequest: (code, args) => {
     dispatch(myActions.runRequest(code, args));
+  },
+  cancelRun: () => {
+    dispatch(myActions.cancelRun());
   },
 });
 

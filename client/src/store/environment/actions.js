@@ -46,6 +46,12 @@ export function updateArgs(args: Args) {
   };
 }
 
+export function cancelRun() {
+  return {
+    type: actionTypes.CANCEL_RUN,
+  };
+}
+
 export type Action =
   | $Call<typeof runRequest, string, Args>
   | $Call<typeof runSuccess, Payload>

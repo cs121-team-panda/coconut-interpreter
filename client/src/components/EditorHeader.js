@@ -10,6 +10,7 @@ import Typography from 'material-ui/Typography';
 import SaveIcon from '@material-ui/icons/Save';
 import Button from 'material-ui/Button';
 import PlayArrow from '@material-ui/icons/PlayArrow';
+import Stop from '@material-ui/icons/Stop';
 import ReactTooltip from 'react-tooltip';
 import { withStyles } from 'material-ui/styles';
 import type { Theme } from 'material-ui/styles';
@@ -80,7 +81,7 @@ class EditorHeader extends React.Component<Props> {
   };
 
   render() {
-    const { simple, open, classes } = this.props;
+    const { simple, open, loading, classes } = this.props;
     return (
       <AppBar className={simple ? classes.appBar : this.props.appBarClassNames}>
         <Toolbar
@@ -148,10 +149,9 @@ class EditorHeader extends React.Component<Props> {
             color="inherit"
             className={classes.runButton}
             onClick={this.props.handleClick}
-            disabled={this.props.loading}
           >
-            Run
-            <PlayArrow />
+            {loading ? 'Stop' : 'Run'}
+            {loading ? <Stop /> : <PlayArrow />}
           </Button>
         </Toolbar>
       </AppBar>

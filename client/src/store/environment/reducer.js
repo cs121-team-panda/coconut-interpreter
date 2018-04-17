@@ -33,11 +33,18 @@ export default function reducer(state: Map = initialState, action: Action) {
     case actionTypes.RUN_FAILURE:
       return state.merge({
         output: fromJS(action.payload.output),
+        outputPython: fromJS(''),
         loading: fromJS(false),
       });
     case actionTypes.UPDATE_ARGS:
       return state.merge({
         args: fromJS(action.payload.args),
+      });
+    case actionTypes.CANCEL_RUN:
+      return state.merge({
+        output: fromJS('Stopped'),
+        outputPython: fromJS(''),
+        loading: fromJS(false),
       });
     default:
       return state;
