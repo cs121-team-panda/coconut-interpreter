@@ -47,18 +47,16 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-{{ checksum "client/package.json" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
-          working_directory: client
       - run:
           command: yarn install
           working_directory: client
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-          working_directory: client
+          key: v1-dependencies-{{ checksum "client/package.json" }}
       # Check eslint, stylelint, flow
       - run:
           command: yarn check-all
