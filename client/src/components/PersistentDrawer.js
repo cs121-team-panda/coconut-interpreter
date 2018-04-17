@@ -93,7 +93,7 @@ const optionKeys = ['target'];
 
 const options = {
   target: [
-    'target',
+    optionKeyLabels.target,
     'Latest version (Default)',
     'Python 2.6',
     'Python 2.7',
