@@ -52,7 +52,7 @@ jobs:
           - v1-dependencies-
           working_directory: client
       - run:
-          - yarn install
+          command: yarn install
           working_directory: client
       - save_cache:
           paths:
@@ -61,11 +61,11 @@ jobs:
           working_directory: client
       # Check eslint, stylelint, flow
       - run:
-          - yarn check-all
+          command: yarn check-all
           working_directory: client
       # run tests!
       - run:
-          - yarn test
+          command: yarn test
           working_directory: client
 workflows:
   version: 2
