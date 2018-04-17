@@ -67,7 +67,7 @@ jobs:
           working_directory: client
 workflows:
   version: 2
-  build_and_test:
+  backend_and_frontend:
     jobs:
       - backend
       - frontend
