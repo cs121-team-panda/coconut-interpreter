@@ -57,7 +57,7 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "client/package.json" }}
-      # Check eslint, stylelint, flow
+      # Check eslint, flow
       - run:
           command: yarn check-all
           working_directory: client
