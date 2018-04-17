@@ -2,12 +2,10 @@
   "parser": "babel-eslint",
   "extends": [
     "airbnb",
-    "plugin:css-modules/recommended",
     "plugin:flowtype/recommended",
     "plugin:prettier/recommended"
   ],
   "plugins": [
-    "css-modules",
     "flowtype",
     "prettier"
   ],
