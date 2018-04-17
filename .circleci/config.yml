@@ -44,22 +44,29 @@ jobs:
       - image: circleci/node:8.9.4
     steps:
       - checkout
-      - working_directory: client
       # Download and cache dependencies
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
-      - run: yarn install
+          working_directory: client
+      - run:
+          - yarn install
+          working_directory: client
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+          working_directory: client
       # Check eslint, stylelint, flow
-      - run: yarn check-all
+      - run:
+          - yarn check-all
+          working_directory: client
       # run tests!
-      - run: yarn test
+      - run:
+          - yarn test
+          working_directory: client
 workflows:
   version: 2
   build_and_test:
