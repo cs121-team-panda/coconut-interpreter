@@ -83,7 +83,7 @@ jobs:
             fi
 workflows:
   version: 2
-  test_and_approval_deploy:
+  test_and_deploy:
     jobs:
       - test_backend
       - test_frontend
