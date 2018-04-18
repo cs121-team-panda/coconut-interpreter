@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  backend:
+  test_backend:
     docker:
       - image: circleci/python:3.6.2
         environment:
@@ -29,7 +29,7 @@ jobs:
           destination: tr1
       - store_test_results:
           path: test-reports/
-  frontend:
+  test_frontend:
     docker:
       - image: circleci/node:8.9.4
     steps:
@@ -55,9 +55,43 @@ jobs:
       - run:
           command: yarn test
           working_directory: client
+  deploy_backend:
+    docker:
+      - image: circleci/python:3.6.2
+    steps:
+      - checkout
+      - restore_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
+      - run:
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
+      - save_cache:
+          key: deps-{{ .Branch }}-{{ checksum "requirements.txt" }}
+          paths:
+            - "venv"
+      - run:
+          command: |
+            set -e
+            LATEST_COMMIT=$(git rev-parse HEAD)
+            APP_COMMIT=$(git log -1 --format=format:%H --full-diff app)
+            if [ $APP_COMMIT = $LATEST_COMMIT ]; then
+              . venv/bin/activate
+              zappa unschedule production
+              zappa update production
+            fi
 workflows:
   version: 2
-  backend_and_frontend:
+  test_and_deploy:
     jobs:
-      - backend
-      - frontend
+      - test_backend
+      - test_frontend
+      - deploy_backend:
+          requires:
+            - test_backend
+            - test_frontend
+          filters:
+            branches:
+              only:
+                master
