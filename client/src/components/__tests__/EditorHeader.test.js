@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import AppBar from 'material-ui/AppBar';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
@@ -52,18 +52,18 @@ it('renders two <IconButton /> components (!simple)', () => {
   expect(wrapper.find(IconButton)).toHaveLength(2);
 });
 
-it('renders active run button while not loading', () => {
-  const wrapper = shallow(
+it('renders run button while not loading', () => {
+  const wrapper = mount(
     <EditorHeader simple handleClick={handleClick} loading={false} />
-  ).dive();
-  expect(wrapper.find(Button).props().disabled).toEqual(false);
+  );
+  expect(wrapper.find(Button).text()).toEqual('Run');
 });
 
-it('renders disabled run button while loading', () => {
-  const wrapper = shallow(
+it('renders stop button while loading', () => {
+  const wrapper = mount(
     <EditorHeader simple handleClick={handleClick} loading />
-  ).dive();
-  expect(wrapper.find(Button).props().disabled).toEqual(true);
+  );
+  expect(wrapper.find(Button).text()).toEqual('Stop');
 });
 
 it('simulates click events', () => {
