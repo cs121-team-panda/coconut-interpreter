@@ -105,10 +105,8 @@ jobs:
             LATEST_COMMIT=$(git rev-parse HEAD)
             CLIENT_COMMIT=$(git log -1 --format=format:%H --full-diff client)
             if [ $CLIENT_COMMIT = $LATEST_COMMIT ]; then
-              if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                cd client && yarn build && cd ..
-                .circleci/deploy-ghpages.sh client/build
-              fi
+              cd client && yarn build && cd ..
+              .circleci/deploy-ghpages.sh client/build
             fi
 workflows:
   version: 2
