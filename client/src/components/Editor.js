@@ -28,6 +28,7 @@ type Props = {
   args: Args,
   updateArgs: (args: Args) => void,
   runRequest: (code: string, args: Args) => void,
+  cancelRun: () => void,
   loading: boolean,
   errorLine: ?number,
   errorCall: ?string,
@@ -81,6 +82,7 @@ class Editor extends React.Component<Props, State> {
   handleClick = () => {
     if (!this.props.loading && this.state.code.trim())
       this.props.runRequest(this.state.code, this.props.args);
+    else if (this.props.loading) this.props.cancelRun();
   };
 
   handleResize = () => {
