@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  backend:
     docker:
       - image: circleci/python:3.6.2
         environment:
@@ -39,4 +39,35 @@ jobs:
               git push heroku master
               heroku restart
             fi
-
+  frontend:
+    docker:
+      - image: circleci/node:8.9.4
+    steps:
+      - checkout
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "client/package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      - run:
+          command: yarn install
+          working_directory: client
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "client/package.json" }}
+      # Check eslint, flow
+      - run:
+          command: yarn check-all
+          working_directory: client
+      # run tests!
+      - run:
+          command: yarn test
+          working_directory: client
+workflows:
+  version: 2
+  backend_and_frontend:
+    jobs:
+      - backend
+      - frontend
