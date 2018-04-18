@@ -1,0 +1,68 @@
+{
+  "name": "coconut-interpreter-react",
+  "homepage": "https://cs121-team-panda.github.io/coconut-interpreter",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/icons": "^1.0.0-beta.42",
+    "brace": "^0.11.1",
+    "classnames": "^2.2.5",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "immutable": "^3.8.2",
+    "material-ui": "^1.0.0-beta.41",
+    "prop-types": "^15.6.1",
+    "react": "^16.3.1",
+    "react-ace": "^6.0.0",
+    "react-dom": "^16.3.1",
+    "react-helmet": "^5.2.0",
+    "react-redux": "^5.0.7",
+    "react-saga": "^0.2.6",
+    "react-scripts": "2.0.0-next.b2fd8db8",
+    "react-tooltip": "^3.5.0",
+    "redux": "^3.7.2",
+    "redux-immutable": "^4.0.0",
+    "redux-saga": "^0.16.0",
+    "reselect": "^3.0.1"
+  },
+  "scripts": {
+    "flow": "flow",
+    "lint": "eslint 'src/**/*.js'",
+    "format": "yarn lint --fix",
+    "check-all": "yarn lint && yarn flow",
+    "precommit": "lint-staged",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "build:embed": "PUBLIC_URL=/ GENERATE_SOURCEMAP=false react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "lint-staged": {
+    "*.js": ["eslint --no-ignore --fix", "git add"],
+    "*.json": ["prettier --write", "git add"]
+  },
+  "browserslist": {
+    "development": [
+      "last 2 chrome versions",
+      "last 2 firefox versions",
+      "last 2 edge versions"
+    ],
+    "production": [">1%", "last 4 versions", "Firefox ESR", "not ie < 11"]
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-flowtype": "^2.46.1",
+    "eslint-plugin-prettier": "^2.6.0",
+    "flow-bin": "^0.69.0",
+    "gh-pages": "^1.1.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.0.4",
+    "prettier": "^1.10.2",
+    "react-test-renderer": "^16.3.1",
+    "redux-devtools": "^3.4.1",
+    "redux-mock-store": "^1.5.1"
+  }
+}
