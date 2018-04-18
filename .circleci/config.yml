@@ -81,6 +81,35 @@ jobs:
               zappa unschedule production
               zappa update production
             fi
+  deploy_frontend:
+    docker:
+      - image: circleci/node:8.9.4
+    steps:
+      - checkout
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "client/package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      - run:
+          command: yarn install
+          working_directory: client
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "client/package.json" }}
+      - run:
+          command: |
+            set -e
+            LATEST_COMMIT=$(git rev-parse HEAD)
+            CLIENT_COMMIT=$(git log -1 --format=format:%H --full-diff client)
+            if [ $CLIENT_COMMIT = $LATEST_COMMIT ]; then
+              if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                cd client && yarn build && cd ..
+                .circleci/deploy-ghpages.sh client/build
+              fi
+            fi
 workflows:
   version: 2
   test_and_deploy:
@@ -90,6 +119,12 @@ workflows:
       - deploy_backend:
           requires:
             - test_backend
+          filters:
+            branches:
+              only:
+                master
+      - deploy_frontend:
+          requires:
             - test_frontend
           filters:
             branches:
