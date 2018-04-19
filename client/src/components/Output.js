@@ -23,6 +23,7 @@ import {
 
 const styles = () => ({
   output: {
+    flex: 1,
     gridArea: 'output',
     flexGrow: 1,
     '& #output > .ace_gutter': {

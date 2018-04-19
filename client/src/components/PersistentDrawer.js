@@ -13,7 +13,7 @@ import AceEditor from 'react-ace';
 import type { Theme } from 'material-ui/styles';
 
 import EditorHeader from './EditorHeader';
-import { editorHeaderColor } from '../constants';
+import { editorHeaderColor, resizeTimeout } from '../constants';
 import type { Args } from '../store/environment/actions';
 
 const drawerWidth = 240;
@@ -137,10 +137,12 @@ class PersistentDrawer extends React.Component<Props, State> {
 
   handleDrawerOpen = () => {
     this.setState({ open: true });
+    setTimeout(() => window.dispatchEvent(new Event('resize')), resizeTimeout);
   };
 
   handleDrawerClose = () => {
     this.setState({ open: false });
+    setTimeout(() => window.dispatchEvent(new Event('resize')), resizeTimeout);
   };
 
   handleChangeAnchor = event => {

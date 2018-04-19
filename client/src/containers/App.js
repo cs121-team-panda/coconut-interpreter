@@ -16,9 +16,7 @@ const styles = () => ({
   },
   '@media only screen and (min-width: 600px)': {
     container: {
-      gridTemplateColumns: '1fr 1fr',
-      gridTemplateRows: '1fr',
-      gridTemplateAreas: "'editor output'",
+      display: 'flex',
     },
   },
 });

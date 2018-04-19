@@ -24,3 +24,5 @@ export const headerTextStyle = {
   fontWeight: 700,
   letterSpacing: '0.08em',
 };
+
+export const resizeTimeout = 195;

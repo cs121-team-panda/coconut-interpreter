@@ -16,6 +16,7 @@ import type { Args } from '../store/environment/actions';
 
 const styles = () => ({
   editor: {
+    flexGrow: 1,
     gridArea: 'editor',
   },
   errorMarker: {
