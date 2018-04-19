@@ -6,8 +6,6 @@ import { withStyles } from 'material-ui/styles';
 import EditorContainer from './EditorContainer';
 import OutputContainer from './OutputContainer';
 
-const embed = process.env.REACT_APP_EMBED;
-
 const styles = () => ({
   container: {
     height: '100vh',
@@ -17,15 +15,15 @@ const styles = () => ({
     gridTemplateRows: '1fr 1fr',
     gridTemplateAreas: "'editor' 'output'",
   },
-  '@media only screen and (min-width: 600px)': {
-    ...(embed && {
-      container: {
-        gridTemplateColumns: '1fr 1fr',
-        gridTemplateRows: '1fr',
-        gridTemplateAreas: "'editor output'",
-      },
-    }),
-  },
+  ...(!process.env.REACT_APP_EMBED
+    ? {
+        '@media only screen and (min-width: 600px)': {
+          container: {
+            display: 'flex',
+          },
+        },
+      }
+    : {}),
 });
 
 type Props = {
