@@ -5,7 +5,7 @@
 
 #### Getting started
 1. Download our latest release [here](https://github.com/cs121-team-panda/coconut-interpreter/releases).
-3. Move the JavaScript bundle into your project.
+2. Move the JavaScript bundle into your project.
 3. In your html document add the following:
 ```diff
 <body>
