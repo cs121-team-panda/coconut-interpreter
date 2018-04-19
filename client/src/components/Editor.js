@@ -108,7 +108,7 @@ class Editor extends React.Component<Props, State> {
     const { classes } = this.props;
     return (
       <div className={classes.editor}>
-        {this.state.windowWidth < 600 ? (
+        {process.env.REACT_APP_EMBED || this.state.windowWidth < 600 ? (
           <>
             <EditorHeader
               simple

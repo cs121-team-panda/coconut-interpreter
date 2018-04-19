@@ -9,16 +9,21 @@ import OutputContainer from './OutputContainer';
 const styles = () => ({
   container: {
     height: '100vh',
+    overflow: 'hidden',
     fontFamily: 'Roboto',
     display: 'grid',
     gridTemplateRows: '1fr 1fr',
     gridTemplateAreas: "'editor' 'output'",
   },
-  '@media only screen and (min-width: 600px)': {
-    container: {
-      display: 'flex',
-    },
-  },
+  ...(!process.env.REACT_APP_EMBED
+    ? {
+        '@media only screen and (min-width: 600px)': {
+          container: {
+            display: 'flex',
+          },
+        },
+      }
+    : {}),
 });
 
 type Props = {
