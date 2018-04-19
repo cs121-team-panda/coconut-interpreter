@@ -83,7 +83,10 @@ class EditorHeader extends React.Component<Props> {
   render() {
     const { simple, open, loading, classes } = this.props;
     return (
-      <AppBar className={simple ? classes.appBar : this.props.appBarClassNames}>
+      <AppBar
+        className={simple ? classes.appBar : this.props.appBarClassNames}
+        position={process.env.REACT_APP_EMBED ? 'static' : undefined}
+      >
         <Toolbar
           classes={{ root: classes.toolbarRoot }}
           disableGutters={!simple && !open}

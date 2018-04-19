@@ -7,7 +7,7 @@ export const aceStyleProps = {
   setOptions: { indentedSoftWrap: false, displayIndentGuides: false },
   width: '100%',
   height: 'calc(100% - 48px)',
-  style: { marginTop: 48 },
+  ...(!process.env.REACT_APP_EMBED && { style: { marginTop: 48 } }),
   editorProps: { $blockScrolling: Infinity },
   fontSize: 14,
 };
