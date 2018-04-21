@@ -26,7 +26,7 @@ pip install -r requirements.txt
 
 The interpreter consists of an easy-to-use webpage (shown below) that enables user to easily enter and execute Coconut code. 
 
-![readmedemo](https://user-images.githubusercontent.com/35832643/39082093-627424ec-4502-11e8-8397-30b99932ddcd.gif)
+![demo1](https://user-images.githubusercontent.com/35832643/39082318-1b725362-4506-11e8-8403-7653622c40ae.gif)
 
 **Compilation Settings:** Clicking the settings gear will display a settings drawer. From within the drawer, the user can select which version of Python the Coconut code will compile to. By default, the latest version of Python 3 is selected. 
 
@@ -42,8 +42,7 @@ The interpreter consists of an easy-to-use webpage (shown below) that enables us
 
 Furthermore, if there is an error in compilation or execution, the output will display the traceback. If the error came from the Coconut compiler, the offending Coconut line will be highlighted in red in the code editor. If the error occurred at runtime, then the offending line will be highlighted in red in the Python code, if the Python checkbox is checked:
 
-![readmedemo2](https://user-images.githubusercontent.com/35832643/39082191-ed4b7ff6-4503-11e8-9e54-18c876790465.gif)
-
+![demo2](https://user-images.githubusercontent.com/35832643/39082319-1b88a37e-4506-11e8-9ff4-d0dfeda01cff.gif)
 
 
 
@@ -66,5 +65,5 @@ When contributing to this repository, please first discuss the change you wish t
 
 The Coconut Interpreter uses AWS Lambda, a containerized, serverless backend which allows for safe execution of untrusted code. For instance, in the code below, attempting to access the system files will not do anything. 
 
-![readmedemo3](https://user-images.githubusercontent.com/35832643/39082209-20750c94-4504-11e8-9d11-15a40b8f1c23.gif)
+![demo3](https://user-images.githubusercontent.com/35832643/39082320-1b9de392-4506-11e8-809d-1f95411294d2.gif)
 
