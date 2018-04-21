@@ -26,7 +26,7 @@ pip install -r requirements.txt
 
 The interpreter consists of an easy-to-use webpage (shown below) that enables user to easily enter and execute Coconut code. 
 
-![yuh](https://user-images.githubusercontent.com/8571671/39012964-cbbaa23e-43ca-11e8-9a2d-4f14d2f57bc1.gif)
+![readmedemo](https://user-images.githubusercontent.com/35832643/39082093-627424ec-4502-11e8-8397-30b99932ddcd.gif)
 
 **Compilation Settings:** Clicking the settings gear will display a settings drawer. From within the drawer, the user can select which version of Python the Coconut code will compile to. By default, the latest version of Python 3 is selected. 
 
@@ -40,12 +40,10 @@ The interpreter consists of an easy-to-use webpage (shown below) that enables us
 
 **Code Execution Output:** The code execution output is on the right side of the webpage. 
 
-Furthermore, if there is an error in compilation or execution, the output will display the traceback. If the error came from the Coconut compiler, the offending Coconut line will be highlighted in red in the code editor:
+Furthermore, if there is an error in compilation or execution, the output will display the traceback. If the error came from the Coconut compiler, the offending Coconut line will be highlighted in red in the code editor. If the error occurred at runtime, then the offending line will be highlighted in red in the Python code, if the Python checkbox is checked:
 
-![error2](https://user-images.githubusercontent.com/35832643/38785410-89d90052-40d4-11e8-93c5-8cec8fea532c.png)
+![readmedemo2](https://user-images.githubusercontent.com/35832643/39082191-ed4b7ff6-4503-11e8-9e54-18c876790465.gif)
 
-If the error occurred at runtime, then the offending line will be highlighted in red in the Python code, if the Python checkbox is checked:
-![error1](https://user-images.githubusercontent.com/35832643/38785409-89c18620-40d4-11e8-8a52-19150efae3ea.png)
 
 
 
@@ -68,6 +66,5 @@ When contributing to this repository, please first discuss the change you wish t
 
 The Coconut Interpreter uses AWS Lambda, a containerized, serverless backend which allows for safe execution of untrusted code. For instance, in the code below, attempting to access the system files will not do anything. 
 
-![security](https://user-images.githubusercontent.com/35832643/38785605-8554283e-40d6-11e8-8b08-c88a5a79837b.png)
-
+![readmedemo3](https://user-images.githubusercontent.com/35832643/39082209-20750c94-4504-11e8-9d11-15a40b8f1c23.gif)
 
