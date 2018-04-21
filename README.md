@@ -26,26 +26,25 @@ pip install -r requirements.txt
 
 The interpreter consists of an easy-to-use webpage (shown below) that enables user to easily enter and execute Coconut code. 
 
-<img width="933" alt="screen shot 2018-04-15 at 3 38 19 pm" src="https://user-images.githubusercontent.com/35832643/38784213-a6b2ceee-40c3-11e8-90cf-464fcd8e8e98.png">
+![yuh](https://user-images.githubusercontent.com/8571671/39012964-cbbaa23e-43ca-11e8-9a2d-4f14d2f57bc1.gif)
 
-**1 - Compilation Settings:** Clicking the settings gear will display a settings drawer. From within the drawer, the user can select which version of Python the Coconut code will compile to. By default, the latest version of Python is selected. 
+**Compilation Settings:** Clicking the settings gear will display a settings drawer. From within the drawer, the user can select which version of Python the Coconut code will compile to. By default, the latest version of Python 3 is selected. 
 
-**2 - Saving to a Coconut File:** Clicking the save icon will download the contents of the code editor into a Coconut file called ```coconut.coco```.
+**Saving to a Coconut File:** Clicking the save icon will download the contents of the code editor into a Coconut file called ```coconut.coco```.
 
-**3 - Code Execution:** Clicking `RUN`or using the keyboard shortcut `Ctrl + Enter` for Windows or `⌘ + Enter` for Mac will compile and execute the program.
+**Code Execution:** Clicking `RUN`or using the keyboard shortcut `Ctrl + Enter` for Windows or `⌘ + Enter` for Mac will compile and execute the program.
 
-**4 - Showing the Compiled Python:** Checking the box labeled `PYTHON` will show the user the compiled Python, which is the output of the Coconut compiler. the Python code will be displayed using Python syntax highlighting.
+**Showing the Compiled Python:** Checking the box labeled `PYTHON` will replace the output with the compiled Python, which is the output of the Coconut compiler. The Python code will be displayed using Python syntax highlighting.
 
-**5 - Code Editor:** The code editor, which is on the left side of the webpage, is where the user types in their Coconut code. The editor has line numbers and Coconut-specific syntax highlighting.
+**Code Editor:** The code editor, which is on the left side of the webpage, is where the user types in their Coconut code. The editor has line numbers and Coconut-specific syntax highlighting.
 
-**6 - Code Execution Output:** The code execution output is on the right side of the webpage. 
+**Code Execution Output:** The code execution output is on the right side of the webpage. 
 
 Furthermore, if there is an error in compilation or execution, the output will display the traceback. If the error came from the Coconut compiler, the offending Coconut line will be highlighted in red in the code editor:
 
 ![error2](https://user-images.githubusercontent.com/35832643/38785410-89d90052-40d4-11e8-93c5-8cec8fea532c.png)
 
-If the error occurred at runtime, then the offending line will be highlighted in red in the Python code:
-
+If the error occurred at runtime, then the offending line will be highlighted in red in the Python code, if the Python checkbox is checked:
 ![error1](https://user-images.githubusercontent.com/35832643/38785409-89c18620-40d4-11e8-8a52-19150efae3ea.png)
 
 
@@ -56,11 +55,14 @@ Currently, there are no known problems. However, on the current deployment, user
 
 ## Contributing
 
-1. Fork it!
-2. Create your feature branch: `git checkout -b my-new-feature`
-3. Commit your changes: `git commit -am 'Add some feature'`
-4. Push to the branch: `git push origin my-new-feature`
-5. Submit a pull request :D
+When contributing to this repository, please first discuss the change you wish to make via issue with the owners of this repository before making a change.
+
+## Pull Request Process
+
+1. Ensure any install or build dependencies are removed before the end of the layer when doing a build.
+2. Update the README.md with details of changes to the interface.
+3. Increase the version numbers in any examples files and the README.md to the new version that this Pull Request would represent.
+4. You may merge the Pull Request in once you have the sign-off of two other developers, or if you do not have permission to do that, you may request the second reviewer to merge it for you.
 
 ## Security
 
