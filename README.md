@@ -11,34 +11,35 @@ Developed by Jonathan Cruz, Teerapat Jenrungrot, Natalie Kadonaga, and Brittany 
 
 The Coconut Online Interpreter project's architecture design is based on server-less computing based on AWS Lambda for executing user-submitted Coconut codes. The front-end of the project is developed using React. Based on the designed architecture shown above, the interpreter is resilient to any malicious code submitted by users since the backend protection is handled by AWS Lambda services.
 
-### Prerequisites
-Requires Python 3. 
-```
-python manage.py runserver 
-```
 
 ## Installation
+Requires Python 3. 
 ```
 pip install -r requirements.txt
+```
+
+### Running Locally
+```
+python manage.py runserver 
 ```
 
 ## Functionality
 
 The interpreter consists of an easy-to-use webpage (shown below) that enables user to easily enter and execute Coconut code. 
 
-![demo1](https://user-images.githubusercontent.com/35832643/39082318-1b725362-4506-11e8-8403-7653622c40ae.gif)
+![demo1](https://user-images.githubusercontent.com/35832643/39089307-f309052e-4578-11e8-8be7-7d1c01902a65.gif)
 
-**Compilation Settings:** Clicking the settings gear will display a settings drawer. From within the drawer, the user can select which version of Python the Coconut code will compile to. By default, the latest version of Python 3 is selected. 
+* **Code Editor:** The code editor, which is on the left side of the webpage, is where the user types in their Coconut code. The editor has line numbers and Coconut-specific syntax highlighting.
 
-**Saving to a Coconut File:** Clicking the save icon will download the contents of the code editor into a Coconut file called ```coconut.coco```.
+* **Compilation Settings:** Clicking the settings gear will display a settings drawer. From within the drawer, the user can select which version of Python the Coconut code will compile to. By default, the latest version of Python 3 is selected. 
 
-**Code Execution:** Clicking `RUN`or using the keyboard shortcut `Ctrl + Enter` for Windows or `⌘ + Enter` for Mac will compile and execute the program.
+* **Saving to a Coconut File:** Clicking the save icon will download the contents of the code editor into a Coconut file called ```coconut.coco```.
 
-**Showing the Compiled Python:** Checking the box labeled `PYTHON` will replace the output with the compiled Python, which is the output of the Coconut compiler. The Python code will be displayed using Python syntax highlighting.
+* **Code Execution:** Clicking `RUN`or using the keyboard shortcut `Ctrl + Enter` for Windows or `⌘ + Enter` for Mac will compile and execute the program.
 
-**Code Editor:** The code editor, which is on the left side of the webpage, is where the user types in their Coconut code. The editor has line numbers and Coconut-specific syntax highlighting.
+* **Showing the Compiled Python:** Checking the box labeled `PYTHON` will replace the output with the compiled Python, which is the output of the Coconut compiler. The Python code will be displayed using Python syntax highlighting.
 
-**Code Execution Output:** The code execution output is on the right side of the webpage. 
+* **Code Execution Output:** The code execution output is on the right side of the webpage. 
 
 Furthermore, if there is an error in compilation or execution, the output will display the traceback. If the error came from the Coconut compiler, the offending Coconut line will be highlighted in red in the code editor. If the error occurred at runtime, then the offending line will be highlighted in red in the Python code, if the Python checkbox is checked:
 
