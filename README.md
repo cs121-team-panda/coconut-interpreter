@@ -43,7 +43,7 @@ The interpreter consists of an easy-to-use webpage (shown below) that enables us
 
 Furthermore, if there is an error in compilation or execution, the output will display the traceback. If the error came from the Coconut compiler, the offending Coconut line will be highlighted in red in the code editor. If the error occurred at runtime, then the offending line will be highlighted in red in the Python code, if the Python checkbox is checked:
 
-![demo2](https://user-images.githubusercontent.com/35832643/39082319-1b88a37e-4506-11e8-9ff4-d0dfeda01cff.gif)
+![demo2 1](https://user-images.githubusercontent.com/35832643/39089360-592b40be-457a-11e8-840c-dca79ba37a02.gif)
 
 
 
@@ -66,5 +66,5 @@ When contributing to this repository, please first discuss the change you wish t
 
 The Coconut Interpreter uses AWS Lambda, a containerized, serverless backend which allows for safe execution of untrusted code. For instance, in the code below, attempting to access the system files will not do anything. 
 
-![demo3](https://user-images.githubusercontent.com/35832643/39082320-1b9de392-4506-11e8-809d-1f95411294d2.gif)
+![demo3](https://user-images.githubusercontent.com/35832643/39089358-3f93a286-457a-11e8-97d1-41664178a2f9.png)
 
