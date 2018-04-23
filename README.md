@@ -9,8 +9,7 @@ Developed by Jonathan Cruz, Teerapat Jenrungrot, Natalie Kadonaga, and Brittany 
 ## Architecture 
 <img width="1093" alt="architecture" src="https://user-images.githubusercontent.com/35832643/38783767-b5ef5236-40bb-11e8-91b4-e1d5bdc0aa18.png">
 
-The Coconut Online Interpreter project's architecture design is based on server-less computing based on AWS Lambda for executing user-submitted Coconut codes. The front-end of the project is developed using React. Based on the designed architecture shown above, the interpreter is resilient to any malicious code submitted by users since the backend protection is handled by AWS Lambda services.
-
+The project's architecture deploys a server-less backend, AWS Lambda, that compiles and executes user-submitted Coconut code. The front-end is built with React.
 
 ## Installation
 Requires Python 3. 
@@ -45,9 +44,6 @@ Furthermore, if there is an error in compilation or execution, the output will d
 
 ![demo2 1](https://user-images.githubusercontent.com/35832643/39089360-592b40be-457a-11e8-840c-dca79ba37a02.gif)
 
-
-
-
 ## Known Problems
 Currently, there are no known problems. However, on the current deployment, users cannot choose the Coconut version on the interpreter except the version installed by developers. The developer team plans to address this issue in the future.
 
@@ -65,6 +61,5 @@ When contributing to this repository, please first discuss the change you wish t
 ## Security
 
 The Coconut Interpreter uses AWS Lambda, a containerized, serverless backend which allows for safe execution of untrusted code. For instance, in the code below, attempting to access the system files will not do anything. 
-
 ![demo3](https://user-images.githubusercontent.com/35832643/39089358-3f93a286-457a-11e8-97d1-41664178a2f9.png)
 
