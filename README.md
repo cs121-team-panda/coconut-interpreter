@@ -1,4 +1,4 @@
-# Coconut Online Interpreter [![Inline docs](http://inch-ci.org/github/cs121-team-panda/coconut-interpreter-flask.svg?branch=master)](http://inch-ci.org/github/cs121-team-panda/coconut-interpreter-flask) [![CircleCI](https://circleci.com/gh/cs121-team-panda/coconut-interpreter-flask/tree/master.svg?style=svg)](https://circleci.com/gh/cs121-team-panda/coconut-interpreter-flask/tree/master)
+# Coconut Online Interpreter [![CircleCI](https://circleci.com/gh/cs121-team-panda/coconut-interpreter.svg?style=shield)](https://circleci.com/gh/cs121-team-panda/coconut-interpreter)
 
 [Coconut](http://coconut-lang.org/) is a functional programming language that compiles to Python. This project is an online interpreter for Coconut. On the webpage, the user can interact with the code editor and click the run button to execute their program and view the output.
 
