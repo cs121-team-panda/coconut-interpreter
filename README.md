@@ -9,9 +9,7 @@
 ## Architecture 
 <img width="500" alt="architecture" src="https://user-images.githubusercontent.com/35832643/38783767-b5ef5236-40bb-11e8-91b4-e1d5bdc0aa18.png">
 
-The project's architecture deploys a server-less backend, AWS Lambda, that compiles and executes user-submitted Coconut code. The frontend is built with React.
-
-For local development, a Flask app serves as the backend.
+The project's architecture deploys a server-less backend, AWS Lambda, that compiles and executes user-submitted Coconut code. The frontend is built with React. For local development, a Flask app serves as the backend.
 
 ### Prerequisites
 * [Python >= 3](https://www.python.org)
