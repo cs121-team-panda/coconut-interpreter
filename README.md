@@ -16,9 +16,9 @@ The project's architecture deploys a server-less backend, AWS Lambda, that compi
 For local development, a Flask app serves as the backend.
 
 ### Prerequisites
-- [Python >= 3](https://www.python.org)
-- [Node >= 6](https://nodejs.org)
-- [Yarn >= 1](https://yarnpkg.com/en/docs/install)
+* [Python >= 3](https://www.python.org)
+* [Node >= 6](https://nodejs.org)
+* [Yarn >= 1](https://yarnpkg.com/en/docs/install)
 
 ## Installation
 Backend
@@ -80,8 +80,8 @@ When contributing to this repository, please first discuss the change you wish t
 4. You may merge the Pull Request in once you have the sign-off of two other developers, or if you do not have permission to do that, you may request the second reviewer to merge it for you.
 
 ## Documentation
-- [Deployment](https://github.com/cs121-team-panda/coconut-interpreter/blob/master/docs/Deploy.md)
-- [How to Embed](https://github.com/cs121-team-panda/coconut-interpreter/blob/master/docs/Embed.md)
+* [Deployment](https://github.com/cs121-team-panda/coconut-interpreter/blob/master/docs/Deploy.md)
+* [How to Embed](https://github.com/cs121-team-panda/coconut-interpreter/blob/master/docs/Embed.md)
 
 ## Security
 
