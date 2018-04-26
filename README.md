@@ -6,8 +6,6 @@
 
 [Coconut](http://coconut-lang.org/) is a functional programming language that compiles to Python. This project is an online interpreter for Coconut. On the webpage, the user can interact with the code editor and click the run button to execute their program and view the output.
 
-Developed by Jonathan Cruz, Teerapat Jenrungrot, Natalie Kadonaga, and Brittany Wang.
-
 ## Architecture 
 <img width="500" alt="architecture" src="https://user-images.githubusercontent.com/35832643/38783767-b5ef5236-40bb-11e8-91b4-e1d5bdc0aa18.png">
 
@@ -83,3 +81,6 @@ When contributing to this repository, please first discuss the change you wish t
 * [Security](https://github.com/cs121-team-panda/coconut-interpreter/blob/master/docs/Security.md)
 * [Deployment](https://github.com/cs121-team-panda/coconut-interpreter/blob/master/docs/Deploy.md)
 * [How to Embed](https://github.com/cs121-team-panda/coconut-interpreter/blob/master/docs/Embed.md)
+
+## License
+MIT. Copyright (c) Jonathan Cruz, Teerapat Jenrungrot, Natalie Kadonaga, Brittany Wang.
