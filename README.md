@@ -55,13 +55,13 @@ The interpreter consists of an easy-to-use webpage (shown below) that enables us
 
 * **Saving to a Coconut File:** Clicking the save icon will download the contents of the code editor into a Coconut file called ```coconut.coco```.
 
-* **Code Execution:** Clicking `RUN`or using the keyboard shortcut `Ctrl + Enter` for Windows or `⌘ + Enter` for Mac will compile and execute the program.
+* **Code Execution:** Clicking `RUN` or using the keyboard shortcut `Ctrl + Enter` for Windows or `⌘ + Enter` for Mac will compile and execute the program.
 
 * **Showing the Compiled Python:** Checking the box labeled `PYTHON` will replace the output with the compiled Python, which is the output of the Coconut compiler. The Python code will be displayed using Python syntax highlighting.
 
 * **Code Execution Output:** The code execution output is on the right side of the webpage. 
 
-Furthermore, if there is an error in compilation or execution, the output will display the traceback. If the error came from the Coconut compiler, the offending Coconut line will be highlighted in red in the code editor. If the error occurred at runtime, then the offending line will be highlighted in red in the Python code, if the Python checkbox is checked:
+* **Traceback Highlighting:** If an error came from the Coconut compiler, the offending Coconut line will be highlighted in red in the code editor. If an error occurred at runtime, then the offending line will be highlighted in red in the Python code, if the Python checkbox is checked:
 
 ![demo2 1](https://user-images.githubusercontent.com/35832643/39089360-592b40be-457a-11e8-840c-dca79ba37a02.gif)
 
