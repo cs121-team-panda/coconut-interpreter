@@ -9,22 +9,39 @@
 Developed by Jonathan Cruz, Teerapat Jenrungrot, Natalie Kadonaga, and Brittany Wang.
 
 ## Architecture 
-<img width="1093" alt="architecture" src="https://user-images.githubusercontent.com/35832643/38783767-b5ef5236-40bb-11e8-91b4-e1d5bdc0aa18.png">
+<img width="500" alt="architecture" src="https://user-images.githubusercontent.com/35832643/38783767-b5ef5236-40bb-11e8-91b4-e1d5bdc0aa18.png">
 
-The project's architecture deploys a server-less backend, AWS Lambda, that compiles and executes user-submitted Coconut code. The front-end is built with React.
+The project's architecture deploys a server-less backend, AWS Lambda, that compiles and executes user-submitted Coconut code. The frontend is built with React.
+
+For local development, a Flask app serves as the backend.
 
 ### Prerequisites
-- Python >= 3
+- [Python >= 3](https://www.python.org)
+- [Node >= 6](https://nodejs.org)
+- [Yarn >= 1](https://yarnpkg.com/en/docs/install)
 
 ## Installation
+Backend
 ```
 pip install -r requirements.txt
 ```
+Frontend
+```
+cd client
+yarn install
+```
 
 ### Running Locally
+Backend
 ```
 python manage.py runserver 
 ```
+Frontend
+```
+cd client
+yarn start
+```
+Open [http://localhost:3000](http://localhost:3000) to see the app.
 
 ## Functionality
 
