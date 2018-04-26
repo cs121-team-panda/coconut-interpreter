@@ -13,8 +13,10 @@ Developed by Jonathan Cruz, Teerapat Jenrungrot, Natalie Kadonaga, and Brittany 
 
 The project's architecture deploys a server-less backend, AWS Lambda, that compiles and executes user-submitted Coconut code. The front-end is built with React.
 
+### Prerequisites
+- Python >= 3
+
 ## Installation
-Requires Python 3. 
 ```
 pip install -r requirements.txt
 ```
