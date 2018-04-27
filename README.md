@@ -16,6 +16,11 @@ The project's architecture deploys a server-less backend, AWS Lambda, that compi
 * [Node >= 6](https://nodejs.org)
 * [Yarn >= 1](https://yarnpkg.com/en/docs/install)
 
+### Python Packages
+* [Coconut](https://pypi.org/project/coconut): compiles Coconut code into Python code.
+* [Flask](https://pypi.org/project/Flask): backend server for local development.
+* [Zappa](https://pypi.org/project/zappa): packages Flask app and deploys it to AWS Lambda.
+
 ## Installation
 Backend
 ```
