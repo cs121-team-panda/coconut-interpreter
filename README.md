@@ -35,7 +35,7 @@ yarn install
 ```bash
 python manage.py runserver 
 ```
-...in a separate shell:
+...and in a separate shell:
 ```bash
 cd client
 yarn start
