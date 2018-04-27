@@ -17,9 +17,9 @@ The project's architecture deploys a server-less backend, AWS Lambda, that compi
 * [Yarn >= 1](https://yarnpkg.com/en/docs/install)
 
 ### Python Packages
-* [Coconut](https://pypi.org/project/coconut): compiles Coconut code into Python code.
-* [Flask](https://pypi.org/project/Flask): backend server for local development.
-* [Zappa](https://pypi.org/project/zappa): packages Flask app and deploys it to AWS Lambda.
+* [coconut](https://pypi.org/project/coconut): compiles Coconut code into Python code.
+* [flask](https://pypi.org/project/Flask): backend server for local development.
+* [zappa](https://pypi.org/project/zappa): packages Flask app and deploys it to AWS Lambda.
 
 ## Installation
 ```bash
@@ -65,7 +65,7 @@ The interpreter consists of an easy-to-use webpage (shown below) that enables us
 ![demo2 1](https://user-images.githubusercontent.com/35832643/39089360-592b40be-457a-11e8-840c-dca79ba37a02.gif)
 
 ## Known Problems
-- There is no support for Coconut's `parallel_map` function due to [limitations of AWS Lambda](https://forums.aws.amazon.com/thread.jspa?threadID=219962). Our client is aware and is ok with this issue since it is not major (users can use `map` instead).
+There is no support for Coconut's `parallel_map` function due to [limitations of AWS Lambda](https://forums.aws.amazon.com/thread.jspa?threadID=219962). Our client is aware and is ok with this issue since it is not major (users can use `map` instead).
 
 ## Contributing
 
