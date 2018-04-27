@@ -22,23 +22,21 @@ The project's architecture deploys a server-less backend, AWS Lambda, that compi
 * [Zappa](https://pypi.org/project/zappa): packages Flask app and deploys it to AWS Lambda.
 
 ## Installation
-Backend
-```
+```bash
+# Backend
 pip install -r requirements.txt
-```
-Frontend
-```
+
+# Frontend
 cd client
 yarn install
 ```
 
 ### Running Locally
-Backend
-```
+```bash
 python manage.py runserver 
 ```
-Frontend
-```
+...in a separate shell:
+```bash
 cd client
 yarn start
 ```
