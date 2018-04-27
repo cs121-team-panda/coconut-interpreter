@@ -65,7 +65,7 @@ The interpreter consists of an easy-to-use webpage (shown below) that enables us
 ![demo2 1](https://user-images.githubusercontent.com/35832643/39089360-592b40be-457a-11e8-840c-dca79ba37a02.gif)
 
 ## Known Problems
-Currently, there are no known problems. However, on the current deployment, users cannot choose the Coconut version on the interpreter except the version installed by developers. The developer team plans to address this issue in the future.
+- There is no support for Coconut's `parallel_map` function due to [limitations of AWS Lambda](https://forums.aws.amazon.com/thread.jspa?threadID=219962). Our client is aware and is ok with this issue since it is not major (users can use `map` instead).
 
 ## Contributing
 
