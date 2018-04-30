@@ -22,22 +22,29 @@ The project's architecture deploys a server-less backend, AWS Lambda, that compi
 * [zappa](https://pypi.org/project/zappa): packages and deploys Flask app to AWS Lambda.
 
 ## Installation
+For installations, we recommend you use Anaconda to handle Python packages. 
+
 ```bash
-# Backend
+# Clone the repository
+git clone https://github.com/cs121-team-panda/coconut-interpreter.git
+cd coconut-interpreter
+
+# Backend Installation
 pip install -r requirements.txt
 
-# Frontend
+# Frontend Installation
 cd client
 yarn install
 ```
 
 ### Running Locally
 ```bash
+cd coconut-interpreter
 python manage.py runserver 
 ```
 ...and in a separate shell:
 ```bash
-cd client
+cd coconut-interpreter/client
 yarn start
 ```
 Open [http://localhost:3000](http://localhost:3000) to see the app.
