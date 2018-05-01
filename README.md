@@ -23,11 +23,11 @@ __Notable Python Packages__ (installed with `pip install -r requirements.txt` be
 * [zappa](https://pypi.org/project/zappa): packages and deploys Flask app to AWS Lambda.
 
 ## Installation
-For backend installation, we recommend you use Anaconda to handle Python packages. If Python 3.x is not your default Python version, you may have to use `pip3` instead of `pip` to install Python packages and `python3` instead of `python` to run Python. We recommend you check this by using `which python` and `which pip` commands. If users have Python from Anaconda, we further recommend users install all Python packages within a new virtual environment.
+For backend installation, we recommend users use Anaconda to handle Python packages. If Python 3.x is not the default Python version, the users may have to use `pip3` instead of `pip` to install Python packages and `python3` instead of `python` to run Python. We recommend the users check their location and version of Python they are currently using by using `which pip` and `pip --version` commands. If users have Python from Anaconda, we further recommend the users install all Python packages within a new [virtual environment](https://packaging.python.org/guides/installing-using-pip-and-virtualenv/#creating-a-virtualenv).
 
-For frontend installation of `node` and `yarn`, we recommend you install these separately using the latest stable version. For Mac users, installations with Homebrew for both `node` and `yarn` should be perfectly fine.
+For frontend installation of `node` and `yarn`, we recommend users install these separately using the latest stable version. For Mac users, installations with Homebrew for both `node` and `yarn` should be perfectly fine.
 
-Note that you should not have to use `sudo` privileges to install all Python requirement packages. If you encounter a permission issue, it may suggest you have previously installed one of our required packages with `sudo` privileges. 
+Note that users should not have to use `sudo` privileges to install all Python requirement packages. If the users encounter a permission issue, it may suggest they have previously installed one of our required packages with `sudo` privileges. 
 
 ```bash
 # Clone the repository
