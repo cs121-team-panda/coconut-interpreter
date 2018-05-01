@@ -23,9 +23,9 @@ __Notable Python Packages__ (installed with `pip install -r requirements.txt` be
 * [zappa](https://pypi.org/project/zappa): packages and deploys Flask app to AWS Lambda.
 
 ## Installation
-For back-end installation, we recommend you use Anaconda to handle Python packages. If your Python 3.x is not your default Python version, you may have to use `pip3` instead of `pip` to install Python packages and `python3` instead of `python` to run Python. We recommend you check this by using `which python` and `which pip` commands. If users have Python from Anaconda, we further recommend users install all Python packages within a new virtual environment.
+For backend installation, we recommend you use Anaconda to handle Python packages. If your Python 3.x is not your default Python version, you may have to use `pip3` instead of `pip` to install Python packages and `python3` instead of `python` to run Python. We recommend you check this by using `which python` and `which pip` commands. If users have Python from Anaconda, we further recommend users install all Python packages within a new virtual environment.
 
-For front-end installation of `node` and `yarn`, we recommend you install these separately using the latest stable version. For Mac users, installations with Homebrew for both `node` and `yarn` should be perfectly fine.
+For frontend installation of `node` and `yarn`, we recommend you install these separately using the latest stable version. For Mac users, installations with Homebrew for both `node` and `yarn` should be perfectly fine.
 
 Note that you should not have to use `sudo` privileges to install all Python requirement packages. If you encounter with any permission issue, it suggests you have previously installed one of our required packages with `sudo` privileges. 
 
