@@ -36,9 +36,9 @@ Note that you should not have to use `sudo` privileges to install all Python req
 
 # Backend Installation
 > which pip
-/Users/teerapatjenrungrot/anaconda3/bin/pip
+/Users/<your username>/anaconda3/bin/pip
 > pip --version
-pip 9.0.1 from /Users/teerapatjenrungrot/anaconda3/lib/python3.6/site-packages (python 3.6)
+pip 9.0.1 from /Users/<your username>/anaconda3/lib/python3.6/site-packages (python 3.6)
 > pip install -r requirements.txt
 
 # Frontend Installation
@@ -54,7 +54,7 @@ v8.11.1
 ```bash
 > cd coconut-interpreter
 > which python
-/Users/teerapatjenrungrot/anaconda3/bin/python
+/Users/<your username>/anaconda3/bin/python
 > python manage.py runserver 
 ```
 ...and in a separate shell:
