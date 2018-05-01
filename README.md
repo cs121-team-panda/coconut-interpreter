@@ -12,40 +12,53 @@
 The project's architecture deploys a server-less backend, AWS Lambda, that compiles and executes user-submitted Coconut code. The frontend is built with React. For local development, a Flask app serves as the backend.
 
 ### Prerequisites
+__Backend and package manager__
 * [Python >= 3](https://www.python.org)
-* [Node >= 6](https://nodejs.org)
+* [Node >= 6, <=9](https://nodejs.org)
 * [Yarn >= 1](https://yarnpkg.com/en/docs/install)
 
-### Python Packages
+__Notable Python Packages__ (installed with `pip install -r requirements.txt` below)
 * [coconut](https://pypi.org/project/coconut): compiles Coconut code into Python code.
 * [flask](https://pypi.org/project/Flask): serves backend API for local development.
 * [zappa](https://pypi.org/project/zappa): packages and deploys Flask app to AWS Lambda.
 
 ## Installation
-For installations, we recommend you use Anaconda to handle Python packages. 
+For back-end installation, we recommend you use Anaconda to handle Python packages. If your Python 3.x is not your default Python version, you may have to use `pip3` instead of `pip` to install Python packages and `python3` instead of `python` to run Python. We recommend you check this by using `which python` and `which pip` commands.
+
+For front-end installation of `node` and `yarn`, we recommend you install these separately using the latest stable version. For Mac users, installations with Homebrew for both `node` and `yarn` should be perfectly fine.
+
+Note that you should not have to use `sudo` privileges to install all Python requirement packages. If you encounter with any permission issue, it suggests you have previously installed one of our required packages with `sudo` privileges. 
 
 ```bash
 # Clone the repository
-git clone https://github.com/cs121-team-panda/coconut-interpreter.git
-cd coconut-interpreter
+> git clone https://github.com/cs121-team-panda/coconut-interpreter.git
+> cd coconut-interpreter
 
 # Backend Installation
-pip install -r requirements.txt
+> which pip
+/Users/teerapatjenrungrot/anaconda3/bin/pip
+> pip install -r requirements.txt
 
 # Frontend Installation
-cd client
-yarn install
+> node --version
+v8.11.1
+> yarn --version
+1.5.1
+> cd client
+> yarn install
 ```
 
 ### Running Locally
 ```bash
-cd coconut-interpreter
-python manage.py runserver 
+> cd coconut-interpreter
+> which python
+/Users/teerapatjenrungrot/anaconda3/bin/python
+> python manage.py runserver 
 ```
 ...and in a separate shell:
 ```bash
-cd coconut-interpreter/client
-yarn start
+> cd coconut-interpreter/client
+> yarn start
 ```
 Open [http://localhost:3000](http://localhost:3000) to see the app.
 
