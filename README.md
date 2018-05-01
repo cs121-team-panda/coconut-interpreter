@@ -27,7 +27,7 @@ For backend installation, we recommend you use Anaconda to handle Python package
 
 For frontend installation of `node` and `yarn`, we recommend you install these separately using the latest stable version. For Mac users, installations with Homebrew for both `node` and `yarn` should be perfectly fine.
 
-Note that you should not have to use `sudo` privileges to install all Python requirement packages. If you encounter any permission issues, it suggests you have previously installed one of our required packages with `sudo` privileges. 
+Note that you should not have to use `sudo` privileges to install all Python requirement packages. If you encounter a permission issue, it may suggest you have previously installed one of our required packages with `sudo` privileges. 
 
 ```bash
 # Clone the repository
